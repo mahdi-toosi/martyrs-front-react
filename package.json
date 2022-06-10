@@ -1,0 +1,72 @@
+{
+	"name": "react-form-builder",
+	"private": true,
+	"version": "0.1.0",
+	"scripts": {
+		"dev": "vite",
+		"build": "cross-env NODE_ENV=production tsc && vite build",
+		"serve": "vite preview",
+		"format:check": "prettier --ignore-path .gitignore .",
+		"format:fix": "prettier  --ignore-path .gitignore -u --write \"**/*.+(js|ts|tsx|json|css|md)\"",
+		"release": "standard-version && git push origin main --follow-tags",
+		"generate:changelog": "standard-version --skip.commit --skip.tag",
+		"lint": "eslint --ext .js,.ts,.tsx --ignore-path .gitignore .",
+		"lint:fix": "yarn lint --fix"
+	},
+	"dependencies": {
+		"autoprefixer": "^10.4.7",
+		"postcss": "^8.4.14",
+		"react": "^18.0.0",
+		"react-dom": "^18.0.0",
+		"react-loadingg": "^1.7.2",
+		"react-router-dom": "^6.3.0",
+		"react-topbar-progress-indicator": "^4.1.1",
+		"styled-components": "^5.3.5",
+		"tailwindcss": "^3.0.24",
+		"twin.macro": "^2.8.2"
+	},
+	"devDependencies": {
+		"@commitlint/cli": "^17.0.2",
+		"@commitlint/config-conventional": "^17.0.2",
+		"@types/react": "^18.0.0",
+		"@types/react-dom": "^18.0.0",
+		"@types/styled-components": "^5.1.25",
+		"@typescript-eslint/eslint-plugin": "^5.27.0",
+		"@typescript-eslint/parser": "^5.27.0",
+		"@vitejs/plugin-react": "^1.3.2",
+		"babel-plugin-macros": "^3.1.0",
+		"babel-plugin-styled-components": "^2.0.7",
+		"cross-env": "^7.0.3",
+		"eslint": "^8.16.0",
+		"eslint-config-prettier": "^8.5.0",
+		"eslint-plugin-import": "^2.26.0",
+		"eslint-plugin-jsx-a11y": "^6.5.1",
+		"eslint-plugin-prettier": "^4.0.0",
+		"eslint-plugin-react": "^7.30.0",
+		"eslint-plugin-react-hooks": "^4.5.0",
+		"husky": "^8.0.1",
+		"lint-staged": "^13.0.0",
+		"prettier": "^2.6.2",
+		"standard-version": "^9.5.0",
+		"typescript": "^4.6.3",
+		"vite": "^2.9.9",
+		"vite-plugin-eslint": "^1.6.1"
+	},
+	"prettier": {
+		"semi": false,
+		"tabWidth": 2,
+		"useTabs": true,
+		"printWidth": 100,
+		"singleQuote": true,
+		"trailingComma": "es5",
+		"bracketSpacing": true,
+		"arrowParens": "always",
+		"htmlWhitespaceSensitivity": "css",
+		"endOfLine": "lf"
+	},
+	"babelMacros": {
+		"twin": {
+			"preset": "styled-components"
+		}
+	}
+}

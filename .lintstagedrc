@@ -1,0 +1,4 @@
+{
+	"**/*.{ts,js,tsx}": "cross-env NODE_ENV=production yarn lint:fix",
+	"**/*": "yarn format:fix"
+}
