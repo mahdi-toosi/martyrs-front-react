@@ -1,0 +1,286 @@
+[
+	{
+		"val": "نام",
+		"category": "ettelaatShenasnameii",
+		"key": "name"
+	},
+	{
+		"val": "نام خانوادگی",
+		"category": "ettelaatShenasnameii",
+		"key": "lastName"
+	},
+	{
+		"val": "شهرت",
+		"category": "ettelaatShenasnameii",
+		"key": "title"
+	},
+	{
+		"val": "شماره شناسنامه",
+		"category": "ettelaatShenasnameii",
+		"key": "BC_Code"
+	},
+	{
+		"val": "تاریخ تولد",
+		"category": "ettelaatShenasnameii",
+		"key": "BD_Date"
+	},
+	{
+		"val": "تصویر",
+		"category": "ettelaatShenasnameii",
+		"key": "image"
+	},
+	{
+		"val": "کد ملی",
+		"category": "ettelaatShenasnameii",
+		"key": "N_Code"
+	},
+	{
+		"val": "نام پدر",
+		"category": "ettelaatShenasnameii",
+		"key": "fatherName"
+	},
+	{
+		"val": "نام مادر",
+		"category": "ettelaatShenasnameii",
+		"key": "motherName"
+	},
+	{
+		"val": "جنسیت",
+		"category": "ettelaatShenasnameii",
+		"key": "gender"
+	},
+	{
+		"val": "استان تولد",
+		"category": "esalat",
+		"key": "state"
+	},
+	{
+		"val": "شهر تولد",
+		"category": "esalat",
+		"key": "city"
+	},
+	{
+		"val": "شهرستان تولد",
+		"category": "esalat",
+		"key": "county"
+	},
+	{
+		"val": "استان اصالت",
+		"category": "esalat",
+		"key": "originality_state"
+	},
+	{
+		"val": "شهر اصالت",
+		"category": "esalat",
+		"key": "originality_city"
+	},
+	{
+		"val": "شهرستان اصالت",
+		"category": "esalat",
+		"key": "originality_county"
+	},
+	{
+		"val": "روستا اصالت",
+		"category": "esalat",
+		"key": "originality_village"
+	},
+	{
+		"val": "روستا",
+		"category": "esalat",
+		"key": "village"
+	},
+	{
+		"val": "متاهل",
+		"category": "vaziatKhanevadegi",
+		"key": "married"
+	},
+	{
+		"val": "شغل",
+		"category": "vaziatKhanevadegi",
+		"key": "job"
+	},
+	{
+		"val": "تاریخ ازدواج",
+		"category": "vaziatKhanevadegi",
+		"key": "M_Date"
+	},
+	{
+		"val": "تعداد فرزند",
+		"category": "vaziatKhanevadegi",
+		"key": "children_num"
+	},
+	{
+		"val": "تحصیلات",
+		"category": "vaziatKhanevadegi",
+		"key": "education"
+	},
+	{
+		"val": "دین",
+		"category": "vaziatKhanevadegi",
+		"key": "religion"
+	},
+	{
+		"val": "مذهب",
+		"category": "vaziatKhanevadegi",
+		"key": "sect"
+	},
+	{
+		"val": "کد شهید",
+		"category": "ettelaatEsargari",
+		"key": "code"
+	},
+	{
+		"val": "کد ایثارگری",
+		"category": "ettelaatEsargari",
+		"key": "Sacrifice_Code"
+	},
+	{
+		"val": "اعزام کننده",
+		"category": "ettelaatEsargari",
+		"key": "dispatcher"
+	},
+	{
+		"val": "یگان اعزام کننده",
+		"category": "ettelaatEsargari",
+		"key": "sendingUnit"
+	},
+	{
+		"val": "گردان اعزام کننده",
+		"category": "ettelaatEsargari",
+		"key": "unit"
+	},
+	{
+		"val": "وضعیت در سازمان",
+		"category": "ettelaatEsargari",
+		"key": "situationInUnit"
+	},
+	{
+		"val": "درجه",
+		"category": "ettelaatEsargari",
+		"key": "degree"
+	},
+	{
+		"val": "تاریخ اولین اعزام",
+		"category": "ettelaatEsargari",
+		"key": "DateOfFirstDispatch"
+	},
+	{
+		"val": "سن در اولین اعزام",
+		"category": "ettelaatEsargari",
+		"key": "ageInFirstDispatch"
+	},
+	{
+		"val": "تعداد اعزام ها",
+		"category": "ettelaatEsargari",
+		"key": "NumberOfDispatches"
+	},
+	{
+		"val": "جمع حضور در جبهه",
+		"category": "ettelaatEsargari",
+		"key": "totalOfStayingInFront"
+	},
+	{
+		"val": "عملیات ها",
+		"category": "ettelaatEsargari",
+		"key": "operations"
+	},
+	{
+		"val": "آخرین مسئولیت",
+		"category": "ettelaatEsargari",
+		"key": "last_Resp"
+	},
+	{
+		"val": "عملیات شهادت",
+		"category": "shahadat",
+		"key": "operationTO"
+	},
+	{
+		"val": "نحوه شهادت",
+		"category": "shahadat",
+		"key": "howTo"
+	},
+	{
+		"val": "محل شهادت",
+		"category": "shahadat",
+		"key": "locTo"
+	},
+	{
+		"val": "تاریخ شهادت",
+		"category": "shahadat",
+		"key": "dateTo"
+	},
+	{
+		"val": "دسته بندی",
+		"category": "shahadat",
+		"key": "category"
+	},
+	{
+		"val": "محل دفن",
+		"category": "mahaleTadfin",
+		"key": "burial_loc"
+	},
+	{
+		"val": "قطعه دفن",
+		"category": "mahaleTadfin",
+		"key": "burial_piece"
+	},
+	{
+		"val": "بلوک دفن",
+		"category": "mahaleTadfin",
+		"key": "burial_block"
+	},
+	{
+		"val": "شماره دفن",
+		"category": "mahaleTadfin",
+		"key": "burial_num"
+	},
+	{
+		"val": "استان دفن",
+		"category": "mahaleTadfin",
+		"key": "burial_state"
+	},
+	{
+		"val": "شهر دفن",
+		"category": "mahaleTadfin",
+		"key": "burial_city"
+	},
+	{
+		"val": "شهرستان دفن",
+		"category": "mahaleTadfin",
+		"key": "burial_county"
+	},
+	{
+		"val": "روستا دفن",
+		"category": "mahaleTadfin",
+		"key": "burial_village"
+	},
+	{
+		"val": "زندگی نامه",
+		"category": "tovzihat",
+		"key": "bio"
+	},
+	{
+		"val": "وصیت نامه",
+		"category": "tovzihat",
+		"key": "will"
+	},
+	{
+		"val": "گزیده وصیت نامه",
+		"category": "tovzihat",
+		"key": "will_excerpts"
+	},
+	{
+		"val": "فرازی از وصیت نامه",
+		"category": "tovzihat",
+		"key": "will_sum"
+	},
+	{
+		"val": "تگ ها",
+		"category": "tovzihat",
+		"key": "tags"
+	},
+	{
+		"val": "یادداشت",
+		"key": "note"
+	}
+]
