@@ -1,6 +1,13 @@
 // ? react
 import { Suspense, lazy } from 'react'
-import { BrowserRouter, Route, Navigate, Outlet, useLocation } from 'react-router-dom'
+import {
+	Route,
+	Outlet,
+	Navigate,
+	useLocation,
+	unstable_HistoryRouter as HistoryRouter,
+} from 'react-router-dom'
+import { createBrowserHistory } from 'history'
 // ? components
 import { BoxLoading } from 'react-loadingg'
 import RoutesWithNProgress from '@/components/RoutesWithNProgress'
@@ -19,9 +26,11 @@ const AuthCheck = () => {
 	return isLoggedIn ? <Outlet /> : <Navigate to="/login" />
 }
 
+export const history = createBrowserHistory({ window })
+
 export default function Router() {
 	return (
-		<BrowserRouter>
+		<HistoryRouter history={history}>
 			<Suspense fallback={<BoxLoading />}>
 				<RoutesWithNProgress>
 					<Route element={<AuthCheck />}>
@@ -33,6 +42,6 @@ export default function Router() {
 					<Route path="*" element={<NotFound />} />
 				</RoutesWithNProgress>
 			</Suspense>
-		</BrowserRouter>
+		</HistoryRouter>
 	)
 }
