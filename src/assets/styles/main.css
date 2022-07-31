@@ -1,0 +1,23 @@
+@import '@/assets/iranSansFont';
+
+@tailwind base;
+/* @tailwind components; */
+@tailwind utilities;
+
+/*  * scrollbar styles  */
+*::-webkit-scrollbar {
+	width: 8px;
+	height: 8px;
+	background-color: transparent;
+}
+
+*::-webkit-scrollbar-track {
+	border-radius: 10px;
+	background-color: rgb(236, 236, 236);
+}
+
+*::-webkit-scrollbar-thumb {
+	border-radius: 10px;
+	background-color: #4d4d4d;
+}
+/*  * END scrollbar styles  */

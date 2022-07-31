@@ -1,12 +1,15 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-// import GlobalStyles from './styles/GlobalStyles'
+// ? components
 import App from '@/App'
-import '@/assets/css/index.css'
+// ? styles
+import MUITheme from './assets/styles/MUITheme'
+import '@/assets/styles/main.css'
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
 	<React.StrictMode>
-		{/* <GlobalStyles /> */}
-		<App />
+		<MUITheme>
+			<App />
+		</MUITheme>
 	</React.StrictMode>
 )
