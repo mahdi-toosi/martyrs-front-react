@@ -19,8 +19,8 @@ const Dashboard = lazy(() => import('@/pages/Dashboard'))
 
 const AuthCheck = () => {
 	const location = useLocation()
-	const isLoggedIn = localStorage.getItem('token')
-	const authenticationPages = ['/login', '/register']
+	const isLoggedIn = sessionStorage.getItem('token')
+	const authenticationPages = ['/login']
 
 	if (isLoggedIn && authenticationPages.includes(location.pathname)) return <Navigate to="/" />
 	return isLoggedIn ? <Outlet /> : <Navigate to="/login" />

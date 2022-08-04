@@ -4,6 +4,11 @@
 /* @tailwind components; */
 @tailwind utilities;
 
+body,
+.SnackbarItem-message {
+	font-family: iranSans;
+}
+
 /*  * scrollbar styles  */
 *::-webkit-scrollbar {
 	width: 8px;

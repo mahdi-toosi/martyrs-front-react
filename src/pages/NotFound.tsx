@@ -11,7 +11,7 @@ export default function NotFound() {
 }
 
 // ? styles
-const NotFoundEl = tw.div`flex gap-3 justify-center items-center h-screen`
+const NotFoundEl = tw.div`flex gap-3 justify-center items-center h-screen bg-gray-500 text-white`
 const H1 = tw.h1`text-2xl font-family[monospace]`
 const H2 = tw.h2`text-xl  font-family[monospace]`
 const Span = tw.span`text-gray-600`
