@@ -25,7 +25,11 @@ axiosInstance.interceptors.response.use(handleResponse, (error) => {
 
 	if (error.response?.status === 401 && window.location.pathname !== '/login') {
 		localStorage.clear()
+		sessionStorage.clear()
 		router.push('/login')
+		return
+	} else if (error.response?.status === 401 && error.response?.data.message === 'Invalid login') {
+		toast('نام کاربری یا رمز عبور اشتباه است')
 		return
 	}
 

@@ -1,5 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
+import { RepositoriesContext, repositories } from '@/repositories'
 // ? components
 import App from '@/App'
 import { SnackbarProvider } from 'notistack'
@@ -11,7 +12,9 @@ import '@/assets/styles/main.css'
 ReactDOM.createRoot(document.getElementById('root')!).render(
 	<React.StrictMode>
 		<MUITheme>
-			<App />
+			<RepositoriesContext.Provider value={repositories}>
+				<App />
+			</RepositoriesContext.Provider>
 		</MUITheme>
 
 		<SnackbarProvider
