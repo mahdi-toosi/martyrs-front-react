@@ -11,3 +11,5 @@ export default create<UserState>((set) => ({
 
 	setUser: (user) => set((state) => ({ ...state, user })),
 }))
+
+export const roles = { 3: 'نمایه گر', 30: 'بازبین کننده', 1: 'کاربر', 48: 'مدیر' }
