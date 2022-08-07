@@ -26,3 +26,9 @@ body,
 	background-color: #4d4d4d;
 }
 /*  * END scrollbar styles  */
+
+/*  * Mui table styles  */
+.MuiTablePagination-root {
+	@apply flex justify-center;
+}
+/*  * END Mui table styles  */

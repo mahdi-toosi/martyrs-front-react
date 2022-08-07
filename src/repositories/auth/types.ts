@@ -45,6 +45,8 @@ interface Users_Martyrs_Relation {
 	martyr: Martyr[]
 }
 
+export type UserRoles = 1 | 3 | 30 | 48
+
 export interface LoginResponse {
 	accessToken: string
 	authentication: {
@@ -56,7 +58,7 @@ export interface LoginResponse {
 		name: string
 		mobile: string
 		base: string
-		role: number
+		role: UserRoles
 		limitAccess: string[]
 		first_login: string
 		present_lastDate: string

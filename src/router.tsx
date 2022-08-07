@@ -15,6 +15,7 @@ import RoutesWithNProgress from '@/components/RoutesWithNProgress'
 import Login from '@/pages/Login'
 import NotFound from '@/pages/NotFound'
 const Profile = lazy(() => import('@/pages/Profile'))
+const Martyrs = lazy(() => import('@/pages/Martyrs'))
 const Dashboard = lazy(() => import('@/pages/Dashboard'))
 
 const AuthCheck = () => {
@@ -35,6 +36,7 @@ export default function Router() {
 				<RoutesWithNProgress>
 					<Route element={<AuthCheck />}>
 						<Route path="/" element={<Dashboard />} />
+						<Route path="/martyrs" element={<Martyrs />} />
 						<Route path="/profile" element={<Profile />} />
 					</Route>
 
