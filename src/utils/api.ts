@@ -6,7 +6,7 @@ const baseURL = import.meta.env?.VITE_BASE_URL
 const axiosInstance = axios.create({ baseURL })
 
 function handleRequest(config: AxiosRequestConfig) {
-	const token = localStorage.getItem('token')
+	const token = sessionStorage.getItem('token')
 	if (token) {
 		config.headers!['Authorization'] = token
 	}
@@ -33,7 +33,7 @@ axiosInstance.interceptors.response.use(handleResponse, (error) => {
 		return
 	}
 
-	toast(error.response?.data.message || error.message)
+	toast(error.response?.data?.message || error.message)
 })
 
 export default axiosInstance

@@ -31,7 +31,7 @@ export const history = createBrowserHistory({ window })
 export default function Router() {
 	return (
 		<HistoryRouter history={history}>
-			<Suspense fallback={<BoxLoading />}>
+			<Suspense fallback={<BoxLoading color="#c5a711" />}>
 				<RoutesWithNProgress>
 					<Route element={<AuthCheck />}>
 						<Route path="/" element={<Dashboard />} />
