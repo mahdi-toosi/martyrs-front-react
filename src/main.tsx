@@ -1,4 +1,3 @@
-import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { RepositoriesContext, repositories } from '@/repositories'
 // ? components
@@ -10,7 +9,7 @@ import MUITheme from './assets/styles/MUITheme'
 import '@/assets/styles/main.css'
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
-	<React.StrictMode>
+	<>
 		<MUITheme>
 			<RepositoriesContext.Provider value={repositories}>
 				<App />
@@ -26,5 +25,5 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
 		>
 			<SnackbarConfigurator />
 		</SnackbarProvider>
-	</React.StrictMode>
+	</>
 )
