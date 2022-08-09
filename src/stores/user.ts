@@ -7,9 +7,14 @@ interface UserState {
 }
 
 export default create<UserState>((set) => ({
-	user: undefined,
+	user: localStorage.getItem('user')
+		? JSON.parse(localStorage.getItem('user') as string)
+		: undefined,
 
-	setUser: (user) => set((state) => ({ ...state, user })),
+	setUser: (user) => {
+		localStorage.setItem('user', JSON.stringify(user))
+		set(() => ({ user }))
+	},
 }))
 
 export const roles = { 3: 'نمایه گر', 30: 'بازبین کننده', 1: 'کاربر', 48: 'مدیر' }
