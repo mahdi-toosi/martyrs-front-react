@@ -27,6 +27,10 @@ body,
 }
 /*  * END scrollbar styles  */
 
+button[type='submit'] {
+	min-width: 8rem;
+}
+
 /*  * Mui table styles  */
 .MuiTablePagination-root {
 	@apply flex justify-center;

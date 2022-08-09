@@ -1,6 +1,7 @@
 // ? react
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
+import { getRouteQueries } from '@/router'
 // ? utils
 import userStore from '@/stores/user'
 import { useRepositories } from '@/repositories'
@@ -30,26 +31,19 @@ const countDocsStatus = (docs: MartyrPaginate['documents'], status: Document['st
 export default function MartyrsTable() {
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	const { user } = userStore()
+	const queries = getRouteQueries()
 	const { martyrs: martyrsRepo } = useRepositories()
-	const {
-		page,
-		martyrs,
-		setPage,
-		clearStore,
-		fetchMartyrs,
-		fetchLoading,
-		rowsPerPage,
-		setRowsPerPage,
-	} = martyrsStore()
+	const { page, martyrs, selected, clearStore, setSelected, fetchMartyrs, fetchLoading } =
+		martyrsStore()
 
 	const [deleteLoading, setDeleteLoading] = useState('')
-	const [selected, setSelected] = useState<readonly string[]>([])
+	const [rowsPerPage, setRowsPerPage] = useState(Number(queries.rowsPerPage) || 10)
 
 	const isSelected = (id: string) => selected.indexOf(id) !== -1
 
-	const handleClick = (event: React.MouseEvent<unknown>, id: string) => {
+	const handleSelect = (event: React.MouseEvent<unknown>, id: string) => {
 		const selectedIndex = selected.indexOf(id)
-		let newSelected: readonly string[] = []
+		let newSelected: string[] = []
 
 		if (selectedIndex === -1) {
 			newSelected = newSelected.concat(selected, id)
@@ -78,7 +72,7 @@ export default function MartyrsTable() {
 	}
 
 	useEffect(() => {
-		fetchMartyrs(martyrsRepo, 0)
+		fetchMartyrs(martyrsRepo, Number(queries.page) || 0, Number(queries.rowsPerPage) || rowsPerPage)
 		return () => {
 			clearStore()
 		}
@@ -87,10 +81,10 @@ export default function MartyrsTable() {
 
 	const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
 		setRowsPerPage(+event.target.value)
-		setPage(0)
+		fetchMartyrs(martyrsRepo, 0, +event.target.value)
 	}
 
-	// if (fetchLoading) return <BoxLoading color="#c5a711" />
+	if (fetchLoading) return <BoxLoading color="#c5a711" />
 
 	return (
 		<Paper sx={{ width: '100%', overflow: 'hidden' }}>
@@ -117,7 +111,7 @@ export default function MartyrsTable() {
 													<Checkbox
 														color="primary"
 														checked={isSelected(row.id)}
-														onClick={(event) => handleClick(event, row.id)}
+														onClick={(event) => handleSelect(event, row.id)}
 													/>
 												</TableCell>
 											)
@@ -228,7 +222,8 @@ export default function MartyrsTable() {
 					component={'div'}
 					count={martyrs.total | 0}
 					rowsPerPage={rowsPerPage}
-					onPageChange={(_event, newPage) => fetchMartyrs(martyrsRepo, newPage)}
+					rowsPerPageOptions={[10, 20, 40]}
+					onPageChange={(_event, newPage) => fetchMartyrs(martyrsRepo, newPage, rowsPerPage)}
 					labelRowsPerPage={'تعداد در صفحه'}
 					onRowsPerPageChange={handleChangeRowsPerPage}
 					labelDisplayedRows={({ from, to, count }) => `${from} تا ${to} از ${count}`}

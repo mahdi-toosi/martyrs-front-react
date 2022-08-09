@@ -22,4 +22,4 @@ export default function DefaultLayout({ children }: { children: ReactNode }) {
 }
 
 // ? styles
-const PageWrapper = tw.section`px-2.5 md:px-10 my-10`
+const PageWrapper = tw.section`relative px-2.5 md:px-10 my-10`

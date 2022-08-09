@@ -47,3 +47,14 @@ export default function Router() {
 		</HistoryRouter>
 	)
 }
+
+export const getRouteQueries = () =>
+	Object.fromEntries(new URLSearchParams(window.location.search).entries())
+
+export const generateRouteQueries = (params: Record<string, string | number | undefined>) => {
+	for (const key in params) {
+		if (params[key] === undefined) delete params[key]
+	}
+	const queries = new URLSearchParams(params as Record<string, string>)
+	return queries.toString()
+}

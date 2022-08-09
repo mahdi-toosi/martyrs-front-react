@@ -1,10 +1,14 @@
 import type { Pagination } from '@/repositories'
 import type { UsersMartyr } from '../usersMartyrs/types'
 
-interface GetPayload {
+export interface GetPayload {
 	$limit: number
 	$skip: number
 	$select?: string[]
+	'$or[2][code][$like]'?: string
+	'$or[0][name][$like]'?: string
+	'$or[1][lastName][$like]'?: string
+	'$sort[updatedAtManually]'?: 0 | 1
 }
 
 export interface Martyr {

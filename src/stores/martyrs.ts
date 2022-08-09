@@ -1,29 +1,34 @@
+// ? react
+import { getRouteQueries, generateRouteQueries, history as router } from '@/router'
+// ? utils
 import create from 'zustand'
-import type { MartyrPaginate, Martyrs, RMartyrs, UsersMartyr } from '@/repositories/martyrs/types'
-import { RUsersMartyrs } from '@/repositories/usersMartyrs'
-import { UserRoles } from '@/repositories/auth/types'
+// ? types
+import type { User, UserRoles } from '@/repositories/users/types'
+import type { UsersMartyr, RUsersMartyrs } from '@/repositories/usersMartyrs/types'
+import type { MartyrPaginate, Martyrs, RMartyrs, GetPayload } from '@/repositories/martyrs/types'
 
 interface MartyrsState {
-	martyrs: Martyrs
 	page: number
-	rowsPerPage: number
+	martyrs: Martyrs
+	selected: string[]
 	fetchLoading: boolean
 	detachUserLoading: number
 
-	setMartyrs: (martyrs: Martyrs) => void
 	setPage: (page: number) => void
+	setMartyrs: (martyrs: Martyrs) => void
+	setSelected: (selected: string[]) => void
 	setFetchLoading: (loading: boolean) => void
-	setRowsPerPage: (rowsPerPage: number) => void
 	setDetachUserLoading: (detachUserLoading: number) => void
+	addUserToMartyr: (martyrId: string, user: User, relation_id: number) => void
 	clearStore: () => void
 
-	fetchMartyrs: (repo: RMartyrs, page: number) => void
+	fetchMartyrs: (repo: RMartyrs, page?: number, newRowsPerPage?: number) => void
 	detachUser: (usersMartyrs: RUsersMartyrs, um: UsersMartyr, martyrIndex: number) => void
 }
 
 export default create<MartyrsState>((set, get) => ({
 	page: 0,
-	rowsPerPage: 10,
+	selected: [],
 	fetchLoading: false,
 	detachUserLoading: 0,
 	martyrs: {} as Martyrs,
@@ -31,26 +36,57 @@ export default create<MartyrsState>((set, get) => ({
 	// ? mutations
 	setPage: (page) => set(() => ({ page })),
 	setMartyrs: (martyrs) => set(() => ({ martyrs })),
+	setSelected: (selected) => set(() => ({ selected })),
 	setFetchLoading: (fetchLoading) => set(() => ({ fetchLoading })),
-	setRowsPerPage: (rowsPerPage) => set(() => ({ rowsPerPage })),
 	setDetachUserLoading: (detachUserLoading) => set(() => ({ detachUserLoading })),
+	addUserToMartyr: (martyrId, user, relation_id) => {
+		const martyr_index = get().martyrs.data.findIndex((m) => m.id === martyrId)
+		if (martyr_index === -1) return
+		const um = {
+			relation_id,
+			role_type: user.role,
+			user_id: user.id,
+			user: { id: user.id, name: user.name, role: user.role },
+		} as UsersMartyr
+
+		get().martyrs.data[martyr_index].users_martyrs.push(um)
+	},
 	clearStore: async () =>
-		set(() => ({ martyrs: {} as Martyrs, page: 0, rowsPerPage: 10, fetchLoading: false })),
+		set(() => ({
+			page: 0,
+			selected: [],
+			rowsPerPage: 10,
+			fetchLoading: false,
+			martyrs: {} as Martyrs,
+		})),
 
 	// ? actions
-	fetchMartyrs: async (martyrsRepo, newPage = 0) => {
-		get().setPage(newPage)
+	fetchMartyrs: async (martyrsRepo, newPage, newRowsPerPage) => {
+		const queries = getRouteQueries()
 
-		const payload = {
-			$select,
-			$limit: get().rowsPerPage,
-			$skip: newPage * get().rowsPerPage,
+		const page = newPage === 0 ? 0 : Number(queries.page) || 0
+		const rowsPerPage = newRowsPerPage || Number(queries.rowsPerPage) || 10
+
+		const payload = { $select, $limit: rowsPerPage, $skip: page * rowsPerPage } as GetPayload
+
+		if (queries.keyword) {
+			payload['$sort[updatedAtManually]'] = 1
+			payload['$or[2][code][$like]'] = `%${queries.keyword}%`
+			payload['$or[0][name][$like]'] = `%${queries.keyword}%`
+			payload['$or[1][lastName][$like]'] = `%${queries.keyword}%`
 		}
 
 		get().setFetchLoading(true)
 		const result = await martyrsRepo.get(payload)
 		get().setFetchLoading(false)
-		if (result) get().setMartyrs(result)
+		if (!result) return
+
+		get().setPage(page)
+		get().setMartyrs(result)
+
+		const q = { ...queries, page, rowsPerPage, keyword: queries.keyword }
+		const _queries = generateRouteQueries(q)
+		router.replace(`/martyrs?${_queries}`)
 	},
 
 	detachUser: async (usersMartyrs, um, martyrIndex) => {
