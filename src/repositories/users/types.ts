@@ -1,32 +1,24 @@
-import { Pagination } from '@/repositories'
+import type { Pagination } from '@/repositories'
+import type { Martyr as _Martyr } from '../martyrs/types'
 
 export type UserRoles = 1 | 3 | 30 | 48
 
 export interface UsersPayload {
 	role?: UserRoles
-	'name[$like]'?: string
+	'$or[0][name][$like]'?: string
+	'$or[1][mobile][$like]'?: string
+	'$sort[present_lastDate]'?: -1
 }
 
-interface Martyr_Document {
-	id: string
-	status: string
-	updatedAt: string
-}
+type Martyr = Pick<
+	_Martyr,
+	'id' | 'code' | 'name' | 'status' | 'lastName' | 'fatherName' | 'documents'
+>
 
-interface Martyr {
-	id: string
-	code: string
-	name: string
-	status: string
-	lastName: string
-	fatherName: string
-	documents: Martyr_Document[]
-}
-
-interface Users_Martyrs_Relation {
+export interface Users_Martyrs_Relation {
 	start: string
 	done: string
-	martyr: Martyr[]
+	martyr: Martyr
 	user_id: number
 	martyr_id: string
 	role_type: number
