@@ -21,9 +21,12 @@ import TableContainer from '@mui/material/TableContainer'
 import TablePagination from '@mui/material/TablePagination'
 import MartyrsTableUsersChips from './MartyrsTableUsersChips'
 // ? types
-import type { MartyrPaginate, Document } from '@/repositories/martyrs/types'
+import type { MartyrPaginate, Martyr } from '@/repositories/martyrs/types'
 
-const countDocsStatus = (docs: MartyrPaginate['documents'], status: Document['status']) => {
+const countDocsStatus = (
+	docs: MartyrPaginate['documents'],
+	status: Martyr['documents'][0]['status']
+) => {
 	const filtered = docs.filter((doc) => doc.status === status)
 	return filtered.length
 }
@@ -180,9 +183,9 @@ export default function MartyrsTable() {
 												<TableCell key={column.key} align={'center'}>
 													<div className="flex justify-center gap-2">
 														<Link
-															to={`/documents?name=${row.name + ' ' + row.lastName}&code=${
-																row.code
-															}`}
+															to={`/documents?id=${row.id}&name=${
+																row.name + ' ' + row.lastName
+															}&code=${row.code}`}
 														>
 															<Button variant="contained" size="small" className="text-white">
 																اسناد

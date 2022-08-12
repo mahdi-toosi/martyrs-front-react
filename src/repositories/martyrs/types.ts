@@ -1,5 +1,6 @@
 import type { Pagination } from '@/repositories'
 import type { UsersMartyr } from '../usersMartyrs/types'
+import type { Document } from '../documents/types'
 
 export interface GetPayload {
 	$limit: number
@@ -75,14 +76,9 @@ export interface Martyr {
 	haveDocs: boolean
 	docsStatus: string
 	updatedAtManually: string
-	documents: Document[]
+	documents: Pick<Document, 'id' | 'status'>[]
 	users_martyrs: UsersMartyr[]
 	taxonomies_relations: TaxonomiesRelation[]
-}
-
-export interface Document {
-	id: string
-	status: 'notStart' | 'doing' | 'sendForReviewer' | 'done'
 }
 
 export interface TaxonomiesRelation {
