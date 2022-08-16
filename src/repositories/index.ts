@@ -9,12 +9,14 @@ import users, { RUsers } from './users'
 import martyrs, { RMartyrs } from './martyrs'
 import documents, { RDocuments } from './documents'
 import usersMartyrs, { RUsersMartyrs } from './usersMartyrs'
+import taxonomies, { RTaxonomies } from './taxonomies'
 
 interface Repositories {
 	auth: RAuth
 	users: RUsers
 	martyrs: RMartyrs
 	documents: RDocuments
+	taxonomies: RTaxonomies
 	usersMartyrs: RUsersMartyrs
 }
 
@@ -37,6 +39,9 @@ function repositoryContainer(axios: AxiosInstance) {
 		},
 		get documents() {
 			return lazyBind<RDocuments>(() => import('./documents'), documents(axios), axios)
+		},
+		get taxonomies() {
+			return lazyBind<RTaxonomies>(() => import('./taxonomies'), taxonomies(axios), axios)
 		},
 		get usersMartyrs() {
 			return lazyBind<RUsersMartyrs>(() => import('./usersMartyrs'), usersMartyrs(axios), axios)
