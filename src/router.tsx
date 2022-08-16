@@ -17,6 +17,7 @@ import NotFound from '@/pages/NotFound'
 const Users = lazy(() => import('@/pages/Users'))
 const Profile = lazy(() => import('@/pages/Profile'))
 const Martyrs = lazy(() => import('@/pages/Martyrs'))
+const Document = lazy(() => import('@/pages/Document'))
 const Dashboard = lazy(() => import('@/pages/Dashboard'))
 const Documents = lazy(() => import('@/pages/Documents'))
 
@@ -40,6 +41,7 @@ export default function Router() {
 						<Route path="/" element={<Dashboard />} />
 						<Route path="/martyrs" element={<Martyrs />} />
 						<Route path="/documents" element={<Documents />} />
+						<Route path="/documents/:id" element={<Document />} />
 						<Route path="/users" element={<Users />} />
 						<Route path="/profile" element={<Profile />} />
 					</Route>

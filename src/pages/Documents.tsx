@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 import { getRouteQueries, history as router, generateRouteQueries } from '@/router'
 // ? utils
 import tw from 'twin.macro'
+import userStore from '@/stores/user'
 import { useRepositories } from '@/repositories'
 // ? components
 import Paper from '@mui/material/Paper'
@@ -56,6 +57,7 @@ function sum(val: string) {
 }
 
 export default function Documents() {
+	const { user } = userStore()
 	const queries = getRouteQueries()
 	const { documents: documentsRepo } = useRepositories()
 
@@ -88,6 +90,9 @@ export default function Documents() {
 	}
 
 	const onRemove = async (id: string) => {
+		const sure = confirm('آیا از حذف این سند مطمئن هستید؟')
+		if (!sure) return
+
 		setRemoveLoading(id)
 		const result = await documentsRepo.remove(id)
 		setRemoveLoading('')
@@ -256,15 +261,17 @@ export default function Documents() {
 																	</Button>
 																</Link>
 
-																<LoadingButton
-																	size="small"
-																	color="error"
-																	variant="contained"
-																	onClick={() => onRemove(row.id)}
-																	loading={removeLoading === row.id}
-																>
-																	حذف سند
-																</LoadingButton>
+																{user?.role === 48 && (
+																	<LoadingButton
+																		size="small"
+																		color="error"
+																		variant="contained"
+																		onClick={() => onRemove(row.id)}
+																		loading={removeLoading === row.id}
+																	>
+																		حذف سند
+																	</LoadingButton>
+																)}
 															</div>
 														</TableCell>
 													)
