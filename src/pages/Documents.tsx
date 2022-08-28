@@ -15,20 +15,17 @@ import { BoxLoading } from 'react-loadingg'
 import TextField from '@mui/material/TextField'
 import TableCell from '@mui/material/TableCell'
 import TableRow from '@mui/material/TableRow'
-import MenuItem from '@mui/material/MenuItem'
 import TableBody from '@mui/material/TableBody'
-import InputLabel from '@mui/material/InputLabel'
 import TableHead from '@mui/material/TableHead'
 import IconButton from '@mui/material/IconButton'
 import Typography from '@mui/material/Typography'
-import FormControl from '@mui/material/FormControl'
 import ArrowBack from '@mui/icons-material/ArrowBack'
 import DefaultLayout from '@/components/DefaultLayout'
 import TableContainer from '@mui/material/TableContainer'
 import TablePagination from '@mui/material/TablePagination'
-import Select, { SelectChangeEvent } from '@mui/material/Select'
 // ? types
 import type { DocumentsPayload, Documents as DocumentsType } from '@/repositories/documents/types'
+import AppDropdown from '@/components/AppDropDown'
 
 const columns = [
 	{ key: 'index', label: 'ردیف' },
@@ -67,11 +64,11 @@ export default function Documents() {
 	const [removeLoading, setRemoveLoading] = useState('')
 	const [rowsPerPage, setRowsPerPage] = useState(Number(queries.rowsPerPage) || 10)
 
-	const handleChange = (event: SelectChangeEvent) => {
+	const handleChange = (value: string | number /* keyof typeof statuses */) => {
 		const queries = getRouteQueries()
 		const _queries = generateRouteQueries({
 			...queries,
-			status: event.target.value === 'all' ? undefined : event.target.value,
+			status: value === 'all' ? undefined : value,
 		})
 		router.replace(`/documents?${_queries}`)
 	}
@@ -147,26 +144,18 @@ export default function Documents() {
 				مدیریت اسناد شهید {queries.name}
 			</Typography>
 
-			<Section className="">
+			<Section>
 				<form className="flex gap-4 items-end" onSubmit={onSearchKeyword}>
-					<FormControl className="w-44">
-						<InputLabel id="demo-simple-select-label">وضعیت</InputLabel>
-						<Select
-							labelId="demo-simple-select-label"
-							id="demo-simple-select"
-							defaultValue={queries.status || 'all'}
-							label="وضعیت"
-							size="small"
-							variant="standard"
-							onChange={handleChange}
-						>
-							{Object.keys(statuses).map((key) => (
-								<MenuItem key={key} value={key}>
-									{statuses[key as keyof typeof statuses]}
-								</MenuItem>
-							))}
-						</Select>
-					</FormControl>
+					<AppDropdown
+						label="وضعیت"
+						className="w-44"
+						onChange={handleChange}
+						defaultValue={queries.status || 'all'}
+						options={Object.keys(statuses).map((key) => ({
+							label: statuses[key as keyof typeof statuses],
+							value: key,
+						}))}
+					/>
 
 					<TextField
 						label="عنوان سند"
