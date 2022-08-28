@@ -3,7 +3,6 @@ import { ChangeEvent, useEffect, useRef, useState } from 'react'
 import { getRouteQueries } from '@/router'
 import { useParams } from 'react-router-dom'
 // ? utils
-import { debounce } from 'lodash'
 import tw, { styled } from 'twin.macro'
 import userStore from '@/stores/user'
 import { useRepositories } from '@/repositories'
@@ -11,12 +10,11 @@ import { useRepositories } from '@/repositories'
 import Button from '@mui/material/Button'
 import { BoxLoading } from 'react-loadingg'
 import TextField from '@mui/material/TextField'
-import TextEditor from '@/components/TextEditor'
 import Typography from '@mui/material/Typography'
 import LoadingButton from '@mui/lab/LoadingButton'
-import Autocomplete from '@mui/material/Autocomplete'
 import DefaultLayout from '@/components/DefaultLayout'
-import CircularProgress from '@mui/material/CircularProgress'
+import AppTextEditor from '@/components/AppTextEditor'
+import AppAutoComplete from '@/components/AppAutoComplete'
 // ? types
 import type { SingleDocument } from '@/repositories/documents/types'
 import type { Taxonomy, TaxonomyRelation } from '@/repositories/taxonomies/types'
@@ -48,22 +46,19 @@ export default function Document() {
 	const [preview, setPreview] = useState<undefined | string>()
 
 	const [tags, setTags] = useState([] as TaxonomyRelation[])
+	const [fetchTagsLoading, setFetchTagsLoading] = useState(false)
 	const [cacheTags, setCacheTags] = useState([] as TaxonomyRelation[])
 	const [tagOptions, setTagOptions] = useState([] as TaxonomyRelation[])
-	const [openTagOptions, setOpenTagOptions] = useState(false)
-	const [tagsSearchInput, setTagsSearchInput] = useState('')
-	const [fetchUsersLoading, setFetchUsersLoading] = useState(false)
-	const fetchTagsLoading = openTagOptions && fetchUsersLoading
 
 	const fetchTagOptions = async (name: string) => {
 		setTagOptions([])
 
-		setFetchUsersLoading(true)
+		setFetchTagsLoading(true)
 		const result = await taxonomies.get({
 			'name[$like]': `%${name}%`,
 			type: 'tag',
 		})
-		setFetchUsersLoading(false)
+		setFetchTagsLoading(false)
 		if (!result) return
 		const options = result.data.map((tag: Taxonomy) => ({ taxonomy: tag }))
 		setTagOptions(options as TaxonomyRelation[])
@@ -120,15 +115,6 @@ export default function Document() {
 
 		setStoreLoading(false)
 	}
-
-	useEffect(() => {
-		if (!tagsSearchInput.length) return
-		fetchTagOptions(tagsSearchInput)
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [tagsSearchInput])
-
-	const _setViewersSearchInput = (newVal: string) => setTagsSearchInput(newVal)
-	const onUpdateTagsSearchInput = debounce(_setViewersSearchInput, 500)
 
 	const showInNewTab = () => {
 		window.open(
@@ -195,12 +181,15 @@ export default function Document() {
 
 					<div>
 						<Title title="شرح سند" />
-						<TextEditor defaultValue={document.sum} onChange={(e) => onChangeHandler('sum', e)} />
+						<AppTextEditor
+							defaultValue={document.sum}
+							onChange={(e) => onChangeHandler('sum', e)}
+						/>
 					</div>
 
 					<div>
 						<Title title="توضیح سند" />
-						<TextEditor
+						<AppTextEditor
 							defaultValue={document.description}
 							onChange={(e) => onChangeHandler('description', e)}
 						/>
@@ -208,42 +197,22 @@ export default function Document() {
 
 					<div>
 						<Title title="متن سند" />
-						<TextEditor defaultValue={document.text} onChange={(e) => onChangeHandler('text', e)} />
+						<AppTextEditor
+							defaultValue={document.text}
+							onChange={(e) => onChangeHandler('text', e)}
+						/>
 
-						<Autocomplete
-							open={openTagOptions}
-							className="w-full mt-12"
+						<AppAutoComplete
 							multiple
 							disableClearable
-							size="small"
-							onOpen={() => setOpenTagOptions(true)}
-							onClose={() => setOpenTagOptions(false)}
-							isOptionEqualToValue={(option, value) =>
-								option.taxonomy?.name === value.taxonomy?.name
-							}
-							getOptionLabel={(option) => option.taxonomy?.name as string}
+							label="کلید واژه ها"
 							options={tagOptions}
-							loading={fetchTagsLoading}
+							className="w-full mt-12"
+							onChange={(e) => setTags(e)}
+							fetchLoading={fetchTagsLoading}
+							onSendRequest={fetchTagOptions}
+							optionLabel={(op) => op.taxonomy?.name}
 							defaultValue={document.taxonomies_relations}
-							onInputChange={(event, newVal) => onUpdateTagsSearchInput(newVal)}
-							onChange={(event, newVal) => setTags(newVal)}
-							loadingText="در حال جستجو..."
-							noOptionsText="نتیجه ای یافت نشد"
-							renderInput={(params) => (
-								<TextField
-									{...params}
-									label="تگ ها"
-									InputProps={{
-										...params.InputProps,
-										endAdornment: (
-											<>
-												{fetchTagsLoading ? <CircularProgress color="inherit" size={20} /> : null}
-												{params.InputProps.endAdornment}
-											</>
-										),
-									}}
-								/>
-							)}
 						/>
 					</div>
 

@@ -1,8 +1,7 @@
 // ? react
-import { FormEvent, useEffect, useState } from 'react'
+import { FormEvent, useState } from 'react'
 import { getRouteQueries, history as router, generateRouteQueries } from '@/router'
 // ? utils
-import { debounce } from 'lodash'
 import tw, { styled } from 'twin.macro'
 import martyrsStores from '@/stores/martyrs'
 import { useRepositories } from '@/repositories'
@@ -13,9 +12,8 @@ import TextField from '@mui/material/TextField'
 import AppDialog from '@/components/AppDialog'
 import Typography from '@mui/material/Typography'
 import MartyrsTable from '@/components/MartyrsTable'
-import Autocomplete from '@mui/material/Autocomplete'
 import DefaultLayout from '@/components/DefaultLayout'
-import CircularProgress from '@mui/material/CircularProgress'
+import AppAutoComplete from '@/components/AppAutoComplete'
 // ? types
 import type { User } from '@/repositories/users/types'
 import type { AddAccessibilityPayload } from '@/repositories/usersMartyrs/types'
@@ -26,12 +24,6 @@ export default function Martyrs() {
 		martyrsStores()
 
 	const [visible, setVisible] = useState(false)
-	const [viewersSearchInput, setViewersSearchInput] = useState('')
-	const [indexersSearchInput, setIndexersSearchInput] = useState('')
-
-	const [openViewersOptions, setOpenViewersOptions] = useState(false)
-	const [openIndexersOptions, setOpenIndexersOptions] = useState(false)
-
 	const [viewersOptions, setViewersOptions] = useState([] as User[])
 	const [indexersOptions, setIndexersOptions] = useState([] as User[])
 
@@ -40,9 +32,6 @@ export default function Martyrs() {
 
 	const [fetchUsersLoading, setFetchUsersLoading] = useState(false)
 	const [addAccessibilityLoading, setAddAccessibilityLoading] = useState(false)
-
-	const viewersLoading = openViewersOptions && fetchUsersLoading
-	const indexersLoading = openIndexersOptions && fetchUsersLoading
 
 	const onSearchKeyword = (event: FormEvent<HTMLFormElement>) => {
 		event.preventDefault()
@@ -75,23 +64,6 @@ export default function Martyrs() {
 			setIndexersOptions(result.data)
 		}
 	}
-
-	useEffect(() => {
-		if (!viewersSearchInput.length) return
-		fetchUsersOptions('viewers', viewersSearchInput)
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [viewersSearchInput])
-	useEffect(() => {
-		if (!indexersSearchInput.length) return
-		fetchUsersOptions('indexers', indexersSearchInput)
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [indexersSearchInput])
-
-	const _setViewersSearchInput = (newVal: string) => setViewersSearchInput(newVal)
-	const onUpdateViewersSearchInput = debounce(_setViewersSearchInput, 500)
-
-	const _setIndexersSearchInput = (newVal: string) => setIndexersSearchInput(newVal)
-	const onUpdateIndexersSearchInput = debounce(_setIndexersSearchInput, 500)
 
 	const addAccessibility = async (payload: AddAccessibilityPayload & { user: User }) => {
 		const result = await usersMartyrs.post(payload)
@@ -128,7 +100,6 @@ export default function Martyrs() {
 		setVisible(false)
 		setSelected([])
 		setViewersOptions([])
-		setViewersSearchInput('')
 	}
 	return (
 		<>
@@ -174,70 +145,28 @@ export default function Martyrs() {
 
 			<AppDialog visible={visible} header="مدیریت سطوح دسترسی" onClose={onCloseDialog}>
 				<ManageAccessibilityForm onSubmit={onAddAccessibility}>
-					<Autocomplete
-						open={openViewersOptions}
-						className="w-full"
+					<AppAutoComplete
 						multiple
 						disableClearable
-						size="small"
-						onOpen={() => setOpenViewersOptions(true)}
-						onClose={() => setOpenViewersOptions(false)}
-						isOptionEqualToValue={(option, value) => option.name === value.name}
-						getOptionLabel={(option) => option.name}
+						label="بازبین کننده ها"
 						options={viewersOptions}
-						loading={viewersLoading}
-						onInputChange={(event, newVal) => onUpdateViewersSearchInput(newVal)}
-						onChange={(event, newVal) => setViewersValues(newVal)}
-						loadingText="در حال جستجو..."
-						noOptionsText="نتیجه ای یافت نشد"
-						renderInput={(params) => (
-							<TextField
-								{...params}
-								label="بازبین کننده ها"
-								InputProps={{
-									...params.InputProps,
-									endAdornment: (
-										<>
-											{viewersLoading ? <CircularProgress color="inherit" size={20} /> : null}
-											{params.InputProps.endAdornment}
-										</>
-									),
-								}}
-							/>
-						)}
+						className="w-full"
+						onChange={(e) => setViewersValues(e)}
+						fetchLoading={fetchUsersLoading}
+						onSendRequest={(e) => fetchUsersOptions('viewers', e)}
+						optionLabel={(op) => op.name}
 					/>
 
-					<Autocomplete
-						open={openIndexersOptions}
-						className="w-full"
+					<AppAutoComplete
 						multiple
 						disableClearable
-						size="small"
-						onOpen={() => setOpenIndexersOptions(true)}
-						onClose={() => setOpenIndexersOptions(false)}
-						isOptionEqualToValue={(option, value) => option.name === value.name}
-						getOptionLabel={(option) => option.name}
+						label="نمایه گر ها"
 						options={indexersOptions}
-						loading={indexersLoading}
-						onInputChange={(event, newVal) => onUpdateIndexersSearchInput(newVal)}
-						onChange={(event, newVal) => setIndexersValues(newVal)}
-						loadingText="در حال جستجو..."
-						noOptionsText="نتیجه ای یافت نشد"
-						renderInput={(params) => (
-							<TextField
-								{...params}
-								label="نمایه گر ها"
-								InputProps={{
-									...params.InputProps,
-									endAdornment: (
-										<>
-											{indexersLoading ? <CircularProgress color="inherit" size={20} /> : null}
-											{params.InputProps.endAdornment}
-										</>
-									),
-								}}
-							/>
-						)}
+						className="w-full"
+						onChange={(e) => setIndexersValues(e)}
+						fetchLoading={fetchUsersLoading}
+						onSendRequest={(e) => fetchUsersOptions('indexers', e)}
+						optionLabel={(op) => op.name}
 					/>
 
 					<LoadingButton
