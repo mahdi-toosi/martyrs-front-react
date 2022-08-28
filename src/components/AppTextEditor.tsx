@@ -9,7 +9,7 @@ interface Props {
 	defaultValue?: string
 	onChange?: (payload: Payload) => void
 }
-export default function TextEditor({ defaultValue, onChange }: Props) {
+export default function AppTextEditor({ defaultValue, onChange }: Props) {
 	const [value, setValue] = useState(defaultValue || '')
 
 	const handleChange = (value: string) => {
