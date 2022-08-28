@@ -5,6 +5,7 @@ export type UserRoles = 1 | 3 | 30 | 48
 
 export interface UsersPayload {
 	role?: UserRoles
+	'name[$like]'?: string
 	'$or[0][name][$like]'?: string
 	'$or[1][mobile][$like]'?: string
 	'$sort[present_lastDate]'?: -1

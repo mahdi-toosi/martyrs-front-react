@@ -2,8 +2,8 @@ import dayjs from 'dayjs'
 import jalaliday from 'jalaliday'
 dayjs.extend(jalaliday)
 
-export function getJalaliWrapper() {
-	return dayjs().calendar('jalali')
+export function getJalaliWrapper(date: string) {
+	return dayjs(date).calendar('jalali')
 }
 
 export function jalaliDate(date?: string, format: 'date' | 'dateTime' | string = 'date') {

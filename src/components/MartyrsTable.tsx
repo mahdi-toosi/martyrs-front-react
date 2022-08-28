@@ -192,7 +192,7 @@ export default function MartyrsTable() {
 															</Button>
 														</Link>
 
-														<Link to={`/martyrs?id=${row.id}`}>
+														<Link to={`/martyrs/${row.id}`}>
 															<Button variant="contained" size="small" className="text-white">
 																اطلاعات
 															</Button>

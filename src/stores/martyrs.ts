@@ -5,10 +5,17 @@ import create from 'zustand'
 // ? types
 import type { User, UserRoles } from '@/repositories/users/types'
 import type { UsersMartyr, RUsersMartyrs } from '@/repositories/usersMartyrs/types'
-import type { MartyrPaginate, Martyrs, RMartyrs, GetPayload } from '@/repositories/martyrs/types'
+import type {
+	Martyr,
+	Martyrs,
+	RMartyrs,
+	GetPayload,
+	MartyrPaginate,
+} from '@/repositories/martyrs/types'
 
 interface MartyrsState {
 	page: number
+	martyr: Martyr
 	martyrs: Martyrs
 	selected: string[]
 	fetchLoading: boolean
@@ -22,6 +29,9 @@ interface MartyrsState {
 	addUserToMartyr: (martyrId: string, user: User, relation_id: number) => void
 	clearStore: () => void
 
+	setMartyr: (martyr: Martyr) => void
+	updateMartyr: (key: keyof Martyr, val: any) => void
+
 	fetchMartyrs: (repo: RMartyrs, page?: number, newRowsPerPage?: number) => void
 	detachUser: (usersMartyrs: RUsersMartyrs, um: UsersMartyr, martyrIndex: number) => void
 }
@@ -30,6 +40,7 @@ export default create<MartyrsState>((set, get) => ({
 	page: 0,
 	selected: [],
 	fetchLoading: false,
+	martyr: {} as Martyr,
 	detachUserLoading: 0,
 	martyrs: {} as Martyrs,
 
@@ -59,6 +70,10 @@ export default create<MartyrsState>((set, get) => ({
 			fetchLoading: false,
 			martyrs: {} as Martyrs,
 		})),
+
+	// ? martyr mutations
+	setMartyr: (martyr) => set(() => ({ martyr })),
+	updateMartyr: (key, val) => set(() => ({ martyr: { ...get().martyr, [key]: val } })),
 
 	// ? actions
 	fetchMartyrs: async (martyrsRepo, newPage, newRowsPerPage) => {
@@ -142,3 +157,23 @@ export const columns = (userRole?: UserRoles): Column[] => {
 
 	return arr
 }
+
+export const genderSwitchOptions = [
+	{ label: 'مرد', value: true },
+	{ label: 'زن', value: false },
+]
+
+export const marriedOptions = [
+	{ label: 'متأهل', value: true },
+	{ label: 'مجرد', value: false },
+]
+
+export const educationDegrees = [
+	{ label: 'دیپلم', value: 'دیپلم' },
+	{ label: 'دکترا', value: 'دکترا' },
+	{ label: 'کارشناسی ارشد', value: 'کارشناسی ارشد' },
+	{ label: 'کارشناسی', value: 'کارشناسی' },
+	{ label: 'فوق دیپلم', value: 'فوق دیپلم' },
+	{ label: 'دیپلم', value: 'دیپلم' },
+	{ label: 'بی سواد', value: 'بی سواد' },
+]

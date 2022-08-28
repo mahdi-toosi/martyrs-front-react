@@ -1,6 +1,7 @@
 import type { Pagination } from '@/repositories'
-import type { UsersMartyr } from '../usersMartyrs/types'
 import type { Document } from '../documents/types'
+import type { UsersMartyr } from '../usersMartyrs/types'
+import type { TaxonomyRelation } from '../taxonomies/types'
 
 export interface GetPayload {
 	$limit: number
@@ -76,20 +77,24 @@ export interface Martyr {
 	haveDocs: boolean
 	docsStatus: string
 	updatedAtManually: string
-	documents: Pick<Document, 'id' | 'status'>[]
 	users_martyrs: UsersMartyr[]
-	taxonomies_relations: TaxonomiesRelation[]
-}
+	taxonomies_relations: TaxonomyRelation[]
+	documents: Pick<Document, 'id' | 'status'>[]
+	// 👇🏻 added in front
 
-export interface TaxonomiesRelation {
-	relation_id: number
-	taxonomy: Taxonomy
-}
+	defaultCity?: { name: string }
+	defaultState?: { name: string }
+	defaultBurialCity?: { name: string }
+	defaultBurialState?: { name: string }
+	defaultOriginalityCity?: { name: string }
+	defaultOriginalityState?: { name: string }
 
-export interface Taxonomy {
-	id: number
-	name: string
-	type: string
+	tags: TaxonomyRelation[]
+	categories: TaxonomyRelation[]
+	operations: TaxonomyRelation[]
+	defaultTags: TaxonomyRelation[]
+	defaultCategories: TaxonomyRelation[]
+	defaultOperations: TaxonomyRelation[]
 }
 
 export type MartyrPaginate = Pick<
@@ -114,5 +119,7 @@ export interface Martyrs extends Pagination {
 
 export interface RMartyrs {
 	get(payload: GetPayload): Promise<Martyrs | undefined>
+	getById(id: string): Promise<Martyr | undefined>
+	update(payload: Martyr): Promise<undefined>
 	delete(id: string): Promise<'success' | undefined>
 }
