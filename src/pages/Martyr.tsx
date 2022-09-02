@@ -1,15 +1,13 @@
 // ? react
 import { useEffect, useState } from 'react'
-import { getRouteQueries } from '@/router'
 import { useParams } from 'react-router-dom'
 // ? utils
-import tw, { styled } from 'twin.macro'
+import tw from 'twin.macro'
 import userStore from '@/stores/user'
 import martyrsStore from '@/stores/martyrs'
 import { useRepositories } from '@/repositories'
 // ? components
 import { BoxLoading } from 'react-loadingg'
-import Typography from '@mui/material/Typography'
 import LoadingButton from '@mui/lab/LoadingButton'
 import DefaultLayout from '@/components/DefaultLayout'
 import MartyrSectionA from '@/components/MartyrSectionA'
@@ -24,25 +22,13 @@ import type { Martyr as MartyrType } from '@/repositories/martyrs/types'
 import MartyrSectionHBurialPlace from '@/components/MartyrSectionHBurialPlace'
 import MartyrSectionITags from '@/components/MartyrSectionITags'
 import MartyrSectionJBio from '@/components/MartyrSectionJBio'
-
-// interface Props {
-// 	title: string
-// }
-
-// function Title({ title }: Props) {
-// 	return (
-// 		<TitleWrapper>
-// 			<Typography variant="subtitle2">{title}</Typography>
-// 		</TitleWrapper>
-// 	)
-// }
+import MartyrSectionKRelatives from '@/components/MartyrSectionKRelatives'
 
 export default function Martyr() {
 	const { id } = useParams()
 	const { user } = userStore()
-	const queries = getRouteQueries()
-	const { martyrs: martyrsRepo } = useRepositories()
 	const { martyr, setMartyr } = martyrsStore()
+	const { martyrs: martyrsRepo } = useRepositories()
 
 	const [fetchLoading, setFetchLoading] = useState(false)
 	const [storeLoading, setStoreLoading] = useState(false)
@@ -102,6 +88,8 @@ export default function Martyr() {
 			<MartyrSectionITags />
 
 			<MartyrSectionJBio />
+
+			<MartyrSectionKRelatives />
 
 			<FormActions dir="ltr">
 				{user?.role === 3 && ['notStart', 'doing'].includes(martyr.status) && (
@@ -199,20 +187,3 @@ const setDefaultValues = (martyr: MartyrType) => {
 
 // ? styles
 const FormActions = tw.section`w-full flex justify-start gap-4 mt-10`
-const TitleWrapper = styled.label`
-	display: block;
-	margin-bottom: 0.5rem;
-
-	h6::before {
-		content: '';
-		display: inline-block;
-		border: 0;
-		margin: 0 0 -1rem 0.8rem;
-		width: 1rem;
-		height: 1rem;
-		background-color: #c5a711;
-		top: 50%;
-		transform: translateY(-70%);
-		border-radius: 2px;
-	}
-`

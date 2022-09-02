@@ -7,14 +7,16 @@ import type { AxiosInstance } from 'axios'
 import auth, { RAuth } from './auth'
 import users, { RUsers } from './users'
 import martyrs, { RMartyrs } from './martyrs'
+import relatives, { RRelatives } from './relatives'
 import documents, { RDocuments } from './documents'
-import usersMartyrs, { RUsersMartyrs } from './usersMartyrs'
 import taxonomies, { RTaxonomies } from './taxonomies'
+import usersMartyrs, { RUsersMartyrs } from './usersMartyrs'
 
 interface Repositories {
 	auth: RAuth
 	users: RUsers
 	martyrs: RMartyrs
+	relatives: RRelatives
 	documents: RDocuments
 	taxonomies: RTaxonomies
 	usersMartyrs: RUsersMartyrs
@@ -36,6 +38,9 @@ function repositoryContainer(axios: AxiosInstance) {
 		},
 		get martyrs() {
 			return lazyBind<RMartyrs>(() => import('./martyrs'), martyrs(axios), axios)
+		},
+		get relatives() {
+			return lazyBind<RRelatives>(() => import('./relatives'), relatives(axios), axios)
 		},
 		get documents() {
 			return lazyBind<RDocuments>(() => import('./documents'), documents(axios), axios)
