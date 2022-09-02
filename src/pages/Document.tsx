@@ -14,22 +14,11 @@ import Typography from '@mui/material/Typography'
 import LoadingButton from '@mui/lab/LoadingButton'
 import DefaultLayout from '@/components/DefaultLayout'
 import AppTextEditor from '@/components/AppTextEditor'
+import AppTitleTypeA from '@/components/AppTitleTypeA'
 import AppAutoComplete from '@/components/AppAutoComplete'
 // ? types
 import type { SingleDocument } from '@/repositories/documents/types'
 import type { Taxonomy, TaxonomyRelation } from '@/repositories/taxonomies/types'
-
-interface Props {
-	title: string
-}
-
-function Title({ title }: Props) {
-	return (
-		<TitleWrapper>
-			<Typography variant="subtitle2">{title}</Typography>
-		</TitleWrapper>
-	)
-}
 
 export default function Document() {
 	const { id } = useParams()
@@ -180,7 +169,7 @@ export default function Document() {
 					/>
 
 					<div>
-						<Title title="شرح سند" />
+						<AppTitleTypeA title="شرح سند" />
 						<AppTextEditor
 							defaultValue={document.sum}
 							onChange={(e) => onChangeHandler('sum', e)}
@@ -188,7 +177,7 @@ export default function Document() {
 					</div>
 
 					<div>
-						<Title title="توضیح سند" />
+						<AppTitleTypeA title="توضیح سند" />
 						<AppTextEditor
 							defaultValue={document.description}
 							onChange={(e) => onChangeHandler('description', e)}
@@ -196,7 +185,7 @@ export default function Document() {
 					</div>
 
 					<div>
-						<Title title="متن سند" />
+						<AppTitleTypeA title="متن سند" />
 						<AppTextEditor
 							defaultValue={document.text}
 							onChange={(e) => onChangeHandler('text', e)}
@@ -307,23 +296,6 @@ export default function Document() {
 // const Section = tw.section`flex justify-between items-center mb-5`
 const ElementWrapper = tw.div`grid grid-cols-2 gap-x-4 gap-y-8 mt-6`
 const FormActions = tw.div`w-full flex justify-start gap-4 mt-10`
-const TitleWrapper = styled.label`
-	display: block;
-	margin-bottom: 0.5rem;
-
-	h6::before {
-		content: '';
-		display: inline-block;
-		border: 0;
-		margin: 0 0 -1rem 0.8rem;
-		width: 1rem;
-		height: 1rem;
-		background-color: #c5a711;
-		top: 50%;
-		transform: translateY(-70%);
-		border-radius: 2px;
-	}
-`
 
 const ImageSection = styled.div`
 	input[type='file'] {
