@@ -1,3 +1,6 @@
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const colors = require('tailwindcss/colors')
+
 module.exports = {
 	important: true,
 	content: ['./src/**/*.{ts,tsx}', './public/index.html'],
@@ -21,6 +24,9 @@ module.exports = {
 				Raleway: ['Raleway', 'sans-serif'],
 			},
 		},
+		colors: {
+			...colors,
+			primary: '#c5a711',
+		},
 	},
-	plugins: [],
 }

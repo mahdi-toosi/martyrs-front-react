@@ -11,18 +11,18 @@ import { BoxLoading } from 'react-loadingg'
 import LoadingButton from '@mui/lab/LoadingButton'
 import DefaultLayout from '@/components/DefaultLayout'
 import MartyrSectionA from '@/components/MartyrSectionA'
+import MartyrSectionJBio from '@/components/MartyrSectionJBio'
+import MartyrSectionITags from '@/components/MartyrSectionITags'
 import MartyrSectionBIdInfo from '@/components/MartyrSectionBIdInfo'
+import MartyrSectionKRelatives from '@/components/MartyrSectionKRelatives'
 import MartyrSectionDOriginality from '@/components/MartyrSectionDOriginality'
 import MartyrSectionCBirthPlace from '@/components/MartyrSectionCBirthPlace'
 import MartyrSectionGMartyrdom from '@/components/MartyrSectionGMartyrdom'
+import MartyrSectionHBurialPlace from '@/components/MartyrSectionHBurialPlace'
 import MartyrSectionFSacrificeInfo from '@/components/MartyrSectionFSacrificeInfo'
 import MartyrSectionEFamilyStatus from '@/components/MartyrSectionEFamilyStatus'
 // ? types
 import type { Martyr as MartyrType } from '@/repositories/martyrs/types'
-import MartyrSectionHBurialPlace from '@/components/MartyrSectionHBurialPlace'
-import MartyrSectionITags from '@/components/MartyrSectionITags'
-import MartyrSectionJBio from '@/components/MartyrSectionJBio'
-import MartyrSectionKRelatives from '@/components/MartyrSectionKRelatives'
 
 export default function Martyr() {
 	const { id } = useParams()

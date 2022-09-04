@@ -43,4 +43,5 @@ export interface Users extends Pagination {
 
 export interface RUsers {
 	get(payload: UsersPayload): Promise<Users | undefined>
+	getById(id: string): Promise<User | undefined>
 }

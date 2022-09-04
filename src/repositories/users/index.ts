@@ -8,4 +8,7 @@ export default (axios: AxiosInstance): RUsers => ({
 	get(params) {
 		return axios.get(UsersService, { params })
 	},
+	getById(id) {
+		return axios.get(`${UsersService}/${id}`)
+	},
 })
