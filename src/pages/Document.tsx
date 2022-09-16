@@ -59,8 +59,10 @@ export default function Document() {
 
 	const removeRemovedTags = async () => {
 		const cachedTagsRelationId = cacheTags.map((tag) => tag.relation_id)
+
 		for (const cachedTagRelationId of cachedTagsRelationId) {
 			const index = tags.findIndex((t) => t.relation_id === cachedTagRelationId)
+
 			if (index > -1) continue
 			await taxonomies.deleteRelation(cachedTagRelationId)
 		}
@@ -82,7 +84,7 @@ export default function Document() {
 		const objectUrl = URL.createObjectURL(selectedImage)
 		setPreview(objectUrl)
 
-		// free memory when ever this component is unmounted
+		// eslint-disable-next-line consistent-return
 		return () => URL.revokeObjectURL(objectUrl)
 	}, [selectedImage])
 
@@ -235,7 +237,7 @@ export default function Document() {
 						</div>
 					</ImageSection>
 
-					<div></div>
+					<div />
 				</ElementWrapper>
 
 				<FormActions dir="ltr">

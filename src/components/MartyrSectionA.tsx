@@ -33,7 +33,7 @@ export default function MartyrSectionA() {
 		const objectUrl = URL.createObjectURL(selectedImage)
 		setPreview(objectUrl)
 
-		// free memory when ever this component is unmounted
+		// eslint-disable-next-line consistent-return
 		return () => URL.revokeObjectURL(objectUrl)
 	}, [selectedImage])
 

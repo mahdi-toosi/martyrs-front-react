@@ -1,5 +1,6 @@
 import type { AxiosInstance } from 'axios'
 import type { RTaxonomies } from './types'
+
 export type { RTaxonomies }
 
 const TaxonomiesService = '/taxonomies'

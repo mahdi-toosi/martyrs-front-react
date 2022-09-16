@@ -118,21 +118,25 @@ export default function MartyrsTable() {
 													/>
 												</TableCell>
 											)
-										} else if (column.key === 'index') {
+										}
+										if (column.key === 'index') {
 											return (
-												<TableCell key={column.key} align={'center'}>
+												<TableCell key={column.key} align="center">
 													{page * rowsPerPage + (index + 1) || index + 1}
 												</TableCell>
 											)
-										} else if (column.key === 'name') {
+										}
+										if (column.key === 'name') {
 											return (
 												<TableCell key={column.key}>
 													{row.name} {row.lastName}
 												</TableCell>
 											)
-										} else if (column.key === 'code') {
+										}
+										if (column.key === 'code') {
 											return <TableCell key={column.key}>{row.code}</TableCell>
-										} else if (column.key === 'reviewer') {
+										}
+										if (column.key === 'reviewer') {
 											// if (user?.role === 48)
 											return (
 												<TableCell key={column.key} sx={{ maxWidth: '250px' }}>
@@ -143,7 +147,8 @@ export default function MartyrsTable() {
 													/>
 												</TableCell>
 											)
-										} else if (column.key === 'indexer') {
+										}
+										if (column.key === 'indexer') {
 											// if (user?.role === 48)
 											return (
 												<TableCell key={column.key} sx={{ maxWidth: '250px' }}>
@@ -154,38 +159,43 @@ export default function MartyrsTable() {
 													/>
 												</TableCell>
 											)
-										} else if (column.key === 'allDocs') {
+										}
+										if (column.key === 'allDocs') {
 											return (
-												<TableCell key={column.key} align={'center'}>
+												<TableCell key={column.key} align="center">
 													{row.documents.length}
 												</TableCell>
 											)
-										} else if (column.key === 'doingStatus') {
+										}
+										if (column.key === 'doingStatus') {
 											return (
-												<TableCell key={column.key} align={'center'}>
+												<TableCell key={column.key} align="center">
 													{countDocsStatus(row.documents, 'doing')}
 												</TableCell>
 											)
-										} else if (column.key === 'sendForReviewerStatus') {
+										}
+										if (column.key === 'sendForReviewerStatus') {
 											return (
-												<TableCell key={column.key} align={'center'}>
+												<TableCell key={column.key} align="center">
 													{countDocsStatus(row.documents, 'sendForReviewer')}
 												</TableCell>
 											)
-										} else if (column.key === 'doneStatus') {
+										}
+										if (column.key === 'doneStatus') {
 											return (
-												<TableCell key={column.key} align={'center'}>
+												<TableCell key={column.key} align="center">
 													{countDocsStatus(row.documents, 'done')}
 												</TableCell>
 											)
-										} else if (column.key === 'operations') {
+										}
+										if (column.key === 'operations') {
 											return (
-												<TableCell key={column.key} align={'center'}>
+												<TableCell key={column.key} align="center">
 													<div className="flex justify-center gap-2">
 														<Link
-															to={`/documents?id=${row.id}&name=${
-																row.name + ' ' + row.lastName
-															}&code=${row.code}`}
+															to={`/documents?id=${
+																row.id
+															}&name=${`${row.name} ${row.lastName}`}&code=${row.code}`}
 														>
 															<Button variant="contained" size="small" className="text-white">
 																اسناد
@@ -212,7 +222,7 @@ export default function MartyrsTable() {
 											)
 										}
 
-										return <TableCell key={column.key} align={column.align}></TableCell>
+										return <TableCell key={column.key} align={column.align} />
 									})}
 								</TableRow>
 							)
@@ -222,12 +232,12 @@ export default function MartyrsTable() {
 
 				<TablePagination
 					page={page}
-					component={'div'}
-					count={martyrs.total | 0}
+					component="div"
+					count={martyrs.total || 0}
 					rowsPerPage={rowsPerPage}
 					rowsPerPageOptions={[10, 20, 40]}
 					onPageChange={(_event, newPage) => fetchMartyrs(martyrsRepo, newPage, rowsPerPage)}
-					labelRowsPerPage={'تعداد در صفحه'}
+					labelRowsPerPage="تعداد در صفحه"
 					onRowsPerPageChange={handleChangeRowsPerPage}
 					labelDisplayedRows={({ from, to, count }) => `${from} تا ${to} از ${count}`}
 				/>

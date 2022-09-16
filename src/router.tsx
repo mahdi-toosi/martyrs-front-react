@@ -14,6 +14,7 @@ import RoutesWithNProgress from '@/components/RoutesWithNProgress'
 // ? Pages
 import Login from '@/pages/Login'
 import NotFound from '@/pages/NotFound'
+
 const User = lazy(() => import('@/pages/User'))
 const Users = lazy(() => import('@/pages/Users'))
 const Martyr = lazy(() => import('@/pages/Martyr'))
@@ -23,7 +24,7 @@ const Document = lazy(() => import('@/pages/Document'))
 const Dashboard = lazy(() => import('@/pages/Dashboard'))
 const Documents = lazy(() => import('@/pages/Documents'))
 
-const AuthCheck = () => {
+function AuthCheck() {
 	const location = useLocation()
 	const isLoggedIn = sessionStorage.getItem('token')
 	const authenticationPages = ['/login']
@@ -63,6 +64,7 @@ export const getRouteQueries = () =>
 
 export const generateRouteQueries = (params: Record<string, string | number | undefined>) => {
 	for (const key in params) {
+		// eslint-disable-next-line no-param-reassign
 		if (params[key] === undefined) delete params[key]
 	}
 	const queries = new URLSearchParams(params as Record<string, string>)

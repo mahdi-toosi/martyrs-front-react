@@ -40,8 +40,8 @@ export default function Martyrs() {
 
 		if (!keyword.length || queries.keyword === keyword) return
 
-		const _queries = generateRouteQueries({ ...queries, keyword })
-		router.replace(`/martyrs?${_queries}`)
+		const updateQueries = generateRouteQueries({ ...queries, keyword })
+		router.replace(`/martyrs?${updateQueries}`)
 		fetchMartyrs(martyrsRepo, 0)
 	}
 
@@ -53,7 +53,7 @@ export default function Martyrs() {
 		setFetchUsersLoading(true)
 		const result = await users.get({
 			role: viewerMode ? 30 : 3,
-			['name[$like]']: `%${name}%`,
+			'name[$like]': `%${name}%`,
 		})
 		setFetchUsersLoading(false)
 		if (!result) return
@@ -74,8 +74,8 @@ export default function Martyrs() {
 	const onAddAccessibility = async (event: FormEvent) => {
 		event.preventDefault()
 		setAddAccessibilityLoading(true)
-		for (const martyr_id of selected) {
-			const martyr = martyrs.data.find((martyr) => martyr.id === martyr_id)
+		for (const martyrId of selected) {
+			const martyr = martyrs.data.find((m) => m.id === martyrId)
 			if (!martyr) continue
 
 			const viewers = martyr.users_martyrs.map((um) => um.role_type === 30 && um.user_id)
@@ -83,12 +83,22 @@ export default function Martyrs() {
 
 			for (const viewer of viewersValues) {
 				if (viewers.includes(viewer.id)) continue
-				await addAccessibility({ user: viewer, user_id: viewer.id, martyr_id, role_type: 30 })
+				await addAccessibility({
+					user: viewer,
+					role_type: 30,
+					user_id: viewer.id,
+					martyr_id: martyrId,
+				})
 			}
 
 			for (const indexer of indexersValues) {
 				if (indexers.includes(indexer.id)) continue
-				await addAccessibility({ user: indexer, user_id: indexer.id, martyr_id, role_type: 3 })
+				await addAccessibility({
+					role_type: 3,
+					user: indexer,
+					user_id: indexer.id,
+					martyr_id: martyrId,
+				})
 			}
 		}
 		setAddAccessibilityLoading(false)

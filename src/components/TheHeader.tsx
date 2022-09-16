@@ -27,9 +27,9 @@ export default function TheHeader() {
 			weekday: 'long',
 			year: 'numeric',
 		} as Intl.DateTimeFormatOptions
-		const format_date = new Intl.DateTimeFormat('fa-IR', option).formatToParts(now)
+		const formatDate = new Intl.DateTimeFormat('fa-IR', option).formatToParts(now)
 		const d = {} as { [key: string]: string }
-		format_date.forEach((el) => {
+		formatDate.forEach((el) => {
 			d[el.type] = el.value
 		})
 		return `${d.weekday} ${d.year}/${d.month}/${d.day}`
@@ -38,25 +38,25 @@ export default function TheHeader() {
 	return (
 		<Header>
 			<div className="flex items-center">
-				<img src={headerImg} alt="تصویر هدر" width={'311px'} />
+				<img src={headerImg} alt="تصویر هدر" width="311px" />
 
 				<LinksList>
 					<li>
-						<Link to={'/'}>
+						<Link to="/">
 							<Button size="large" className="text-white">
 								داشبورد
 							</Button>
 						</Link>
 					</li>
 					<li>
-						<Link to={'/users'}>
+						<Link to="/users">
 							<Button size="large" className="text-white">
 								کاربران
 							</Button>
 						</Link>
 					</li>
 					<li>
-						<Link to={'/martyrs'}>
+						<Link to="/martyrs">
 							<Button size="large" className="text-white">
 								شهدا
 							</Button>

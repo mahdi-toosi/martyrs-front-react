@@ -51,8 +51,8 @@ export default create<MartyrsState>((set, get) => ({
 	setFetchLoading: (fetchLoading) => set(() => ({ fetchLoading })),
 	setDetachUserLoading: (detachUserLoading) => set(() => ({ detachUserLoading })),
 	addUserToMartyr: (martyrId, user, relation_id) => {
-		const martyr_index = get().martyrs.data.findIndex((m) => m.id === martyrId)
-		if (martyr_index === -1) return
+		const martyrIndex = get().martyrs.data.findIndex((m) => m.id === martyrId)
+		if (martyrIndex === -1) return
 		const um = {
 			relation_id,
 			role_type: user.role,
@@ -60,7 +60,7 @@ export default create<MartyrsState>((set, get) => ({
 			user: { id: user.id, name: user.name, role: user.role },
 		} as UsersMartyr
 
-		get().martyrs.data[martyr_index].users_martyrs.push(um)
+		get().martyrs.data[martyrIndex].users_martyrs.push(um)
 	},
 	clearStore: async () =>
 		set(() => ({
@@ -100,8 +100,8 @@ export default create<MartyrsState>((set, get) => ({
 		get().setMartyrs(result)
 
 		const q = { ...queries, page, rowsPerPage, keyword: queries.keyword }
-		const _queries = generateRouteQueries(q)
-		router.replace(`/martyrs?${_queries}`)
+		const updatedQueries = generateRouteQueries(q)
+		router.replace(`/martyrs?${updatedQueries}`)
 	},
 
 	detachUser: async (usersMartyrs, um, martyrIndex) => {

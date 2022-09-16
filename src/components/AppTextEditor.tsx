@@ -12,9 +12,9 @@ interface Props {
 export default function AppTextEditor({ defaultValue, onChange }: Props) {
 	const [value, setValue] = useState(defaultValue || '')
 
-	const handleChange = (value: string) => {
-		setValue(value)
-		if (onChange) onChange({ target: { value } } as Payload)
+	const handleChange = (val: string) => {
+		setValue(val)
+		if (onChange) onChange({ target: { value: val } } as Payload)
 	}
 	const modules = {
 		toolbar: {

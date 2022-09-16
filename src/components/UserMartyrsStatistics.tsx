@@ -15,6 +15,7 @@ import TablePagination from '@mui/material/TablePagination'
 import type { Users_Martyrs_Relation } from '@/repositories/users/types'
 import { jalaliDate } from '@/utils/day'
 import AppBarChart from './AppBarChart'
+
 type Docs = Users_Martyrs_Relation['martyr']['documents']
 
 const countDocsStatus = (docs: Docs, status: Docs[0]['status']) => {
@@ -59,18 +60,18 @@ export default function UserMartyrsStatistics({ user_martyrs }: Props) {
 	useEffect(() => {
 		if (!user_martyrs || !user_martyrs.length) return
 
-		let beginDate = '',
-			doneDocs = 0,
-			allDocs = [] as Docs
+		let beginDate = ''
+		let doneDocs = 0
+		let allDocs = [] as Docs
 
-		user_martyrs.sort(function (a, b) {
+		user_martyrs.sort((a, b) => {
 			return new Date(a.start).getTime() - new Date(b.start).getTime()
 		})
 		beginDate = user_martyrs[0].start
 
-		for (const userMartyrRelation of user_martyrs) {
+		user_martyrs.forEach((userMartyrRelation) => {
 			allDocs = [...allDocs, ...userMartyrRelation.martyr.documents]
-		}
+		})
 		doneDocs = allDocs.filter((d) => d.status === 'done').length
 
 		setStatistics({ beginDate, allDocs, doneDocs })
@@ -78,16 +79,18 @@ export default function UserMartyrsStatistics({ user_martyrs }: Props) {
 	return (
 		<>
 			<section className="my-6">
-				<AppBarChart value={Math.floor((statistics.doneDocs * 100) / statistics.allDocs.length)} />
+				<AppBarChart
+					value={Math.floor((statistics.doneDocs * 100) / statistics.allDocs.length) || 0}
+				/>
 
 				<ChartDetailsWrapper>
 					<li>
-						<span className="bg-opacity-100"></span> تعداد اسناد در اختیار گذاشته شده:{' '}
+						<span className="bg-opacity-100" /> تعداد اسناد در اختیار گذاشته شده:{' '}
 						{statistics.allDocs.length}
 					</li>
 
 					<li>
-						<span></span> تعداد اسناد گویا سازی شده: {statistics.doneDocs}
+						<span /> تعداد اسناد گویا سازی شده: {statistics.doneDocs}
 					</li>
 
 					<li>تاریخ شروع نمایه سازی: {jalaliDate(statistics.beginDate) || '--'}</li>
@@ -116,56 +119,62 @@ export default function UserMartyrsStatistics({ user_martyrs }: Props) {
 											{columns.map((column) => {
 												if (column.key === 'index') {
 													return (
-														<TableCell key={column.key} align={'center'}>
+														<TableCell key={column.key} align="center">
 															{page * rowsPerPage + (index + 1) || index + 1}
 														</TableCell>
 													)
-												} else if (column.key === 'code') {
+												}
+												if (column.key === 'code') {
 													return <TableCell key={column.key}>{row.martyr.code}</TableCell>
-												} else if (column.key === 'start') {
+												}
+												if (column.key === 'start') {
 													return (
-														<TableCell key={column.key} align={'center'}>
+														<TableCell key={column.key} align="center">
 															{jalaliDate(row.start, 'dateTime')}
 														</TableCell>
 													)
-												} else if (column.key === 'name') {
+												}
+												if (column.key === 'name') {
 													return (
 														<TableCell key={column.key}>
 															{row.martyr.name} {row.martyr.lastName}
 														</TableCell>
 													)
-												} else if (column.key === 'fatherName') {
+												}
+												if (column.key === 'fatherName') {
 													// if (user?.role === 48)
 													return <TableCell key={column.key}>{row.martyr.fatherName}</TableCell>
-												} else if (column.key === 'allDocs') {
+												}
+												if (column.key === 'allDocs') {
 													return (
-														<TableCell key={column.key} align={'center'}>
+														<TableCell key={column.key} align="center">
 															{row.martyr.documents.length}
 														</TableCell>
 													)
-												} else if (column.key === 'doingStatus') {
+												}
+												if (column.key === 'doingStatus') {
 													return (
-														<TableCell key={column.key} align={'center'}>
+														<TableCell key={column.key} align="center">
 															{countDocsStatus(row.martyr.documents, 'doing')}
 														</TableCell>
 													)
-												} else if (column.key === 'sendForReviewerStatus') {
+												}
+												if (column.key === 'sendForReviewerStatus') {
 													return (
-														<TableCell key={column.key} align={'center'}>
+														<TableCell key={column.key} align="center">
 															{countDocsStatus(row.martyr.documents, 'sendForReviewer')}
 														</TableCell>
 													)
-												} else if (column.key === 'doneStatus') {
+												}
+												if (column.key === 'doneStatus') {
 													return (
-														<TableCell key={column.key} align={'center'}>
+														<TableCell key={column.key} align="center">
 															{countDocsStatus(row.martyr.documents, 'done')}
 														</TableCell>
 													)
 												}
 
-												return (
-													<TableCell key={column.key} align={column.align as 'right'}></TableCell>
-												)
+												return <TableCell key={column.key} align={column.align as 'right'} />
 											})}
 										</TableRow>
 									)
@@ -175,11 +184,11 @@ export default function UserMartyrsStatistics({ user_martyrs }: Props) {
 
 					<TablePagination
 						page={page}
-						component={'div'}
+						component="div"
 						rowsPerPage={rowsPerPage}
-						count={user_martyrs?.length | 0}
+						count={user_martyrs?.length || 0}
 						rowsPerPageOptions={[10, 20, 40]}
-						labelRowsPerPage={'تعداد در صفحه'}
+						labelRowsPerPage="تعداد در صفحه"
 						onPageChange={handleChangePage}
 						onRowsPerPageChange={handleChangeRowsPerPage}
 						labelDisplayedRows={({ from, to, count }) => `${from} تا ${to} از ${count}`}

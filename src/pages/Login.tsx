@@ -119,8 +119,8 @@ export default function Login() {
 						{errors?.password && touched.password && (
 							<Typography
 								variant="caption"
-								color={'red'}
-								marginBottom={'0px'}
+								color="red"
+								marginBottom="0px"
 								gutterBottom
 								component="p"
 							>

@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { createContext, useContext } from 'react'
-import axios from '@/utils/api'
+import axiosInstance from '@/utils/api'
 // ? types
 import type { AxiosInstance } from 'axios'
 // ? repositories
@@ -71,4 +71,4 @@ function lazyBind<T>(repoFactory: any, repoInterface: T, axios: AxiosInstance) {
 
 export const RepositoriesContext = createContext({} as Repositories)
 export const useRepositories = () => useContext(RepositoriesContext)
-export const repositories = repositoryContainer(axios) as Repositories
+export const repositories = repositoryContainer(axiosInstance) as Repositories

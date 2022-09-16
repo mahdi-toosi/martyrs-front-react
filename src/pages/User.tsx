@@ -41,7 +41,7 @@ export default function User() {
 
 	return (
 		<DefaultLayout>
-			<Typography variant="h5">مدیریت کاربر {queries.name ? ' | ' + queries.name : ''}</Typography>
+			<Typography variant="h5">مدیریت کاربر {queries.name ? ` | ${queries.name}` : ''}</Typography>
 
 			<UserMartyrsStatistics user_martyrs={user.users_martyrs} />
 		</DefaultLayout>

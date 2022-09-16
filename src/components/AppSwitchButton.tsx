@@ -30,14 +30,14 @@ export default function AppSwitchButton({
 
 	return (
 		<Wrapper>
-			<label>{label}</label>
+			<label htmlFor="switchBtn">{label}</label>
 
-			<ButtonGroup variant="outlined" className="__buttons">
-				{options.map((option, i) => (
+			<ButtonGroup id="switchBtn" variant="outlined" className="__buttons">
+				{options.map((option) => (
 					<Button
 						variant={value === option.value ? 'contained' : undefined}
 						className="min-w-fit"
-						key={i}
+						key={option.label}
 						onClick={() => handleChange(option.value)}
 						disabled={disabled}
 					>

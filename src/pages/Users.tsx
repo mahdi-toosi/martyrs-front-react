@@ -62,30 +62,30 @@ export default function Users() {
 
 	const onSearchKeyword = (event: FormEvent<HTMLFormElement>) => {
 		event.preventDefault()
-		const queries = getRouteQueries()
-		const keyword = (event.currentTarget.elements[0] as HTMLInputElement).value
+		let keyword: string | undefined = (event.currentTarget.elements[0] as HTMLInputElement).value
 
-		if (!keyword.length || queries.keyword === keyword) return
+		if (queries.keyword === keyword) return
+		if (!keyword.length) keyword = undefined
 
-		const _queries = generateRouteQueries({ ...queries, keyword })
-		router.replace(`/users?${_queries}`)
+		const updatedQueries = generateRouteQueries({ ...queries, keyword })
+		router.replace(`/users?${updatedQueries}`)
+		fetchUsers(0)
 	}
 
 	const fetchUsers = async (newPage?: number, newRowsPerPage?: number) => {
-		const queries = getRouteQueries()
-
-		const page = newPage === 0 ? 0 : Number(queries.page) || 0
-		const rowsPerPage = newRowsPerPage || Number(queries.rowsPerPage) || 10
+		const currQueries = getRouteQueries()
+		const currPage = newPage === 0 ? 0 : Number(currQueries.page) || 0
+		const currRowsPerPage = newRowsPerPage || Number(currQueries.rowsPerPage) || 10
 
 		const payload = {
-			$limit: rowsPerPage,
-			$skip: page * rowsPerPage,
+			$limit: currRowsPerPage,
+			$skip: currPage * currRowsPerPage,
 			'$sort[present_lastDate]': -1,
 		} as UsersPayload
 
-		if (queries.keyword) {
-			payload['$or[0][name][$like]'] = `%${queries.keyword}%`
-			payload['$or[1][mobile][$like]'] = `%${queries.keyword}%`
+		if (currQueries.keyword) {
+			payload['$or[0][name][$like]'] = `%${currQueries.keyword}%`
+			payload['$or[1][mobile][$like]'] = `%${currQueries.keyword}%`
 		}
 
 		setFetchLoading(true)
@@ -93,12 +93,17 @@ export default function Users() {
 		setFetchLoading(false)
 		if (!result) return
 
-		setPage(page)
+		setPage(currPage)
 		setUsers(result)
 
-		const q = { ...queries, page, rowsPerPage, keyword: queries.keyword }
-		const _queries = generateRouteQueries(q)
-		router.replace(`/users?${_queries}`)
+		const q = {
+			...currQueries,
+			page: currPage,
+			rowsPerPage: currRowsPerPage,
+			keyword: currQueries.keyword,
+		}
+		const updatedQueries = generateRouteQueries(q)
+		router.replace(`/users?${updatedQueries}`)
 	}
 
 	useEffect(() => {
@@ -120,9 +125,10 @@ export default function Users() {
 			<Section>
 				<form className="flex gap-4 items-end" onSubmit={onSearchKeyword}>
 					<TextField
-						label="نام | نام خانوادگی | کد کاربری"
+						type="search"
 						variant="standard"
 						className="w-64"
+						label="نام | نام خانوادگی | کد کاربری"
 						defaultValue={getRouteQueries().keyword}
 					/>
 
@@ -161,55 +167,63 @@ export default function Users() {
 											{columns.map((column) => {
 												if (column.key === 'index') {
 													return (
-														<TableCell key={column.key} align={'center'}>
+														<TableCell key={column.key} align="center">
 															{page * rowsPerPage + (index + 1) || index + 1}
 														</TableCell>
 													)
-												} else if (column.key === 'name') {
+												}
+												if (column.key === 'name') {
 													return (
-														<TableCell key={column.key} align={'left'}>
+														<TableCell key={column.key} align="left">
 															{row.name}
 														</TableCell>
 													)
-												} else if (column.key === 'mobile') {
+												}
+												if (column.key === 'mobile') {
 													return (
-														<TableCell key={column.key} align={'center'}>
+														<TableCell key={column.key} align="center">
 															{row.mobile}
 														</TableCell>
 													)
-												} else if (column.key === 'role') {
+												}
+												if (column.key === 'role') {
 													return (
-														<TableCell key={column.key} align={'center'}>
+														<TableCell key={column.key} align="center">
 															{roles[row.role]}
 														</TableCell>
 													)
-												} else if (column.key === 'present_lastDate') {
+												}
+												if (column.key === 'present_lastDate') {
 													return (
-														<TableCell key={column.key} align={'center'}>
+														<TableCell key={column.key} align="center">
 															{jalaliDate(row.present_lastDate, 'dateTime')}
 														</TableCell>
 													)
-												} else if (column.key === 'allDocs') {
+												}
+												if (column.key === 'allDocs') {
 													return (
-														<TableCell key={column.key} align={'center'}>
+														<TableCell key={column.key} align="center">
 															{row.users_martyrs.length}
 														</TableCell>
 													)
-												} else if (column.key === 'sendForReviewerStatus') {
+												}
+												if (column.key === 'sendForReviewerStatus') {
 													return (
-														<TableCell key={column.key} align={'center'}>
+														<TableCell key={column.key} align="center">
 															{countDocsStatus(row.users_martyrs, 'sendForReviewer')}
 														</TableCell>
 													)
-												} else if (column.key === 'doneStatus') {
+												}
+												if (column.key === 'doneStatus') {
 													return (
-														<TableCell key={column.key} align={'center'}>
+														<TableCell key={column.key} align="center">
 															{countDocsStatus(row.users_martyrs, 'done')}
 														</TableCell>
 													)
-												} else if (column.key === 'operations') {
+												}
+												if (column.key === 'operations') {
 													return (
-														<TableCell key={column.key} align={'center'}>
+														<TableCell key={column.key} align="center">
 															<div className="flex justify-center gap-2">
 																<Link to={`/users/${row.id}?name=${row.name}`}>
 																	<Button variant="contained" size="small" className="text-white">
@@ -225,7 +239,7 @@ export default function Users() {
 													<TableCell
 														key={column.key}
 														align={(column.align as 'right') || 'center'}
-													></TableCell>
+													/>
 												)
 											})}
 										</TableRow>
@@ -236,12 +250,12 @@ export default function Users() {
 
 						<TablePagination
 							page={page}
-							component={'div'}
-							count={users.total | 0}
+							component="div"
+							count={users.total || 0}
 							rowsPerPage={rowsPerPage}
 							rowsPerPageOptions={[10, 20, 40]}
 							onPageChange={(_event, newPage) => fetchUsers(newPage, rowsPerPage)}
-							labelRowsPerPage={'تعداد در صفحه'}
+							labelRowsPerPage="تعداد در صفحه"
 							onRowsPerPageChange={handleChangeRowsPerPage}
 							labelDisplayedRows={({ from, to, count }) => `${from} تا ${to} از ${count}`}
 						/>

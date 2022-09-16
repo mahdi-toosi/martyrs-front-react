@@ -1,6 +1,7 @@
 import axios, { AxiosRequestConfig, AxiosResponse } from 'axios'
 import { history as router } from '@/router'
 import toast from '@/utils/toast'
+
 const baseURL = import.meta.env?.VITE_BASE_URL
 
 const axiosInstance = axios.create({ baseURL })
@@ -8,7 +9,8 @@ const axiosInstance = axios.create({ baseURL })
 function handleRequest(config: AxiosRequestConfig) {
 	const token = sessionStorage.getItem('token')
 	if (token) {
-		config.headers!['Authorization'] = token
+		// eslint-disable-next-line no-param-reassign
+		config.headers!.Authorization = token
 	}
 
 	return config
@@ -28,7 +30,8 @@ axiosInstance.interceptors.response.use(handleResponse, (error) => {
 		sessionStorage.clear()
 		router.push('/login')
 		return
-	} else if (error.response?.status === 401 && error.response?.data.message === 'Invalid login') {
+	}
+	if (error.response?.status === 401 && error.response?.data.message === 'Invalid login') {
 		toast('نام کاربری یا رمز عبور اشتباه است')
 		return
 	}

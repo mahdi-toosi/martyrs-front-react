@@ -1,5 +1,6 @@
 import type { AxiosInstance } from 'axios'
 import type { RRelatives } from './types'
+
 export type { RRelatives }
 
 const Service = '/relatives'

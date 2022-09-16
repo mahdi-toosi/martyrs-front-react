@@ -27,20 +27,18 @@ export default function AppDatepicker({ defaultValue, label, disabled, onChange 
 	}
 
 	return (
-		<>
-			<DatePicker
-				portal
-				calendar={persian}
-				locale={persian_fa}
-				ref={datePickerRef}
-				value={defaultValue}
-				onChange={handleChange}
-				animations={[transition()]}
-				className="yellow bg-dark"
-				calendarPosition="bottom-right"
-				render={<Input label={label} disabled={disabled} />}
-			/>
-		</>
+		<DatePicker
+			portal
+			calendar={persian}
+			locale={persian_fa}
+			ref={datePickerRef}
+			value={defaultValue}
+			onChange={handleChange}
+			animations={[transition()]}
+			className="yellow bg-dark"
+			calendarPosition="bottom-right"
+			render={<Input label={label} disabled={disabled} />}
+		/>
 	)
 }
 

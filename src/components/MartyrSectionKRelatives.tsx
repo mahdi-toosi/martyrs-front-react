@@ -42,11 +42,11 @@ export default function MartyrSectionKRelatives() {
 	const [visibleDialog, setVisibleDialog] = useState(false)
 	const [selectedRelative, setSelectedRelative] = useState({} as Relative)
 
-	const fetchRelatives = async (page: number) => {
+	const fetchRelatives = async (_page: number) => {
 		const payload = {
 			martyr_id: id,
 			$limit: rowsPerPage,
-			$skip: page * rowsPerPage,
+			$skip: _page * rowsPerPage,
 		}
 
 		setFetchLoading(true)
@@ -54,7 +54,7 @@ export default function MartyrSectionKRelatives() {
 		setFetchLoading(false)
 		if (!result) return
 
-		setPage(page)
+		setPage(_page)
 		setRelatives(result)
 	}
 
@@ -63,12 +63,12 @@ export default function MartyrSectionKRelatives() {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [])
 
-	const deleteRelative = async (id: number) => {
+	const deleteRelative = async (_id: number) => {
 		const sure = confirm('مطمئنید میخواهید این مورد را حذف کنید ؟')
 		if (!sure) return
 
-		setRemoveLoading(id)
-		const result = await relativesRepo.delete(id)
+		setRemoveLoading(_id)
+		const result = await relativesRepo.delete(_id)
 		setRemoveLoading(0)
 		if (result) fetchRelatives(page)
 	}
@@ -111,37 +111,42 @@ export default function MartyrSectionKRelatives() {
 											{columns.map((column) => {
 												if (column.key === 'index') {
 													return (
-														<TableCell key={column.key} align={'center'}>
+														<TableCell key={column.key} align="center">
 															{page * rowsPerPage + (index + 1) || index + 1}
 														</TableCell>
 													)
-												} else if (column.key === 'name') {
+												}
+												if (column.key === 'name') {
 													return (
-														<TableCell key={column.key} align={'left'}>
+														<TableCell key={column.key} align="left">
 															{row.name}
 														</TableCell>
 													)
-												} else if (column.key === 'relation') {
+												}
+												if (column.key === 'relation') {
 													return (
-														<TableCell key={column.key} align={'center'}>
+														<TableCell key={column.key} align="center">
 															{row.relation}
 														</TableCell>
 													)
-												} else if (column.key === 'education') {
+												}
+												if (column.key === 'education') {
 													return (
-														<TableCell key={column.key} align={'center'}>
+														<TableCell key={column.key} align="center">
 															{row.education}
 														</TableCell>
 													)
-												} else if (column.key === 'job') {
+												}
+												if (column.key === 'job') {
 													return (
-														<TableCell key={column.key} align={'center'}>
+														<TableCell key={column.key} align="center">
 															{row.job}
 														</TableCell>
 													)
-												} else if (column.key === 'operations') {
+												}
+												if (column.key === 'operations') {
 													return (
-														<TableCell key={column.key} align={'center'}>
+														<TableCell key={column.key} align="center">
 															<div className="flex justify-center gap-2">
 																<Button
 																	variant="contained"
@@ -170,7 +175,7 @@ export default function MartyrSectionKRelatives() {
 													<TableCell
 														key={column.key}
 														align={(column.align as 'right') || 'center'}
-													></TableCell>
+													/>
 												)
 											})}
 										</TableRow>
@@ -181,8 +186,8 @@ export default function MartyrSectionKRelatives() {
 
 						<TablePagination
 							page={page}
-							component={'div'}
-							count={relatives.total | 0}
+							component="div"
+							count={relatives.total || 0}
 							rowsPerPage={rowsPerPage}
 							onPageChange={(_event, newPage) => fetchRelatives(newPage)}
 							labelDisplayedRows={({ from, to, count }) => `${from} تا ${to} از ${count}`}

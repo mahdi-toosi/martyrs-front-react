@@ -48,9 +48,10 @@ const $select = ['id', 'code', 'status', 'martyr_id', 'title', 'sum']
 
 function sum(val: string) {
 	if (val) {
-		const withoutHtmlTags = val.replace(new RegExp('<[^>]*>', 'g'), '')
+		const withoutHtmlTags = val.replace(/<[^>]*>/g, '')
 		return withoutHtmlTags.replace(/(([^\s]+\s\s*){8})(.*)/, '$1…') // first 8 words
-	} else return ''
+	}
+	return ''
 }
 
 export default function Documents() {
@@ -65,24 +66,22 @@ export default function Documents() {
 	const [rowsPerPage, setRowsPerPage] = useState(Number(queries.rowsPerPage) || 10)
 
 	const handleChange = (value: string | number /* keyof typeof statuses */) => {
-		const queries = getRouteQueries()
-		const _queries = generateRouteQueries({
+		const updatedQueries = generateRouteQueries({
 			...queries,
 			status: value === 'all' ? undefined : value,
 		})
-		router.replace(`/documents?${_queries}`)
+		router.replace(`/documents?${updatedQueries}`)
 	}
 
 	const onSearchKeyword = (event: FormEvent<HTMLFormElement>) => {
 		event.preventDefault()
-		const queries = getRouteQueries()
 		const keyword = (event.currentTarget.elements[1] as HTMLInputElement).value
 
-		const _queries = generateRouteQueries({
+		const updatedQueries = generateRouteQueries({
 			...queries,
 			keyword: keyword.length ? keyword : undefined,
 		})
-		router.replace(`/documents?${_queries}`)
+		router.replace(`/documents?${updatedQueries}`)
 		fetchDocuments(0, rowsPerPage)
 	}
 
@@ -98,21 +97,21 @@ export default function Documents() {
 	}
 
 	const fetchDocuments = async (newPage?: number, newRowsPerPage?: number) => {
-		const queries = getRouteQueries()
+		const currQueries = getRouteQueries()
 
-		const page = newPage === 0 ? 0 : Number(queries.page) || 0
-		const rowsPerPage = newRowsPerPage || Number(queries.rowsPerPage) || 10
+		const currPage = newPage === 0 ? 0 : Number(currQueries.page) || 0
+		const currRowsPerPage = newRowsPerPage || Number(currQueries.rowsPerPage) || 10
 
 		const payload = {
 			$select,
-			$limit: rowsPerPage,
-			martyr_id: queries.id,
-			status: queries.status,
-			$skip: page * rowsPerPage,
+			$limit: currRowsPerPage,
+			martyr_id: currQueries.id,
+			status: currQueries.status,
+			$skip: currPage * currRowsPerPage,
 		} as DocumentsPayload
 
-		if (queries.keyword) {
-			payload['[title][$like]'] = `%${queries.keyword}%`
+		if (currQueries.keyword) {
+			payload['[title][$like]'] = `%${currQueries.keyword}%`
 		}
 
 		setFetchLoading(true)
@@ -120,12 +119,17 @@ export default function Documents() {
 		setFetchLoading(false)
 		if (!result) return
 
-		setPage(page)
+		setPage(currPage)
 		setDocuments(result)
 
-		const q = { ...queries, page, rowsPerPage, keyword: queries.keyword }
-		const _queries = generateRouteQueries(q)
-		router.replace(`/documents?${_queries}`)
+		const q = {
+			...currQueries,
+			page: currPage,
+			rowsPerPage: currRowsPerPage,
+			keyword: currQueries.keyword,
+		}
+		const updatedQueries = generateRouteQueries(q)
+		router.replace(`/documents?${updatedQueries}`)
 	}
 
 	useEffect(() => {
@@ -210,37 +214,42 @@ export default function Documents() {
 											{columns.map((column) => {
 												if (column.key === 'index') {
 													return (
-														<TableCell key={column.key} align={'center'}>
+														<TableCell key={column.key} align="center">
 															{page * rowsPerPage + (index + 1) || index + 1}
 														</TableCell>
 													)
-												} else if (column.key === 'title') {
+												}
+												if (column.key === 'title') {
 													return (
-														<TableCell key={column.key} align={'left'}>
+														<TableCell key={column.key} align="left">
 															{row.title}
 														</TableCell>
 													)
-												} else if (column.key === 'code') {
+												}
+												if (column.key === 'code') {
 													return (
-														<TableCell key={column.key} align={'center'}>
+														<TableCell key={column.key} align="center">
 															{row.code}
 														</TableCell>
 													)
-												} else if (column.key === 'sum') {
+												}
+												if (column.key === 'sum') {
 													return (
-														<TableCell key={column.key} align={'left'}>
+														<TableCell key={column.key} align="left">
 															{sum(row.sum)}
 														</TableCell>
 													)
-												} else if (column.key === 'status') {
+												}
+												if (column.key === 'status') {
 													return (
-														<TableCell key={column.key} align={'center'}>
+														<TableCell key={column.key} align="center">
 															{statuses[row.status]}
 														</TableCell>
 													)
-												} else if (column.key === 'operations') {
+												}
+												if (column.key === 'operations') {
 													return (
-														<TableCell key={column.key} align={'center'}>
+														<TableCell key={column.key} align="center">
 															<div className="flex justify-center gap-2">
 																<Link
 																	to={`/documents/${row.id}?name=${queries.name}&code=${queries.code}`}
@@ -270,7 +279,7 @@ export default function Documents() {
 													<TableCell
 														key={column.key}
 														align={(column.align as 'right') || 'center'}
-													></TableCell>
+													/>
 												)
 											})}
 										</TableRow>
@@ -281,12 +290,12 @@ export default function Documents() {
 
 						<TablePagination
 							page={page}
-							component={'div'}
-							count={documents.total | 0}
+							component="div"
+							count={documents.total || 0}
 							rowsPerPage={rowsPerPage}
 							rowsPerPageOptions={[10, 20, 40]}
 							onPageChange={(_event, newPage) => fetchDocuments(newPage, rowsPerPage)}
-							labelRowsPerPage={'تعداد در صفحه'}
+							labelRowsPerPage="تعداد در صفحه"
 							onRowsPerPageChange={handleChangeRowsPerPage}
 							labelDisplayedRows={({ from, to, count }) => `${from} تا ${to} از ${count}`}
 						/>

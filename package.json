@@ -14,6 +14,7 @@
 		"lint:fix": "yarn lint --fix"
 	},
 	"dependencies": {
+		"@emotion/cache": "^11.10.3",
 		"@emotion/react": "^11.9.3",
 		"@emotion/styled": "^11.9.3",
 		"@hookform/resolvers": "^2.9.7",
@@ -24,10 +25,13 @@
 		"axios": "^0.27.2",
 		"dayjs": "^1.11.4",
 		"formik": "^2.2.9",
+		"history": "^5.3.0",
 		"jalaliday": "^2.3.0",
+		"lodash": "^4.17.21",
 		"notistack": "^2.0.5",
 		"postcss": "^8.4.14",
 		"react": "^18.0.0",
+		"react-date-object": "^2.1.5",
 		"react-dom": "^18.0.0",
 		"react-element-popper": "^2.1.6",
 		"react-loadingg": "^1.7.2",

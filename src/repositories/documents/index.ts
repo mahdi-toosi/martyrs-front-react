@@ -1,5 +1,6 @@
 import type { AxiosInstance } from 'axios'
 import type { RDocuments } from './types'
+
 export type { RDocuments }
 
 const DocumentsService = '/documents'

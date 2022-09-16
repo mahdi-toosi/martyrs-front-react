@@ -1,5 +1,6 @@
 import type { AxiosInstance } from 'axios'
 import type { RUsersMartyrs } from './types'
+
 export type { RUsersMartyrs }
 
 const UsersMartyrsService = '/users-martyrs'

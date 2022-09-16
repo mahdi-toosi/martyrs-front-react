@@ -1,5 +1,6 @@
 import type { AxiosInstance } from 'axios'
 import type { RAuth } from './types'
+
 export type { RAuth }
 
 const loginService = '/authentication'
