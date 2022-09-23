@@ -12,4 +12,10 @@ export default (axios: AxiosInstance): RUsers => ({
 	getById(id) {
 		return axios.get(`${UsersService}/${id}`)
 	},
+	update(payload) {
+		return axios.patch(`${UsersService}/${payload.id}`, payload)
+	},
+	delete(id) {
+		return axios.delete(`${UsersService}/${id}`)
+	},
 })

@@ -16,7 +16,7 @@ type Martyr = Pick<
 	'id' | 'code' | 'name' | 'status' | 'lastName' | 'fatherName' | 'documents'
 >
 
-export interface Users_Martyrs_Relation {
+export interface UsersMartyrsRelation {
 	start: string
 	done: string
 	martyr: Martyr
@@ -33,10 +33,13 @@ export interface User {
 	mobile: string
 	role: UserRoles
 	first_login: string
+	password?: string
 	limitAccess: string[]
 	present_lastDate: string
-	users_martyrs: Users_Martyrs_Relation[]
+	showPassword?: boolean
+	users_martyrs: UsersMartyrsRelation[]
 }
+
 export interface Users extends Pagination {
 	data: User[]
 }
@@ -44,4 +47,6 @@ export interface Users extends Pagination {
 export interface RUsers {
 	get(payload: UsersPayload): Promise<Users | undefined>
 	getById(id: string): Promise<User | undefined>
+	update(payload: User): Promise<User | undefined>
+	delete(id: number): Promise<undefined>
 }

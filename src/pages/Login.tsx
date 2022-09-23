@@ -76,7 +76,6 @@ export default function Login() {
 				</Typography>
 
 				<Form
-					className="flex flex-col gap-4 items-center"
 					onSubmit={(e) => {
 						e.preventDefault()
 						handleSubmit()

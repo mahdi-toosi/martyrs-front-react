@@ -1,0 +1,13 @@
+[
+	{ "val": "نام و نام خانوادگی", "key": "rels_name" },
+	{ "val": "رابطه", "key": "rels_relation" },
+	{ "val": "تاریخ تولد", "key": "rels_BD_Date" },
+	{ "val": "تلفن همراه", "key": "rels_mobile" },
+	{ "val": "تلفن ثابت", "key": "rels_phone" },
+	{ "val": "جنسیت", "key": "rels_gender" },
+	{ "val": "تحصیلات", "key": "rels_education" },
+	{ "val": "آدرس", "key": "rels_address" },
+	{ "val": "وضعیت حیات", "key": "rels_alive" },
+	{ "val": "شغل", "key": "rels_job" },
+	{ "val": "وضعیت ایثارگری", "key": "rels_StatusOfSacrifice" }
+]

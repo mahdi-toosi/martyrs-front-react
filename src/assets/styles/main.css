@@ -44,3 +44,6 @@ button[type='submit'] {
 	@apply flex justify-center;
 }
 /*  * END Mui table styles  */
+.MuiDialog-container .MuiPaper-root {
+	max-width: 57rem;
+}

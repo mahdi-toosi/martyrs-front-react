@@ -26,11 +26,11 @@ import type { Martyr } from '@/repositories/martyrs/types'
 import type {
 	UsersPayload,
 	Users as UsersType,
-	Users_Martyrs_Relation,
+	UsersMartyrsRelation,
 } from '@/repositories/users/types'
 
 const countDocsStatus = (
-	martyrs: Users_Martyrs_Relation[],
+	martyrs: UsersMartyrsRelation[],
 	status: Martyr['documents'][0]['status']
 ) => {
 	const filtered = martyrs.map(

@@ -1,0 +1,9 @@
+[
+	{ "val": "عنوان", "key": "docs_title" },
+	{ "val": "کد سند", "key": "docs_code" },
+	{ "val": "خلاصه", "key": "docs_sum" },
+	{ "val": "توضیحات", "key": "docs_description" },
+	{ "val": "متن", "key": "docs_text" },
+	{ "val": "تگ ها", "key": "docs_tags" },
+	{ "val": "عکس", "key": "docs_image" }
+]

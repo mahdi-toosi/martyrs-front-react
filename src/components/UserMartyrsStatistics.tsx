@@ -12,11 +12,11 @@ import TableHead from '@mui/material/TableHead'
 import TableContainer from '@mui/material/TableContainer'
 import TablePagination from '@mui/material/TablePagination'
 // ? types
-import type { Users_Martyrs_Relation } from '@/repositories/users/types'
+import type { UsersMartyrsRelation } from '@/repositories/users/types'
 import { jalaliDate } from '@/utils/day'
 import AppBarChart from './AppBarChart'
 
-type Docs = Users_Martyrs_Relation['martyr']['documents']
+type Docs = UsersMartyrsRelation['martyr']['documents']
 
 const countDocsStatus = (docs: Docs, status: Docs[0]['status']) => {
 	const filtered = docs.filter((doc) => doc.status === status)
@@ -36,7 +36,7 @@ const columns = [
 ]
 
 interface Props {
-	user_martyrs: Users_Martyrs_Relation[]
+	user_martyrs: UsersMartyrsRelation[]
 }
 export default function UserMartyrsStatistics({ user_martyrs }: Props) {
 	const [page, setPage] = useState(0)
@@ -85,7 +85,7 @@ export default function UserMartyrsStatistics({ user_martyrs }: Props) {
 
 				<ChartDetailsWrapper>
 					<li>
-						<span className="bg-opacity-100" /> تعداد اسناد در اختیار گذاشته شده:{' '}
+						<span className="bg-opacity-100" /> تعداد اسناد در اختیار گذاشته شده:
 						{statistics.allDocs.length}
 					</li>
 

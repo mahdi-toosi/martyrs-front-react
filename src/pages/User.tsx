@@ -8,18 +8,17 @@ import { useRepositories } from '@/repositories'
 // ? components
 import { BoxLoading } from 'react-loadingg'
 import Typography from '@mui/material/Typography'
+import UserInfoForm from '@/components/UserInfoForm'
 import DefaultLayout from '@/components/DefaultLayout'
 // ? type
-import type { User as UserType } from '@/repositories/users/types'
 import UserMartyrsStatistics from '@/components/UserMartyrsStatistics'
 
 export default function User() {
 	const { id } = useParams()
 	const queries = getRouteQueries()
-	const { user: storedUser } = userStore()
 	const { users: usersRepo } = useRepositories()
+	const { user: storedUser, userInfo, setUserInfo } = userStore()
 
-	const [user, setUser] = useState({} as UserType)
 	const [fetchLoading, setFetchLoading] = useState(false)
 	const [storeLoading, setStoreLoading] = useState(false)
 
@@ -29,7 +28,7 @@ export default function User() {
 		setFetchLoading(false)
 		if (!result) return
 
-		setUser(result)
+		setUserInfo(result)
 	}
 
 	useEffect(() => {
@@ -41,9 +40,13 @@ export default function User() {
 
 	return (
 		<DefaultLayout>
-			<Typography variant="h5">مدیریت کاربر {queries.name ? ` | ${queries.name}` : ''}</Typography>
+			<Typography variant="h5">
+				مدیریت کاربر {queries.name ? ` | ${userInfo.name || queries.name}` : ''}
+			</Typography>
 
-			<UserMartyrsStatistics user_martyrs={user.users_martyrs} />
+			<UserMartyrsStatistics user_martyrs={userInfo.users_martyrs} />
+
+			<UserInfoForm showDeleteButton={storedUser?.id !== Number(id)} />
 		</DefaultLayout>
 	)
 }
