@@ -1,10 +1,15 @@
 // ? react
 import { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
 // ? utils
 import tw, { styled } from 'twin.macro'
+import userStore from '@/stores/user'
+import { jalaliDate } from '@/utils/day'
 // ? components
-import Paper from '@mui/material/Paper'
 import Table from '@mui/material/Table'
+import AppBarChart from './AppBarChart'
+import Paper from '@mui/material/Paper'
+import Button from '@mui/material/Button'
 import TableCell from '@mui/material/TableCell'
 import TableRow from '@mui/material/TableRow'
 import TableBody from '@mui/material/TableBody'
@@ -13,8 +18,6 @@ import TableContainer from '@mui/material/TableContainer'
 import TablePagination from '@mui/material/TablePagination'
 // ? types
 import type { UsersMartyrsRelation } from '@/repositories/users/types'
-import { jalaliDate } from '@/utils/day'
-import AppBarChart from './AppBarChart'
 
 type Docs = UsersMartyrsRelation['martyr']['documents']
 
@@ -35,10 +38,9 @@ const columns = [
 	{ key: 'doneStatus', label: 'تایید شده', align: 'center' },
 ]
 
-interface Props {
-	user_martyrs: UsersMartyrsRelation[]
-}
-export default function UserMartyrsStatistics({ user_martyrs }: Props) {
+export default function UserMartyrsStatistics() {
+	const { userInfo } = userStore()
+
 	const [page, setPage] = useState(0)
 	const [rowsPerPage, setRowsPerPage] = useState(10)
 
@@ -58,24 +60,24 @@ export default function UserMartyrsStatistics({ user_martyrs }: Props) {
 	}
 
 	useEffect(() => {
-		if (!user_martyrs || !user_martyrs.length) return
+		if (!userInfo.users_martyrs || !userInfo.users_martyrs.length) return
 
 		let beginDate = ''
 		let doneDocs = 0
 		let allDocs = [] as Docs
 
-		user_martyrs.sort((a, b) => {
+		userInfo.users_martyrs.sort((a, b) => {
 			return new Date(a.start).getTime() - new Date(b.start).getTime()
 		})
-		beginDate = user_martyrs[0].start
+		beginDate = userInfo.users_martyrs[0].start
 
-		user_martyrs.forEach((userMartyrRelation) => {
+		userInfo.users_martyrs.forEach((userMartyrRelation) => {
 			allDocs = [...allDocs, ...userMartyrRelation.martyr.documents]
 		})
 		doneDocs = allDocs.filter((d) => d.status === 'done').length
 
 		setStatistics({ beginDate, allDocs, doneDocs })
-	}, [user_martyrs])
+	}, [userInfo.users_martyrs])
 	return (
 		<>
 			<section className="my-6">
@@ -85,15 +87,23 @@ export default function UserMartyrsStatistics({ user_martyrs }: Props) {
 
 				<ChartDetailsWrapper>
 					<li>
-						<span className="bg-opacity-100" /> تعداد اسناد در اختیار گذاشته شده:
+						<i className="bg-opacity-100" /> تعداد اسناد در اختیار گذاشته شده:
 						{statistics.allDocs.length}
 					</li>
 
 					<li>
-						<span /> تعداد اسناد گویا سازی شده: {statistics.doneDocs}
+						<i /> تعداد اسناد گویا سازی شده: {statistics.doneDocs}
 					</li>
 
 					<li>تاریخ شروع نمایه سازی: {jalaliDate(statistics.beginDate) || '--'}</li>
+
+					<li>
+						<Link to={`/users/${userInfo.id}/works-report?name=${userInfo.name}`}>
+							<Button variant="contained" size="small" className="text-white">
+								گزارش عملکرد
+							</Button>
+						</Link>
+					</li>
 				</ChartDetailsWrapper>
 			</section>
 
@@ -111,7 +121,7 @@ export default function UserMartyrsStatistics({ user_martyrs }: Props) {
 						</TableHead>
 
 						<TableBody>
-							{user_martyrs
+							{userInfo.users_martyrs
 								?.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
 								?.map((row, index) => {
 									return (
@@ -186,7 +196,7 @@ export default function UserMartyrsStatistics({ user_martyrs }: Props) {
 						page={page}
 						component="div"
 						rowsPerPage={rowsPerPage}
-						count={user_martyrs?.length || 0}
+						count={userInfo.users_martyrs?.length || 0}
 						rowsPerPageOptions={[10, 20, 40]}
 						labelRowsPerPage="تعداد در صفحه"
 						onPageChange={handleChangePage}
@@ -202,7 +212,7 @@ export default function UserMartyrsStatistics({ user_martyrs }: Props) {
 const ChartDetailsWrapper = styled.ul(() => [
 	tw`mt-4 flex gap-6`,
 	{
-		span: tw`w-3.5 h-3.5 border rounded-full bg-primary bg-opacity-40 inline-block`,
+		i: tw`w-3.5 h-3.5 border rounded-full bg-primary bg-opacity-40 inline-block`,
 		li: tw`flex items-center gap-2`,
 	},
 ])

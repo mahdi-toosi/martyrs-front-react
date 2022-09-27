@@ -18,4 +18,8 @@ export default (axios: AxiosInstance): RUsers => ({
 	delete(id) {
 		return axios.delete(`${UsersService}/${id}`)
 	},
+
+	getWorksReport(params) {
+		return axios.get('usersWorkingReport', { params })
+	},
 })

@@ -44,9 +44,47 @@ export interface Users extends Pagination {
 	data: User[]
 }
 
+export interface GetUsersWorksReportPayload {
+	id: number
+	end_time: string
+	start_time: string
+	'$sort[start_time]'?: 1 | -1
+}
+
+export interface WorksReport {
+	id: number
+	report: string
+	end_time: string
+	start_time: string
+	sum_sec: number
+	sum_min: number
+}
+
+export interface UserWithWorksReport {
+	id: number
+	name: string
+	role: number
+	present_lastDate: string
+	working_reports: WorksReport[]
+	// added in front
+	group_reports: {
+		date: string
+		sec: number
+		min: number
+		countDocs: number
+		data: WorksReport[]
+	}[]
+}
+
+export interface UsersWithWorksReport extends Pagination {
+	data: UserWithWorksReport[]
+}
+
 export interface RUsers {
 	get(payload: UsersPayload): Promise<Users | undefined>
 	getById(id: string): Promise<User | undefined>
 	update(payload: User): Promise<User | undefined>
 	delete(id: number): Promise<undefined>
+
+	getWorksReport(payload: GetUsersWorksReportPayload): Promise<UsersWithWorksReport>
 }

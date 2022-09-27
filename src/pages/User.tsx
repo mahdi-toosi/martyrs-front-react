@@ -17,10 +17,9 @@ export default function User() {
 	const { id } = useParams()
 	const queries = getRouteQueries()
 	const { users: usersRepo } = useRepositories()
-	const { user: storedUser, userInfo, setUserInfo } = userStore()
 
+	const { userInfo, setUserInfo } = userStore()
 	const [fetchLoading, setFetchLoading] = useState(false)
-	const [storeLoading, setStoreLoading] = useState(false)
 
 	const fetchUser = async () => {
 		setFetchLoading(true)
@@ -44,9 +43,9 @@ export default function User() {
 				مدیریت کاربر {queries.name ? ` | ${userInfo.name || queries.name}` : ''}
 			</Typography>
 
-			<UserMartyrsStatistics user_martyrs={userInfo.users_martyrs} />
+			<UserMartyrsStatistics />
 
-			<UserInfoForm showDeleteButton={storedUser?.id !== Number(id)} />
+			<UserInfoForm />
 		</DefaultLayout>
 	)
 }

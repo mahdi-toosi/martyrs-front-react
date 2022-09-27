@@ -141,46 +141,47 @@ export default function Martyr() {
 }
 
 const setDefaultValues = (martyr: MartyrType) => {
-	if (martyr.city) {
-		martyr.defaultCity = { name: martyr.city }
+	const m = martyr
+	if (m.city) {
+		m.defaultCity = { name: m.city }
 	}
-	if (martyr.state) {
-		martyr.defaultState = { name: martyr.state }
+	if (m.state) {
+		m.defaultState = { name: m.state }
 	}
-	if (martyr.originality_state) {
-		martyr.defaultOriginalityState = { name: martyr.originality_state }
+	if (m.originality_state) {
+		m.defaultOriginalityState = { name: m.originality_state }
 	}
-	if (martyr.originality_city) {
-		martyr.defaultOriginalityCity = { name: martyr.originality_city }
-	}
-
-	if (martyr.burial_state) {
-		martyr.defaultBurialState = { name: martyr.burial_state }
-	}
-	if (martyr.burial_city) {
-		martyr.defaultBurialCity = { name: martyr.burial_city }
+	if (m.originality_city) {
+		m.defaultOriginalityCity = { name: m.originality_city }
 	}
 
-	martyr.taxonomies_relations.forEach((t_r) => {
+	if (m.burial_state) {
+		m.defaultBurialState = { name: m.burial_state }
+	}
+	if (m.burial_city) {
+		m.defaultBurialCity = { name: m.burial_city }
+	}
+
+	m.taxonomies_relations.forEach((t_r) => {
 		const type = t_r.taxonomy?.type.trim()
 
 		if (type === 'category') {
-			if (!martyr.categories) martyr.categories = []
-			martyr.categories.push(t_r)
+			if (!m.categories) m.categories = []
+			m.categories.push(t_r)
 		}
 		if (type === 'tag') {
-			if (!martyr.tags) martyr.tags = []
-			martyr.tags.push(t_r)
+			if (!m.tags) m.tags = []
+			m.tags.push(t_r)
 		}
 		if (type === 'operation') {
-			if (!martyr.operations) martyr.operations = []
-			martyr.operations.push(t_r)
+			if (!m.operations) m.operations = []
+			m.operations.push(t_r)
 		}
 	})
 
-	martyr.defaultTags = martyr.tags
-	martyr.defaultCategories = martyr.categories
-	martyr.defaultOperations = martyr.operations
+	m.defaultTags = m.tags
+	m.defaultCategories = m.categories
+	m.defaultOperations = m.operations
 
 	return martyr
 }

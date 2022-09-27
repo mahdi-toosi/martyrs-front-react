@@ -21,13 +21,12 @@ import { Visibility, VisibilityOff } from '@mui/icons-material'
 import InputAdornment from '@mui/material/InputAdornment'
 // ? types
 import type { User } from '@/repositories/users/types'
+import { useParams } from 'react-router-dom'
 
-interface Props {
-	showDeleteButton: boolean
-}
-export default function UserInfoForm({ showDeleteButton }: Props) {
+export default function UserInfoForm() {
+	const { id } = useParams()
 	const { users } = useRepositories()
-	const { userInfo, setUserInfo } = userStore()
+	const { user: storedUser, userInfo, setUserInfo } = userStore()
 
 	const [removeLoading, setRemoveLoading] = useState(false)
 
@@ -142,7 +141,7 @@ export default function UserInfoForm({ showDeleteButton }: Props) {
 			</section>
 
 			<section className="__buttons">
-				{showDeleteButton && (
+				{storedUser?.id !== Number(id) && (
 					<LoadingButton
 						loading={removeLoading}
 						color="error"

@@ -18,8 +18,11 @@ export function jalaliDate(date?: string, format: 'date' | 'dateTime' | string =
 		.format(f || format)
 }
 
-export function gregoryDate(date?: string, mode: 'date' | 'dateTime' | string = 'date') {
+export function gregoryDate(date?: string, format: 'date' | 'dateTime' | string = 'date') {
 	if (!date) return false
-	const format = mode === 'date' ? 'YYYY/MM/DD' : ' HH:mm YYYY/MM/DD'
-	return dayjs(date, { jalali: true }).format(format)
+	let f
+	if (format === 'date') f = 'YYYY/MM/DD'
+	else if (format === 'dateTime') f = 'HH:mm YYYY/MM/DD'
+
+	return dayjs(date, { jalali: true }).format(f || format)
 }
