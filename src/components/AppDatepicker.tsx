@@ -1,42 +1,80 @@
 // ? react
-import { useRef, KeyboardEvent } from 'react'
+import { useRef, KeyboardEvent, useState, useEffect } from 'react'
 // ? components
 import DatePicker, { DateObject } from 'react-multi-date-picker'
 import TextField from '@mui/material/TextField'
 // ? utils
+import { gregoryDate, jalaliDate } from '@/utils/day'
 import persian from 'react-date-object/calendars/persian'
 import persian_fa from 'react-date-object/locales/persian_fa'
 import transition from 'react-element-popper/animations/transition'
 // ? styles
 import 'react-multi-date-picker/styles/colors/yellow.css'
 import 'react-multi-date-picker/styles/backgrounds/bg-dark.css'
-import { gregoryDate } from '@/utils/day'
 
 interface Props {
 	label: string
+	range?: boolean
+	maxDate?: string
 	disabled?: boolean
-	defaultValue: string
-	onChange: (gregoryDate: string) => void
+	defaultValue?: string | string[]
+	onChange: (gregoryDate: string | string[]) => void
 }
-export default function AppDatepicker({ defaultValue, label, disabled, onChange }: Props) {
+export default function AppDatepicker({
+	range,
+	label,
+	disabled,
+	maxDate,
+	onChange,
+	defaultValue,
+}: Props) {
 	const datePickerRef = useRef()
+	const [currectDefaultValue, setCurrectDefaultValue] = useState<string | string[]>()
 
-	function handleChange(e: DateObject) {
-		const jDate = `${e.year}/${e.month.number}/${e.day}`
-		onChange(new Date(gregoryDate(jDate) as string).toISOString())
+	useEffect(() => {
+		if (range && defaultValue) {
+			const dates = [] as string[]
+			;(defaultValue as string[]).forEach((d) => {
+				dates.push(jalaliDate(d) as string)
+			})
+
+			setCurrectDefaultValue(dates)
+		} else {
+			setCurrectDefaultValue(defaultValue)
+		}
+	}, [defaultValue, range])
+
+	function handleChange(e: DateObject | DateObject[]) {
+		if (range) {
+			const dates = e as DateObject[]
+			const GDates = [] as string[]
+
+			dates.forEach((d) => {
+				const JDate = `${d.year}-${d.month.number}-${d.day}`
+				GDates.push(gregoryDate(JDate, 'YYYY-MM-DD') as string)
+			})
+
+			onChange(GDates)
+		} else {
+			const d = e as DateObject
+			const JDate = `${d.year}-${d.month.number}-${d.day}`
+			onChange(gregoryDate(JDate, 'YYYY-MM-DD') as string)
+		}
 	}
 
 	return (
 		<DatePicker
 			portal
+			range={range}
 			calendar={persian}
 			locale={persian_fa}
 			ref={datePickerRef}
-			value={defaultValue}
+			maxDate={maxDate}
+			value={currectDefaultValue}
 			onChange={handleChange}
-			animations={[transition()]}
 			className="yellow bg-dark"
 			calendarPosition="bottom-right"
+			animations={range ? undefined : [transition()]}
 			render={<Input label={label} disabled={disabled} />}
 		/>
 	)
@@ -58,11 +96,12 @@ function Input({ openCalendar, value, handleValueChange, label, disabled }: Inpu
 			label={label}
 			value={value}
 			variant="standard"
-			onKeyPress={handleKeyPress}
-			className="w-full"
+			autoComplete="off"
 			disabled={disabled}
 			onFocus={openCalendar}
+			onKeyPress={handleKeyPress}
 			onChange={handleValueChange}
+			className="__datepicker_input_wrapper"
 		/>
 	)
 }
