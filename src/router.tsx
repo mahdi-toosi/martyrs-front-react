@@ -24,6 +24,7 @@ const Document = lazy(() => import('@/pages/Document'))
 const Dashboard = lazy(() => import('@/pages/Dashboard'))
 const Documents = lazy(() => import('@/pages/Documents'))
 const UserWorksReport = lazy(() => import('@/pages/UserWorksReport'))
+const UsersWorksReport = lazy(() => import('@/pages/UsersWorksReport'))
 
 function AuthCheck() {
 	const location = useLocation()
@@ -50,6 +51,7 @@ export default function Router() {
 						<Route path="/martyrs/:id" element={<Martyr />} />
 						<Route path="/documents" element={<Documents />} />
 						<Route path="/documents/:id" element={<Document />} />
+						<Route path="/users/works-report" element={<UsersWorksReport />} />
 						<Route path="/users/:id/works-report" element={<UserWorksReport />} />
 					</Route>
 

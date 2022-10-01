@@ -86,7 +86,7 @@ export default function UserWorksReport() {
 		let end = rangeDate ? rangeDate[1] : queries.end_time
 
 		if (!end || !start) {
-			start = getJalaliWrapper(today).subtract(1, 'week').format('YYYY-MM-DD')
+			start = getJalaliWrapper(today).subtract(1, 'month').format('YYYY-MM-DD')
 			start = gregoryDate(start, 'YYYY-MM-DD') as string
 			end = today
 		}

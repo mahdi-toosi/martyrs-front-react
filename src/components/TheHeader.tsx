@@ -62,6 +62,13 @@ export default function TheHeader() {
 							</Button>
 						</Link>
 					</li>
+					<li>
+						<Link to="/users/works-report">
+							<Button size="large" className="text-white">
+								گزارش عملکرد
+							</Button>
+						</Link>
+					</li>
 				</LinksList>
 			</div>
 

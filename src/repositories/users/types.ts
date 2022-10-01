@@ -46,6 +46,9 @@ export interface Users extends Pagination {
 
 export interface GetUsersWorksReportPayload {
 	id: number
+	role?: number
+	$skip?: number
+	$limit?: number
 	end_time: string
 	start_time: string
 	'$sort[start_time]'?: 1 | -1
@@ -67,6 +70,9 @@ export interface UserWithWorksReport {
 	present_lastDate: string
 	working_reports: WorksReport[]
 	// added in front
+	sum_min?: number
+	sum_hour?: number
+	countDocs?: number
 	group_reports: {
 		date: string
 		sec: number
@@ -86,5 +92,5 @@ export interface RUsers {
 	update(payload: User): Promise<User | undefined>
 	delete(id: number): Promise<undefined>
 
-	getWorksReport(payload: GetUsersWorksReportPayload): Promise<UsersWithWorksReport>
+	getWorksReport(payload: GetUsersWorksReportPayload): Promise<UsersWithWorksReport | undefined>
 }
