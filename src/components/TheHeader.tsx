@@ -106,6 +106,7 @@ const Header = styled.header(() => [
 	'background-color: #d1aa24;',
 	'box-shadow: #d1a9248c 0px 5px 7px 0;',
 	tw`flex justify-between items-center rounded-b-xl overflow-hidden text-white`,
+	{ button: tw`!border-0` },
 ])
 const LinksList = tw.ul`flex gap-5 mr-5`
 const Ul = tw.ul`flex items-center gap-5 ml-5`
