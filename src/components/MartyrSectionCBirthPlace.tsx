@@ -11,7 +11,7 @@ import AppAutoComplete from '@/components/AppAutoComplete'
 import MartyrSectionWrapper from '@/components/MartyrSectionWrapper'
 
 export default function MartyrSectionCBirthPlace() {
-	const { user } = userStore()
+	const { hasPermission } = userStore()
 	const { updateMartyr, martyr } = martyrsStore()
 	const [cities, setCities] = useState([] as typeof citiesJson)
 	const [citiesKey, setCitiesKey] = useState(new Date().getTime())
@@ -35,6 +35,7 @@ export default function MartyrSectionCBirthPlace() {
 				onChange={setState}
 				label="استان محل تولد"
 				optionLabel={(op) => op.name}
+				disabled={!hasPermission('defaultState')}
 				defaultValue={martyr.defaultState}
 			/>
 
@@ -44,6 +45,7 @@ export default function MartyrSectionCBirthPlace() {
 				options={cities}
 				optionLabel={(op) => op.name}
 				defaultValue={martyr.defaultCity}
+				disabled={!hasPermission('defaultCity')}
 				noOptionsText="ابتدا استان را انتخاب کنید."
 				onChange={(e) => updateMartyr('city', e)}
 			/>
@@ -52,6 +54,7 @@ export default function MartyrSectionCBirthPlace() {
 				label="شهرستان محل تولد"
 				variant="standard"
 				defaultValue={martyr.county}
+				disabled={!hasPermission('county')}
 				onChange={(e) => updateMartyr('county', e)}
 			/>
 
@@ -59,6 +62,7 @@ export default function MartyrSectionCBirthPlace() {
 				label="روستای محل تولد"
 				variant="standard"
 				defaultValue={martyr.village}
+				disabled={!hasPermission('village')}
 				onChange={(e) => updateMartyr('village', e)}
 			/>
 		</MartyrSectionWrapper>

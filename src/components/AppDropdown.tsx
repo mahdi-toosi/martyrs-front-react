@@ -6,21 +6,30 @@ import FormControl from '@mui/material/FormControl'
 type Value = string | number
 interface Props {
 	label: string
+	disabled?: boolean
 	className?: string
 	defaultValue?: Value
 	options: { label: string; value: Value }[]
 	onChange: (value: string | number) => void
 }
 
-export default function AppDropdown({ label, defaultValue, onChange, options, className }: Props) {
+export default function AppDropdown({
+	label,
+	options,
+	disabled,
+	onChange,
+	className,
+	defaultValue,
+}: Props) {
 	return (
 		<FormControl className={className}>
 			<InputLabel>{label}</InputLabel>
 
 			<Select
-				defaultValue={defaultValue}
 				size="small"
 				variant="standard"
+				disabled={disabled}
+				defaultValue={defaultValue}
 				onChange={(e) => onChange(e.target.value)}
 			>
 				{options.map((option) => (

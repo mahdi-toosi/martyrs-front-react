@@ -13,7 +13,7 @@ import MartyrSectionWrapper from '@/components/MartyrSectionWrapper'
 import type { TaxonomyRelation } from '@/repositories/taxonomies/types'
 
 export default function MartyrSectionGMartyrdom() {
-	const { user } = userStore()
+	const { hasPermission } = userStore()
 	const { taxonomies } = useRepositories()
 	const { updateMartyr, martyr } = martyrsStore()
 
@@ -39,6 +39,7 @@ export default function MartyrSectionGMartyrdom() {
 			<AppDatepicker
 				label="تاریخ شهادت"
 				defaultValue={martyr.dateTo}
+				disabled={!hasPermission('dateTo')}
 				onChange={(e) => updateMartyr('dateTo', e)}
 			/>
 
@@ -46,6 +47,7 @@ export default function MartyrSectionGMartyrdom() {
 				label="محل شهادت"
 				variant="standard"
 				defaultValue={martyr.locTo}
+				disabled={!hasPermission('locTo')}
 				onChange={(e) => updateMartyr('locTo', e)}
 			/>
 
@@ -53,6 +55,7 @@ export default function MartyrSectionGMartyrdom() {
 				label="عملیات شهادت"
 				variant="standard"
 				defaultValue={martyr.operationTO}
+				disabled={!hasPermission('operationTO')}
 				onChange={(e) => updateMartyr('operationTO', e)}
 			/>
 
@@ -60,18 +63,20 @@ export default function MartyrSectionGMartyrdom() {
 				label="نحوه شهادت"
 				variant="standard"
 				defaultValue={martyr.howTo}
+				disabled={!hasPermission('howTo')}
 				onChange={(e) => updateMartyr('howTo', e)}
 			/>
 
 			<AppAutoComplete
 				multiple
-				options={categories}
-				className="w-full"
-				fetchLoading={loading}
 				label="دسته بندی"
+				className="w-full"
+				options={categories}
+				fetchLoading={loading}
 				onSendRequest={searchInCategories}
 				defaultValue={martyr.defaultCategories}
 				optionLabel={(op) => op.taxonomy?.name}
+				disabled={!hasPermission('defaultCategories')}
 				onChange={(e) => updateMartyr('categories', e)}
 			/>
 		</MartyrSectionWrapper>

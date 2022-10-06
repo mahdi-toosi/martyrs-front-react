@@ -9,7 +9,7 @@ import AppSwitchButton from '@/components/AppSwitchButton'
 import MartyrSectionWrapper from '@/components/MartyrSectionWrapper'
 
 export default function MartyrSectionEFamilyStatus() {
-	const { user } = userStore()
+	const { hasPermission } = userStore()
 	const { updateMartyr, martyr } = martyrsStore()
 
 	return (
@@ -18,6 +18,7 @@ export default function MartyrSectionEFamilyStatus() {
 				label="تحصیلات"
 				options={educationDegrees}
 				defaultValue={martyr.education}
+				disabled={!hasPermission('education')}
 				onChange={(e) => updateMartyr('education', e)}
 			/>
 
@@ -25,6 +26,7 @@ export default function MartyrSectionEFamilyStatus() {
 				label="شغل"
 				variant="standard"
 				defaultValue={martyr.job}
+				disabled={!hasPermission('job')}
 				onChange={(e) => updateMartyr('job', e)}
 			/>
 
@@ -32,6 +34,7 @@ export default function MartyrSectionEFamilyStatus() {
 				label="دین"
 				variant="standard"
 				defaultValue={martyr.religion}
+				disabled={!hasPermission('religion')}
 				onChange={(e) => updateMartyr('religion', e)}
 			/>
 
@@ -39,6 +42,7 @@ export default function MartyrSectionEFamilyStatus() {
 				label="مذهب"
 				variant="standard"
 				defaultValue={martyr.sect}
+				disabled={!hasPermission('sect')}
 				onChange={(e) => updateMartyr('religion', e)}
 			/>
 
@@ -46,12 +50,14 @@ export default function MartyrSectionEFamilyStatus() {
 				label="وضعیت تأهل"
 				options={marriedOptions}
 				defaultValue={martyr.married}
+				disabled={!hasPermission('married')}
 				onChange={(e) => updateMartyr('married', e)}
 			/>
 
 			<AppDatepicker
-				defaultValue={martyr.M_Date}
 				label="تاریخ ازدواج"
+				defaultValue={martyr.M_Date}
+				disabled={!hasPermission('M_Date')}
 				onChange={(e) => updateMartyr('M_Date', e)}
 			/>
 
@@ -59,6 +65,7 @@ export default function MartyrSectionEFamilyStatus() {
 				label="تعداد فرزند"
 				variant="standard"
 				defaultValue={martyr.children_num}
+				disabled={!hasPermission('children_num')}
 				onChange={(e) => updateMartyr('children_num', e)}
 			/>
 		</MartyrSectionWrapper>

@@ -8,7 +8,7 @@ import AppSwitchButton from '@/components/AppSwitchButton'
 import MartyrSectionWrapper from '@/components/MartyrSectionWrapper'
 
 export default function MartyrSectionBIdInfo() {
-	const { user } = userStore()
+	const { hasPermission } = userStore()
 	const { updateMartyr, martyr } = martyrsStore()
 
 	return (
@@ -17,6 +17,7 @@ export default function MartyrSectionBIdInfo() {
 				label="نام"
 				variant="standard"
 				defaultValue={martyr.name}
+				disabled={!hasPermission('name')}
 				onChange={(e) => updateMartyr('name', e)}
 			/>
 
@@ -24,6 +25,7 @@ export default function MartyrSectionBIdInfo() {
 				label="نام خانوادگی"
 				variant="standard"
 				defaultValue={martyr.lastName}
+				disabled={!hasPermission('lastName')}
 				onChange={(e) => updateMartyr('lastName', e)}
 			/>
 
@@ -31,6 +33,7 @@ export default function MartyrSectionBIdInfo() {
 				label="شهرت، لقب"
 				variant="standard"
 				defaultValue={martyr.title}
+				disabled={!hasPermission('title')}
 				onChange={(e) => updateMartyr('title', e)}
 			/>
 
@@ -38,6 +41,7 @@ export default function MartyrSectionBIdInfo() {
 				label="نام پدر"
 				variant="standard"
 				defaultValue={martyr.fatherName}
+				disabled={!hasPermission('fatherName')}
 				onChange={(e) => updateMartyr('fatherName', e)}
 			/>
 
@@ -45,12 +49,14 @@ export default function MartyrSectionBIdInfo() {
 				label="نام مادر"
 				variant="standard"
 				defaultValue={martyr.motherName}
+				disabled={!hasPermission('motherName')}
 				onChange={(e) => updateMartyr('motherName', e)}
 			/>
 
 			<AppDatepicker
 				defaultValue={martyr.BD_Date}
 				label="تاریخ تولد"
+				disabled={!hasPermission('BD_Date')}
 				onChange={(e) => updateMartyr('BD_Date', e)}
 			/>
 
@@ -58,6 +64,7 @@ export default function MartyrSectionBIdInfo() {
 				label="جنسیت"
 				options={genderSwitchOptions}
 				defaultValue={martyr.gender}
+				disabled={!hasPermission('gender')}
 				onChange={(e) => updateMartyr('gender', e)}
 			/>
 		</MartyrSectionWrapper>

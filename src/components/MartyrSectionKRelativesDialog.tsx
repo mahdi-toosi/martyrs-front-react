@@ -1,19 +1,19 @@
 // ? react
 import { FormEvent, useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
 // ? utils
 import tw, { styled } from 'twin.macro'
+import userStore from '@/stores/user'
 import { useRepositories } from '@/repositories'
 import { genderSwitchOptions, educationDegrees } from '@/stores/martyrs'
 // ? components
 import TextField from '@mui/material/TextField'
 import AppDialog from '@/components/AppDialog'
 import LoadingButton from '@mui/lab/LoadingButton'
+import AppDropdown from '@/components/AppDropDown'
+import AppDatepicker from '@/components/AppDatepicker'
 import AppSwitchButton from '@/components/AppSwitchButton'
 // ? types
 import type { Relative } from '@/repositories/relatives/types'
-import AppDropdown from './AppDropDown'
-import AppDatepicker from './AppDatepicker'
 
 const AliveOptions = [
 	{ label: 'زنده', value: true },
@@ -32,7 +32,7 @@ export default function MartyrSectionKRelativesDialog({
 	onClose,
 	relative: relativeProp,
 }: Props) {
-	const { id } = useParams()
+	const { hasPermission } = userStore()
 	const { relatives: relativesRepo } = useRepositories()
 
 	const [visible, setVisible] = useState(false)
@@ -81,6 +81,7 @@ export default function MartyrSectionKRelativesDialog({
 					label="نام و نام خانوادگی"
 					variant="standard"
 					defaultValue={relative.name}
+					disabled={!hasPermission('name', 'relatives')}
 					onChange={(e) => handleChange('name', e.target.value)}
 				/>
 
@@ -88,6 +89,7 @@ export default function MartyrSectionKRelativesDialog({
 					label="نسبت"
 					variant="standard"
 					defaultValue={relative.relation}
+					disabled={!hasPermission('relation', 'relatives')}
 					onChange={(e) => handleChange('relation', e.target.value)}
 				/>
 
@@ -95,6 +97,7 @@ export default function MartyrSectionKRelativesDialog({
 					label="شماره تلفن"
 					variant="standard"
 					defaultValue={relative.phone}
+					disabled={!hasPermission('phone', 'relatives')}
 					onChange={(e) => handleChange('phone', e.target.value)}
 				/>
 
@@ -102,6 +105,7 @@ export default function MartyrSectionKRelativesDialog({
 					label="شماره تلفن همراه"
 					variant="standard"
 					defaultValue={relative.mobile}
+					disabled={!hasPermission('mobile', 'relatives')}
 					onChange={(e) => handleChange('mobile', e.target.value)}
 				/>
 
@@ -109,13 +113,15 @@ export default function MartyrSectionKRelativesDialog({
 					label="شغل"
 					variant="standard"
 					defaultValue={relative.job}
+					disabled={!hasPermission('job', 'relatives')}
 					onChange={(e) => handleChange('job', e.target.value)}
 				/>
 
 				<TextField
-					label="وضعیت ایثارگری"
 					variant="standard"
+					label="وضعیت ایثارگری"
 					defaultValue={relative.StatusOfSacrifice}
+					disabled={!hasPermission('StatusOfSacrifice', 'relatives')}
 					onChange={(e) => handleChange('StatusOfSacrifice', e.target.value)}
 				/>
 
@@ -124,18 +130,21 @@ export default function MartyrSectionKRelativesDialog({
 					options={educationDegrees}
 					defaultValue={relative.education}
 					onChange={(e) => handleChange('education', e)}
+					disabled={!hasPermission('education', 'relatives')}
 				/>
 
 				<AppDatepicker
-					defaultValue={relative.BD_Date}
 					label="تاریخ تولد"
+					defaultValue={relative.BD_Date}
 					onChange={(e) => handleChange('BD_Date', e)}
+					disabled={!hasPermission('BD_Date', 'relatives')}
 				/>
 
 				<AppSwitchButton
 					label="جنسیت"
-					options={genderSwitchOptions}
 					defaultValue={relative.gender}
+					options={genderSwitchOptions}
+					disabled={!hasPermission('gender', 'relatives')}
 					onChange={(e) => handleChange('gender', e)}
 				/>
 
@@ -143,6 +152,7 @@ export default function MartyrSectionKRelativesDialog({
 					label="وضعیت حیات"
 					options={AliveOptions}
 					defaultValue={relative.alive}
+					disabled={!hasPermission('alive', 'relatives')}
 					onChange={(e) => handleChange('alive', e)}
 				/>
 
@@ -153,6 +163,7 @@ export default function MartyrSectionKRelativesDialog({
 					variant="standard"
 					className="w-full"
 					defaultValue={relative.address}
+					disabled={!hasPermission('address', 'relatives')}
 					onChange={(e) => handleChange('address', e.target.value)}
 				/>
 

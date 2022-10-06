@@ -9,7 +9,7 @@ import TextField from '@mui/material/TextField'
 import PortraitIcon from '@mui/icons-material/Portrait'
 
 export default function MartyrSectionA() {
-	const { user } = userStore()
+	const { hasPermission } = userStore()
 	const { updateMartyr, martyr } = martyrsStore()
 
 	const imageInput = useRef<null | HTMLInputElement>(null)
@@ -48,7 +48,9 @@ export default function MartyrSectionA() {
 						alt="martyr pic"
 					/>
 				) : (
-					<PortraitIcon className="__avatar_svg" onClick={() => imageInput.current?.click()} />
+					hasPermission('image') && (
+						<PortraitIcon className="__avatar_svg" onClick={() => imageInput.current?.click()} />
+					)
 				)}
 
 				<input
@@ -65,6 +67,7 @@ export default function MartyrSectionA() {
 					variant="standard"
 					className="w-72"
 					defaultValue={martyr.code}
+					disabled={!hasPermission('code')}
 					onChange={(e) => updateMartyr('code', e)}
 				/>
 
@@ -73,6 +76,7 @@ export default function MartyrSectionA() {
 					variant="standard"
 					className="w-72"
 					defaultValue={martyr.N_Code}
+					disabled={!hasPermission('N_Code')}
 					onChange={(e) => updateMartyr('N_Code', e)}
 				/>
 
@@ -81,6 +85,7 @@ export default function MartyrSectionA() {
 					variant="standard"
 					className="w-72"
 					defaultValue={martyr.Sacrifice_Code}
+					disabled={!hasPermission('Sacrifice_Code')}
 					onChange={(e) => updateMartyr('N_Code', e)}
 				/>
 
@@ -89,6 +94,7 @@ export default function MartyrSectionA() {
 					variant="standard"
 					className="w-72"
 					defaultValue={martyr.BC_Code}
+					disabled={!hasPermission('BC_Code')}
 					onChange={(e) => updateMartyr('N_Code', e)}
 				/>
 			</ElementsWrapper>

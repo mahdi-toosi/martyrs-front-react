@@ -48,13 +48,15 @@ export default function TheHeader() {
 							</Button>
 						</Link>
 					</li>
-					<li>
-						<Link to="/users">
-							<Button size="large" className="text-white">
-								کاربران
-							</Button>
-						</Link>
-					</li>
+					{user?.role === 48 && (
+						<li>
+							<Link to="/users">
+								<Button size="large" className="text-white">
+									کاربران
+								</Button>
+							</Link>
+						</li>
+					)}
 					<li>
 						<Link to="/martyrs">
 							<Button size="large" className="text-white">
@@ -62,13 +64,15 @@ export default function TheHeader() {
 							</Button>
 						</Link>
 					</li>
-					<li>
-						<Link to="/users/works-report">
-							<Button size="large" className="text-white">
-								گزارش عملکرد
-							</Button>
-						</Link>
-					</li>
+					{user?.role === 48 && (
+						<li>
+							<Link to="/users/works-report">
+								<Button size="large" className="text-white">
+									گزارش عملکرد
+								</Button>
+							</Link>
+						</li>
+					)}
 				</LinksList>
 			</div>
 
@@ -76,12 +80,7 @@ export default function TheHeader() {
 				{user?.id && (
 					<li>
 						<Link to={`/users/${user.id}`}>
-							<Button
-								size="large"
-								startIcon={<AccountCircleOutlined />}
-								onClick={logout}
-								className="text-white"
-							>
+							<Button size="large" startIcon={<AccountCircleOutlined />} className="text-white">
 								{roles[user.role]}: {user.name}
 							</Button>
 						</Link>

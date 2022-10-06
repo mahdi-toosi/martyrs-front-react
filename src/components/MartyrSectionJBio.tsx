@@ -9,14 +9,14 @@ import tw, { styled } from 'twin.macro'
 // ? types
 import type { Martyr } from '@/repositories/martyrs/types'
 
-const textEditors = [
+const textEditors: { label: string; key: keyof Martyr }[] = [
 	{ label: 'وصیت نامه', key: 'will' },
 	{ label: 'زندگی نامه', key: 'bio' },
 	{ label: 'گزیده وصیت نامه', key: 'will_excerpts' },
 	{ label: 'فرازی از وصیت نامه', key: 'will_sum' },
 ]
 export default function MartyrSectionJBio() {
-	const { user } = userStore()
+	const { hasPermission } = userStore()
 	const { updateMartyr, martyr } = martyrsStore()
 
 	return (
@@ -25,6 +25,7 @@ export default function MartyrSectionJBio() {
 				<div key={textEditor.key}>
 					<AppTitleTypeA title={textEditor.label} />
 					<AppTextEditor
+						disabled={!hasPermission(textEditor.key)}
 						defaultValue={martyr[textEditor.key as keyof Martyr] as string}
 						onChange={(e) => updateMartyr(textEditor.key as keyof Martyr, e)}
 					/>

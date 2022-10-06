@@ -11,7 +11,7 @@ import AppAutoComplete from '@/components/AppAutoComplete'
 import MartyrSectionWrapper from '@/components/MartyrSectionWrapper'
 
 export default function MartyrSectionDOriginality() {
-	const { user } = userStore()
+	const { hasPermission } = userStore()
 	const { updateMartyr, martyr } = martyrsStore()
 	const [cities, setCities] = useState([] as typeof citiesJson)
 	const [citiesKey, setCitiesKey] = useState(new Date().getTime())
@@ -36,6 +36,7 @@ export default function MartyrSectionDOriginality() {
 				onChange={setOriginalityState}
 				optionLabel={(op) => op.name}
 				defaultValue={martyr.defaultOriginalityState}
+				disabled={!hasPermission('defaultOriginalityState')}
 			/>
 
 			<AppAutoComplete
@@ -45,6 +46,7 @@ export default function MartyrSectionDOriginality() {
 				optionLabel={(op) => op.name}
 				defaultValue={martyr.defaultOriginalityCity}
 				noOptionsText="ابتدا اصالت استان را انتخاب کنید."
+				disabled={!hasPermission('defaultOriginalityCity')}
 				onChange={(e) => updateMartyr('originality_city', e)}
 			/>
 
@@ -52,6 +54,7 @@ export default function MartyrSectionDOriginality() {
 				label="اصالت شهرستان"
 				variant="standard"
 				defaultValue={martyr.originality_county}
+				disabled={!hasPermission('originality_county')}
 				onChange={(e) => updateMartyr('originality_county', e)}
 			/>
 
@@ -59,6 +62,7 @@ export default function MartyrSectionDOriginality() {
 				label="اصالت روستا"
 				variant="standard"
 				defaultValue={martyr.originality_village}
+				disabled={!hasPermission('originality_village')}
 				onChange={(e) => updateMartyr('originality_village', e)}
 			/>
 		</MartyrSectionWrapper>

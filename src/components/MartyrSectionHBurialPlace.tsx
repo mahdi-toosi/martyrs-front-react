@@ -11,7 +11,7 @@ import AppAutoComplete from '@/components/AppAutoComplete'
 import MartyrSectionWrapper from '@/components/MartyrSectionWrapper'
 
 export default function MartyrSectionHBurialPlace() {
-	const { user } = userStore()
+	const { hasPermission } = userStore()
 	const { updateMartyr, martyr } = martyrsStore()
 	const [cities, setCities] = useState([] as typeof citiesJson)
 	const [citiesKey, setCitiesKey] = useState(new Date().getTime())
@@ -36,6 +36,7 @@ export default function MartyrSectionHBurialPlace() {
 				label="استان محل تدفین"
 				optionLabel={(op) => op.name}
 				defaultValue={martyr.defaultBurialState}
+				disabled={!hasPermission('defaultBurialState')}
 			/>
 
 			<AppAutoComplete
@@ -44,21 +45,24 @@ export default function MartyrSectionHBurialPlace() {
 				options={cities}
 				optionLabel={(op) => op.name}
 				defaultValue={martyr.defaultBurialCity}
+				disabled={!hasPermission('defaultBurialCity')}
 				noOptionsText="ابتدا استان محل تدفین را انتخاب کنید."
 				onChange={(e) => updateMartyr('burial_city', e)}
 			/>
 
 			<TextField
-				label="شهرستان محل تدفین"
 				variant="standard"
+				label="شهرستان محل تدفین"
 				defaultValue={martyr.burial_county}
+				disabled={!hasPermission('burial_county')}
 				onChange={(e) => updateMartyr('burial_county', e)}
 			/>
 
 			<TextField
-				label="روستای محل تدفین"
 				variant="standard"
+				label="روستای محل تدفین"
 				defaultValue={martyr.burial_village}
+				disabled={!hasPermission('burial_village')}
 				onChange={(e) => updateMartyr('burial_village', e)}
 			/>
 
@@ -66,6 +70,7 @@ export default function MartyrSectionHBurialPlace() {
 				label="محل تدفین"
 				variant="standard"
 				defaultValue={martyr.burial_loc}
+				disabled={!hasPermission('burial_loc')}
 				onChange={(e) => updateMartyr('burial_loc', e)}
 			/>
 
@@ -73,6 +78,7 @@ export default function MartyrSectionHBurialPlace() {
 				label="قطعه"
 				variant="standard"
 				defaultValue={martyr.burial_piece}
+				disabled={!hasPermission('burial_piece')}
 				onChange={(e) => updateMartyr('burial_piece', e)}
 			/>
 
@@ -80,6 +86,7 @@ export default function MartyrSectionHBurialPlace() {
 				label="بلوک"
 				variant="standard"
 				defaultValue={martyr.burial_block}
+				disabled={!hasPermission('burial_block')}
 				onChange={(e) => updateMartyr('burial_block', e)}
 			/>
 
@@ -87,6 +94,7 @@ export default function MartyrSectionHBurialPlace() {
 				label="شماره"
 				variant="standard"
 				defaultValue={martyr.burial_num}
+				disabled={!hasPermission('burial_num')}
 				onChange={(e) => updateMartyr('burial_num', e)}
 			/>
 		</MartyrSectionWrapper>

@@ -22,7 +22,7 @@ import type { Taxonomy, TaxonomyRelation } from '@/repositories/taxonomies/types
 
 export default function Document() {
 	const { id } = useParams()
-	const { user } = userStore()
+	const { user, hasPermission } = userStore()
 	const queries = getRouteQueries()
 	const { documents: documentsRepo, taxonomies } = useRepositories()
 
@@ -158,6 +158,7 @@ export default function Document() {
 						name="title"
 						variant="standard"
 						defaultValue={document.title}
+						disabled={!hasPermission('title', 'docs')}
 						onChange={(e) => onChangeHandler('title', e)}
 					/>
 
@@ -167,6 +168,7 @@ export default function Document() {
 						name="code"
 						variant="standard"
 						defaultValue={document.code}
+						disabled={!hasPermission('code', 'docs')}
 						onChange={(e) => onChangeHandler('code', e)}
 					/>
 
@@ -174,6 +176,7 @@ export default function Document() {
 						<AppTitleTypeA title="شرح سند" />
 						<AppTextEditor
 							defaultValue={document.sum}
+							disabled={!hasPermission('sum', 'docs')}
 							onChange={(e) => onChangeHandler('sum', e)}
 						/>
 					</div>
@@ -182,6 +185,7 @@ export default function Document() {
 						<AppTitleTypeA title="توضیح سند" />
 						<AppTextEditor
 							defaultValue={document.description}
+							disabled={!hasPermission('description', 'docs')}
 							onChange={(e) => onChangeHandler('description', e)}
 						/>
 					</div>
@@ -190,6 +194,7 @@ export default function Document() {
 						<AppTitleTypeA title="متن سند" />
 						<AppTextEditor
 							defaultValue={document.text}
+							disabled={!hasPermission('text', 'docs')}
 							onChange={(e) => onChangeHandler('text', e)}
 						/>
 
@@ -202,6 +207,7 @@ export default function Document() {
 							onChange={(e) => setTags(e)}
 							fetchLoading={fetchTagsLoading}
 							onSendRequest={fetchTagOptions}
+							disabled={!hasPermission('tags', 'docs')}
 							optionLabel={(op) => op.taxonomy?.name}
 							defaultValue={document.taxonomies_relations}
 						/>
@@ -218,9 +224,15 @@ export default function Document() {
 						</div>
 
 						<div className="__btns">
-							<Button size="small" variant="contained" onClick={() => imageInput.current?.click()}>
-								{document.image ? 'تغییر عکس سند' : 'آپلود عکس سند'}
-							</Button>
+							{!hasPermission('image', 'docs') && (
+								<Button
+									size="small"
+									variant="contained"
+									onClick={() => imageInput.current?.click()}
+								>
+									{document.image ? 'تغییر عکس سند' : 'آپلود عکس سند'}
+								</Button>
+							)}
 
 							{document.image && (
 								<Button size="small" variant="contained" onClick={showInNewTab}>

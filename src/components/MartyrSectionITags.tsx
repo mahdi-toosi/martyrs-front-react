@@ -11,7 +11,7 @@ import MartyrSectionWrapper from '@/components/MartyrSectionWrapper'
 import type { TaxonomyRelation } from '@/repositories/taxonomies/types'
 
 export default function MartyrSectionITags() {
-	const { user } = userStore()
+	const { hasPermission } = userStore()
 	const { taxonomies } = useRepositories()
 	const { updateMartyr, martyr } = martyrsStore()
 
@@ -41,6 +41,7 @@ export default function MartyrSectionITags() {
 				fetchLoading={loading}
 				label="کلید واژه ها"
 				onSendRequest={searchInTags}
+				disabled={!hasPermission('tags')}
 				defaultValue={martyr.defaultTags}
 				optionLabel={(op) => op.taxonomy?.name}
 				onChange={(e) => updateMartyr('tags', e)}

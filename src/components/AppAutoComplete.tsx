@@ -12,6 +12,7 @@ interface Props {
 	label: string
 	options: Option[]
 	multiple?: boolean
+	disabled?: boolean
 	className?: string
 	defaultValue?: Option
 	noOptionsText?: string
@@ -25,6 +26,7 @@ export default function AppAutoComplete({
 	label,
 	options,
 	multiple,
+	disabled,
 	onChange,
 	className,
 	optionLabel,
@@ -51,21 +53,22 @@ export default function AppAutoComplete({
 	return (
 		<Autocomplete
 			size="small"
+			loading={loading}
+			options={options}
 			multiple={multiple}
+			disabled={disabled}
 			open={openOptions}
 			className={className}
-			disableClearable={disableClearable}
 			defaultValue={defaultValue}
+			getOptionLabel={optionLabel}
+			noOptionsText={noOptionsText}
+			disableClearable={disableClearable}
 			onOpen={() => setOpenOptions(true)}
 			onClose={() => setOpenOptions(false)}
-			getOptionLabel={optionLabel}
-			options={options}
-			loading={loading}
 			// isOptionEqualToValue={(option, value) => option[equalityKey] === value[equalityKey]}
 			onInputChange={(event, newVal) => onUpdateQuery(newVal)}
 			onChange={(event, newVal) => onChange(newVal)}
 			loadingText="در حال جستجو..."
-			noOptionsText={noOptionsText}
 			renderInput={(params) => (
 				<TextField
 					{...params}

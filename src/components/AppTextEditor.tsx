@@ -6,10 +6,11 @@ import 'react-quill/dist/quill.snow.css'
 type Payload = ChangeEvent<{ value: string }>
 
 interface Props {
+	disabled?: boolean
 	defaultValue?: string
 	onChange?: (payload: Payload) => void
 }
-export default function AppTextEditor({ defaultValue, onChange }: Props) {
+export default function AppTextEditor({ defaultValue, onChange, disabled }: Props) {
 	const [value, setValue] = useState(defaultValue || '')
 
 	const handleChange = (val: string) => {
@@ -28,7 +29,13 @@ export default function AppTextEditor({ defaultValue, onChange }: Props) {
 	}
 	return (
 		<QuillWrapper>
-			<ReactQuill theme="snow" value={value} modules={modules} onChange={handleChange} />
+			<ReactQuill
+				theme="snow"
+				value={value}
+				modules={modules}
+				readOnly={disabled}
+				onChange={handleChange}
+			/>
 		</QuillWrapper>
 	)
 }
@@ -56,5 +63,9 @@ const QuillWrapper = styled.div`
 
 	.ql-picker {
 		text-align: left;
+	}
+
+	.ql-disabled {
+		opacity: 0.5;
 	}
 `
