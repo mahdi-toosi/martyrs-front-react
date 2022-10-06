@@ -82,7 +82,7 @@ export default function UsersWorksReport() {
 		setUsersReport(report)
 	}
 
-	const initDefaultRangDate = () => {
+	const calcRangDate = () => {
 		let start = filters.rangeDate ? filters.rangeDate[0] : queries.start_time
 		let end = filters.rangeDate ? filters.rangeDate[1] : queries.end_time
 
@@ -102,14 +102,14 @@ export default function UsersWorksReport() {
 		const currPage = newPage === 0 ? 0 : Number(currQueries.page) || 0
 		const currRowsPerPage = newRowsPerPage || Number(currQueries.rowsPerPage) || 10
 		// eslint-disable-next-line @typescript-eslint/naming-convention
-		const [start_time, end_time] = initDefaultRangDate()
+		const [start_time, end_time] = calcRangDate()
 
 		const payload = {
 			end_time,
 			start_time,
-			role: filters.role,
 			'$sort[start_time]': -1,
 			$limit: currRowsPerPage,
+			role: filters.role || queries.role,
 			$skip: currPage * currRowsPerPage,
 		} as GetUsersWorksReportPayload
 
@@ -121,7 +121,7 @@ export default function UsersWorksReport() {
 		setPage(currPage)
 		setReportWithDetails(result)
 
-		const q = { end_time, start_time, role: filters.role }
+		const q = { end_time, start_time, role: filters.role || queries.role }
 		const updatedQueries = generateRouteQueries(q)
 		router.replace(`/users/works-report?${updatedQueries}`)
 	}
@@ -156,7 +156,7 @@ export default function UsersWorksReport() {
 						label="نقش"
 						className="w-44"
 						options={rolesOptions}
-						defaultValue={filters.role}
+						defaultValue={queries.role}
 						onChange={(e) => setFilters((v) => ({ ...v, role: e as number }))}
 					/>
 
