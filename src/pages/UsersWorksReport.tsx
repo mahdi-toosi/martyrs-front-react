@@ -2,7 +2,7 @@
 // ? react
 import { useEffect, useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { generateRouteQueries, getRouteQueries, history as router } from '@/router'
+import { generateRouteQueries, getRouteQueries, router } from '@/router'
 // ? utils
 import { roles } from '@/stores/user'
 import tw, { styled } from 'twin.macro'

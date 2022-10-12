@@ -12,14 +12,13 @@ import { createBrowserHistory } from 'history'
 import { BoxLoading } from 'react-loadingg'
 import RoutesWithNProgress from '@/components/RoutesWithNProgress'
 // ? Pages
-import Login from '@/pages/Login'
-import NotFound from '@/pages/NotFound'
-
 const User = lazy(() => import('@/pages/User'))
+const Login = lazy(() => import('@/pages/Login'))
 const Users = lazy(() => import('@/pages/Users'))
 const Martyr = lazy(() => import('@/pages/Martyr'))
 const Profile = lazy(() => import('@/pages/Profile'))
 const Martyrs = lazy(() => import('@/pages/Martyrs'))
+const NotFound = lazy(() => import('@/pages/NotFound'))
 const Document = lazy(() => import('@/pages/Document'))
 const Dashboard = lazy(() => import('@/pages/Dashboard'))
 const Documents = lazy(() => import('@/pages/Documents'))
@@ -35,11 +34,11 @@ function AuthCheck() {
 	return isLoggedIn ? <Outlet /> : <Navigate to="/login" />
 }
 
-export const history = createBrowserHistory({ window })
+export const router = createBrowserHistory({ window })
 
 export default function Router() {
 	return (
-		<HistoryRouter history={history}>
+		<HistoryRouter history={router}>
 			<Suspense fallback={<BoxLoading color="#c5a711" />}>
 				<RoutesWithNProgress>
 					<Route element={<AuthCheck />}>

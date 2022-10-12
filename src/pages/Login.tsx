@@ -1,5 +1,5 @@
 // ? react
-import { history as router } from '@/router'
+import { router } from '@/router'
 //  ? components
 import Input from '@mui/material/Input'
 import { LoadingButton } from '@mui/lab'

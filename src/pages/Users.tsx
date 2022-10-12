@@ -1,7 +1,7 @@
 // ? react
 import { FormEvent, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { getRouteQueries, history as router, generateRouteQueries } from '@/router'
+import { getRouteQueries, router, generateRouteQueries } from '@/router'
 // ? utils
 import tw from 'twin.macro'
 import { roles } from '@/stores/user'

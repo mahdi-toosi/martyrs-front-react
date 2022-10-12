@@ -1,6 +1,6 @@
 // ? react
 import { useState } from 'react'
-import { history as router } from '@/router'
+import { router } from '@/router'
 // ? utils
 import { useFormik } from 'formik'
 import tw, { styled } from 'twin.macro'

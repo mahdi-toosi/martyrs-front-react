@@ -1,6 +1,6 @@
 // ? react
 import { FormEvent, useState } from 'react'
-import { getRouteQueries, history as router, generateRouteQueries } from '@/router'
+import { getRouteQueries, router, generateRouteQueries } from '@/router'
 // ? utils
 import tw, { styled } from 'twin.macro'
 import martyrsStores from '@/stores/martyrs'

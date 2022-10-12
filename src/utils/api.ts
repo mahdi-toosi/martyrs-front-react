@@ -1,5 +1,5 @@
 import axios, { AxiosRequestConfig, AxiosResponse } from 'axios'
-import { history as router } from '@/router'
+import { router } from '@/router'
 import toast from '@/utils/toast'
 
 const baseURL = import.meta.env?.VITE_BASE_URL

@@ -2,7 +2,7 @@
 // ? react
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import { generateRouteQueries, getRouteQueries, history as router } from '@/router'
+import { generateRouteQueries, getRouteQueries, router } from '@/router'
 // ? utils
 import tw, { styled } from 'twin.macro'
 import { useRepositories } from '@/repositories'

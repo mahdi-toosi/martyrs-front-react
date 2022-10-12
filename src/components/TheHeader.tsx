@@ -1,6 +1,6 @@
 // ? react
 import { Link } from 'react-router-dom'
-import { history as router } from '@/router'
+import { router } from '@/router'
 // ? utils
 import tw, { styled } from 'twin.macro'
 import userStore, { roles } from '@/stores/user'

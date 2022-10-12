@@ -1,5 +1,5 @@
 // ? react
-import { getRouteQueries, generateRouteQueries, history as router } from '@/router'
+import { getRouteQueries, generateRouteQueries, router } from '@/router'
 // ? utils
 import create from 'zustand'
 // ? types
