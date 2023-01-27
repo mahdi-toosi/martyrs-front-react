@@ -2,11 +2,18 @@
 import { styled } from 'twin.macro'
 // ? components
 import Typography from '@mui/material/Typography'
+import { Variant } from '@mui/material/styles/createTypography'
 
-export default function AppTitleTypeA({ title }: { title: string }) {
+interface Props {
+	title: string
+	variant?: Variant
+}
+export default function AppTitleTypeA({ title, variant = 'subtitle2' }: Props) {
 	return (
 		<TitleWrapper>
-			<Typography variant="subtitle2">{title}</Typography>
+			<Typography variant={variant} className="__app_title_type_a">
+				{title}
+			</Typography>
 		</TitleWrapper>
 	)
 }
@@ -15,7 +22,7 @@ const TitleWrapper = styled.label`
 	display: block;
 	margin-bottom: 0.5rem;
 
-	h6::before {
+	.__app_title_type_a::before {
 		content: '';
 		display: inline-block;
 		border: 0;

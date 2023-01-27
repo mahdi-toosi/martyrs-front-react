@@ -16,6 +16,7 @@ const User = lazy(() => import('@/pages/User'))
 const Login = lazy(() => import('@/pages/Login'))
 const Users = lazy(() => import('@/pages/Users'))
 const Martyr = lazy(() => import('@/pages/Martyr'))
+const Import = lazy(() => import('@/pages/Import'))
 const Profile = lazy(() => import('@/pages/Profile'))
 const Martyrs = lazy(() => import('@/pages/Martyrs'))
 const NotFound = lazy(() => import('@/pages/NotFound'))
@@ -44,6 +45,7 @@ export default function Router() {
 					<Route element={<AuthCheck />}>
 						<Route path="/" element={<Dashboard />} />
 						<Route path="/users" element={<Users />} />
+						<Route path="/import" element={<Import />} />
 						<Route path="/profile" element={<Profile />} />
 						<Route path="/users/:id" element={<User />} />
 						<Route path="/martyrs" element={<Martyrs />} />
