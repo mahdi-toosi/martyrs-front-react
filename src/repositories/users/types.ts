@@ -1,4 +1,4 @@
-import type { Pagination } from '@/repositories'
+import type { Res, Pagination } from '../types'
 import type { Martyr as _Martyr } from '../martyrs/types'
 
 export type UserRoles = 1 | 3 | 30 | 48
@@ -87,10 +87,10 @@ export interface UsersWithWorksReport extends Pagination {
 }
 
 export interface RUsers {
-	get(payload: UsersPayload): Promise<Users | undefined>
-	getById(id: string): Promise<User | undefined>
-	update(payload: User): Promise<User | undefined>
-	delete(id: number): Promise<undefined>
+	get(payload: UsersPayload): Res<Users>
+	getById(id: string): Res<User>
+	update(payload: User): Res<User>
+	delete(id: number): Res
 
-	getWorksReport(payload: GetUsersWorksReportPayload): Promise<UsersWithWorksReport | undefined>
+	getWorksReport(payload: GetUsersWorksReportPayload): Res<UsersWithWorksReport>
 }

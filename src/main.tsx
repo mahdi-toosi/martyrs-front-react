@@ -1,7 +1,7 @@
 import ReactDOM from 'react-dom/client'
 import { RepositoriesContext, repositories } from '@/repositories'
 // ? components
-import App from '@/App'
+import Router from './router'
 import { SnackbarProvider } from 'notistack'
 import { SnackbarConfigurator } from '@/utils/toast'
 // ? styles
@@ -12,7 +12,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
 	<>
 		<MUITheme>
 			<RepositoriesContext.Provider value={repositories}>
-				<App />
+				<Router />
 			</RepositoriesContext.Provider>
 		</MUITheme>
 

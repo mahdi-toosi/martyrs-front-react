@@ -1,4 +1,4 @@
-import type { Pagination } from '@/repositories'
+import type { Res, Pagination } from '../types'
 
 export interface Relative {
 	job: string
@@ -26,8 +26,8 @@ export interface RelativesPayload {
 }
 
 export interface RRelatives {
-	get(payload: RelativesPayload): Promise<Relatives | undefined>
-	create(payload: Relative): Promise<Relative | undefined>
-	update(payload: Relative): Promise<Relative | undefined>
-	delete(id: number): Promise<'success' | undefined>
+	get(payload: RelativesPayload): Res<Relatives>
+	create(payload: Relative): Res<Relative>
+	update(payload: Relative): Res<Relative>
+	delete(id: number): Res
 }

@@ -1,3 +1,4 @@
+import type { Res } from '../types'
 import type { UserRoles } from '../users/types'
 
 export interface UsersMartyr {
@@ -18,6 +19,6 @@ export interface AddAccessibilityPayload {
 }
 
 export interface RUsersMartyrs {
-	post(payload: AddAccessibilityPayload): Promise<{ id: number } | undefined>
-	delete(relation_id: number): Promise<'success' | undefined>
+	post(payload: AddAccessibilityPayload): Res<{ id: number }>
+	delete(relation_id: number): Res
 }

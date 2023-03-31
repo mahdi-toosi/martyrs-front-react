@@ -1,4 +1,5 @@
-import type { User, UserRoles } from '../users/types'
+import type { Res } from '../types'
+import type { User } from '../users/types'
 // export interface RegisterPayload {
 // 	first_name: string
 // 	last_name: string
@@ -36,7 +37,7 @@ export interface LoginPayload {
 }
 
 export interface RAuth {
-	login(payload: LoginPayload): Promise<LoginResponse | undefined>
+	login(payload: LoginPayload): Res<LoginResponse>
 	// register(payload: RegisterPayload): Promise<AuthResponse>
 	// resetPass(payload: ResetPassPayload): Promise<string>
 }

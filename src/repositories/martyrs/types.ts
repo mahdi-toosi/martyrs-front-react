@@ -1,4 +1,4 @@
-import type { Pagination } from '@/repositories'
+import type { Res, Pagination } from '../types'
 import type { Document } from '../documents/types'
 import type { UsersMartyr } from '../usersMartyrs/types'
 import type { TaxonomyRelation } from '../taxonomies/types'
@@ -118,8 +118,8 @@ export interface Martyrs extends Pagination {
 }
 
 export interface RMartyrs {
-	get(payload: GetPayload): Promise<Martyrs | undefined>
-	getById(id: string): Promise<Martyr | undefined>
-	update(payload: Martyr): Promise<undefined>
-	delete(id: string): Promise<'success' | undefined>
+	get(payload: GetPayload): Res<Martyrs>
+	getById(id: string): Res<Martyr>
+	update(payload: Martyr): Res
+	delete(id: string): Res
 }

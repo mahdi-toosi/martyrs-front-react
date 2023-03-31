@@ -1,4 +1,4 @@
-import type { Pagination } from '@/repositories'
+import type { Res, Pagination } from '../types'
 
 export interface Taxonomy {
 	id: number
@@ -21,6 +21,6 @@ export interface Taxonomies extends Pagination {
 }
 
 export interface RTaxonomies {
-	get(payload: TaxonomiesPayload): Promise<Taxonomies | undefined>
-	deleteRelation(id: number): Promise<void>
+	get(payload: TaxonomiesPayload): Res<Taxonomies>
+	deleteRelation(id: number): Res
 }

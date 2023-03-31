@@ -1,4 +1,4 @@
-import type { Pagination } from '@/repositories'
+import type { Res, Pagination } from '../types'
 import type { Martyr as _Martyr } from '../martyrs/types'
 import type { Taxonomy, TaxonomyRelation } from '../taxonomies/types'
 
@@ -41,9 +41,9 @@ export interface Documents extends Pagination {
 }
 
 export interface RDocuments {
-	get(payload: DocumentsPayload): Promise<Documents | undefined>
-	getById(id: string): Promise<SingleDocument | undefined>
-	update(payload: SingleDocument): Promise<SingleDocument | undefined>
-	uploadImage(id: string, newImg: Blob, p_img?: string): Promise<void>
-	remove(id: string): Promise<void | undefined>
+	get(payload: DocumentsPayload): Res<Documents>
+	getById(id: string): Res<SingleDocument>
+	update(payload: SingleDocument): Res<SingleDocument>
+	uploadImage(id: string, newImg: Blob, p_img?: string): Res
+	remove(id: string): Res
 }
