@@ -4,7 +4,7 @@
 		"esbenp.prettier-vscode",
 		"aaron-bond.better-comments",
 		"formulahendry.auto-close-tag",
-		"formulahendry.auto-rename-tag",
+		"dsznajder.es7-react-js-snippets",
 		"lightyen.tailwindcss-intellisense-twin",
 		"streetsidesoftware.code-spell-checker"
 	]
