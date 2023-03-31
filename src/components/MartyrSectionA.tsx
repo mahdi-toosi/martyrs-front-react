@@ -22,6 +22,7 @@ export default function MartyrSectionA() {
 			return
 		}
 		setSelectedImage(e.target.files[0])
+		updateMartyr('newAvatar', e.target.files[0])
 	}
 
 	useEffect(() => {

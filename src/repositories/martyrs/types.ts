@@ -82,6 +82,8 @@ export interface Martyr {
 	documents: Pick<Document, 'id' | 'status'>[]
 	// 👇🏻 added in front
 
+	newAvatar?: File
+
 	defaultCity?: { name: string }
 	defaultState?: { name: string }
 	defaultBurialCity?: { name: string }
@@ -121,5 +123,6 @@ export interface RMartyrs {
 	get(payload: GetPayload): Res<Martyrs>
 	getById(id: string): Res<Martyr>
 	update(payload: Martyr): Res
+	uploadImage(id: string, avatar: File, p_avatar: string): Res<{ url: string }>
 	delete(id: string): Res
 }

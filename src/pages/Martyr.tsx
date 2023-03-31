@@ -27,11 +27,11 @@ import type { Martyr as MartyrType } from '@/repositories/martyrs/types'
 export default function Martyr() {
 	const { id } = useParams()
 	const { user } = userStore()
-	const { martyr, setMartyr } = martyrsStore()
 	const { martyrs: martyrsRepo } = useRepositories()
+	const { martyr, setMartyr, updateMartyr } = martyrsStore()
 
-	const [fetchLoading, setFetchLoading] = useState(false)
 	const [storeLoading, setStoreLoading] = useState(false)
+	const [fetchLoading, setFetchLoading] = useState(false)
 
 	const onStore = async (status?: MartyrType['status']) => {
 		setStoreLoading(true)
@@ -44,7 +44,13 @@ export default function Martyr() {
 			return
 		}
 
-		// if (selectedImage) await martyrsRepo.uploadImage(result.id, selectedImage as Blob, result.image)
+		if (martyr.newAvatar) {
+			const avatarResult = await martyrsRepo.uploadImage(martyr.id, martyr.newAvatar, martyr.image)
+			if (avatarResult) {
+				updateMartyr('newAvatar', undefined)
+				updateMartyr('image', avatarResult.url)
+			}
+		}
 
 		setStoreLoading(false)
 	}
