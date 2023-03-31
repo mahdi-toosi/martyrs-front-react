@@ -20,7 +20,7 @@ import TableHead from '@mui/material/TableHead'
 import Typography from '@mui/material/Typography'
 import DefaultLayout from '@/components/DefaultLayout'
 import AppDropdown from '@/components/AppDropDown'
-import AppDatepicker from '@/components/AppDatepicker'
+import AppDatePicker from '@/components/AppDatePicker'
 import TableContainer from '@mui/material/TableContainer'
 import TablePagination from '@mui/material/TablePagination'
 // ? types
@@ -144,7 +144,7 @@ export default function UsersWorksReport() {
 						fetchUsersWorksReport()
 					}}
 				>
-					<AppDatepicker
+					<AppDatePicker
 						range
 						maxDate={jalaliDate(today) as string}
 						defaultValue={filters.rangeDate}

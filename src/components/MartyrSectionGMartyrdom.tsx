@@ -6,7 +6,7 @@ import martyrsStore from '@/stores/martyrs'
 import { useRepositories } from '@/repositories'
 // ? components
 import TextField from '@mui/material/TextField'
-import AppDatepicker from '@/components/AppDatepicker'
+import AppDatePicker from '@/components/AppDatePicker'
 import AppAutoComplete from '@/components/AppAutoComplete'
 import MartyrSectionWrapper from '@/components/MartyrSectionWrapper'
 // ? types
@@ -36,7 +36,7 @@ export default function MartyrSectionGMartyrdom() {
 
 	return (
 		<MartyrSectionWrapper title="شهادت">
-			<AppDatepicker
+			<AppDatePicker
 				label="تاریخ شهادت"
 				defaultValue={martyr.dateTo}
 				disabled={!hasPermission('dateTo')}

@@ -4,7 +4,7 @@ import martyrsStore, { educationDegrees, marriedOptions } from '@/stores/martyrs
 // ? components
 import AppDropdown from './AppDropDown'
 import TextField from '@mui/material/TextField'
-import AppDatepicker from '@/components/AppDatepicker'
+import AppDatePicker from '@/components/AppDatePicker'
 import AppSwitchButton from '@/components/AppSwitchButton'
 import MartyrSectionWrapper from '@/components/MartyrSectionWrapper'
 
@@ -54,7 +54,7 @@ export default function MartyrSectionEFamilyStatus() {
 				onChange={(e) => updateMartyr('married', e)}
 			/>
 
-			<AppDatepicker
+			<AppDatePicker
 				label="تاریخ ازدواج"
 				defaultValue={martyr.M_Date}
 				disabled={!hasPermission('M_Date')}

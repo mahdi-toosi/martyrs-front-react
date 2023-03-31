@@ -7,7 +7,7 @@ import { useRepositories } from '@/repositories'
 // ? components
 import AppDropdown from './AppDropDown'
 import TextField from '@mui/material/TextField'
-import AppDatepicker from '@/components/AppDatepicker'
+import AppDatePicker from '@/components/AppDatePicker'
 import AppAutoComplete from '@/components/AppAutoComplete'
 import MartyrSectionWrapper from '@/components/MartyrSectionWrapper'
 // ? types
@@ -83,7 +83,7 @@ export default function MartyrSectionFSacrificeInfo() {
 				onChange={(e) => updateMartyr('children_num', e)}
 			/>
 
-			<AppDatepicker
+			<AppDatePicker
 				label="تاریخ اولین اعزام"
 				defaultValue={martyr.DateOfFirstDispatch}
 				disabled={!hasPermission('DateOfFirstDispatch')}

@@ -10,7 +10,7 @@ import TextField from '@mui/material/TextField'
 import AppDialog from '@/components/AppDialog'
 import LoadingButton from '@mui/lab/LoadingButton'
 import AppDropdown from '@/components/AppDropDown'
-import AppDatepicker from '@/components/AppDatepicker'
+import AppDatePicker from '@/components/AppDatePicker'
 import AppSwitchButton from '@/components/AppSwitchButton'
 // ? types
 import type { Relative } from '@/repositories/relatives/types'
@@ -53,7 +53,6 @@ export default function MartyrSectionKRelativesDialog({
 		event.preventDefault()
 		// setStoreLoading(true)
 		const payload = { ...relative }
-		console.log(payload)
 
 		let result
 		if (relative.id) result = await relativesRepo.update(payload)
@@ -133,7 +132,7 @@ export default function MartyrSectionKRelativesDialog({
 					disabled={!hasPermission('education', 'relatives')}
 				/>
 
-				<AppDatepicker
+				<AppDatePicker
 					label="تاریخ تولد"
 					defaultValue={relative.BD_Date}
 					onChange={(e) => handleChange('BD_Date', e)}

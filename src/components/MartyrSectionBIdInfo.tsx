@@ -3,7 +3,7 @@ import userStore from '@/stores/user'
 import martyrsStore, { genderSwitchOptions } from '@/stores/martyrs'
 // ? components
 import TextField from '@mui/material/TextField'
-import AppDatepicker from '@/components/AppDatepicker'
+import AppDatePicker from '@/components/AppDatePicker'
 import AppSwitchButton from '@/components/AppSwitchButton'
 import MartyrSectionWrapper from '@/components/MartyrSectionWrapper'
 
@@ -53,7 +53,7 @@ export default function MartyrSectionBIdInfo() {
 				onChange={(e) => updateMartyr('motherName', e)}
 			/>
 
-			<AppDatepicker
+			<AppDatePicker
 				defaultValue={martyr.BD_Date}
 				label="تاریخ تولد"
 				disabled={!hasPermission('BD_Date')}

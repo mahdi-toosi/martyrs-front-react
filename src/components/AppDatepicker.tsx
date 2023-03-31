@@ -20,7 +20,7 @@ interface Props {
 	defaultValue?: string | string[]
 	onChange: (gregoryDate: string | string[]) => void
 }
-export default function AppDatepicker({
+export default function AppDatePicker({
 	range,
 	label,
 	disabled,
