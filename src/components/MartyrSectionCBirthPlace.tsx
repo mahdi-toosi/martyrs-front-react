@@ -12,7 +12,7 @@ import MartyrSectionWrapper from '@/components/MartyrSectionWrapper'
 
 export default function MartyrSectionCBirthPlace() {
 	const { hasPermission } = userStore()
-	const { updateMartyr, martyr } = martyrsStore()
+	const { updateMartyr, initMartyr } = martyrsStore()
 	const [cities, setCities] = useState([] as typeof citiesJson)
 	const [citiesKey, setCitiesKey] = useState(new Date().getTime())
 
@@ -35,8 +35,8 @@ export default function MartyrSectionCBirthPlace() {
 				onChange={setState}
 				label="استان محل تولد"
 				optionLabel={(op) => op.name}
+				defaultValue={initMartyr.defaultState}
 				disabled={!hasPermission('defaultState')}
-				defaultValue={martyr.defaultState}
 			/>
 
 			<AppAutoComplete
@@ -44,7 +44,7 @@ export default function MartyrSectionCBirthPlace() {
 				label="شهر محل تولد"
 				options={cities}
 				optionLabel={(op) => op.name}
-				defaultValue={martyr.defaultCity}
+				defaultValue={initMartyr.defaultCity}
 				disabled={!hasPermission('defaultCity')}
 				noOptionsText="ابتدا استان را انتخاب کنید."
 				onChange={(e) => updateMartyr('city', e)}
@@ -53,7 +53,7 @@ export default function MartyrSectionCBirthPlace() {
 			<TextField
 				label="شهرستان محل تولد"
 				variant="standard"
-				defaultValue={martyr.county}
+				defaultValue={initMartyr.county}
 				disabled={!hasPermission('county')}
 				onChange={(e) => updateMartyr('county', e)}
 			/>
@@ -61,7 +61,7 @@ export default function MartyrSectionCBirthPlace() {
 			<TextField
 				label="روستای محل تولد"
 				variant="standard"
-				defaultValue={martyr.village}
+				defaultValue={initMartyr.village}
 				disabled={!hasPermission('village')}
 				onChange={(e) => updateMartyr('village', e)}
 			/>

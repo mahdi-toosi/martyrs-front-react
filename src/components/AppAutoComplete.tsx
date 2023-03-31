@@ -61,14 +61,14 @@ export default function AppAutoComplete({
 			className={className}
 			defaultValue={defaultValue}
 			getOptionLabel={optionLabel}
+			loadingText="در حال جستجو..."
 			noOptionsText={noOptionsText}
+			isOptionEqualToValue={() => true}
 			disableClearable={disableClearable}
 			onOpen={() => setOpenOptions(true)}
 			onClose={() => setOpenOptions(false)}
-			// isOptionEqualToValue={(option, value) => option[equalityKey] === value[equalityKey]}
-			onInputChange={(event, newVal) => onUpdateQuery(newVal)}
 			onChange={(event, newVal) => onChange(newVal)}
-			loadingText="در حال جستجو..."
+			onInputChange={(event, newVal) => onUpdateQuery(newVal)}
 			renderInput={(params) => (
 				<TextField
 					{...params}

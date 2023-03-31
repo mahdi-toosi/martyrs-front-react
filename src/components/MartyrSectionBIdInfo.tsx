@@ -9,14 +9,14 @@ import MartyrSectionWrapper from '@/components/MartyrSectionWrapper'
 
 export default function MartyrSectionBIdInfo() {
 	const { hasPermission } = userStore()
-	const { updateMartyr, martyr } = martyrsStore()
+	const { updateMartyr, initMartyr } = martyrsStore()
 
 	return (
 		<MartyrSectionWrapper title="اطلاعات شناسنامه ای">
 			<TextField
 				label="نام"
 				variant="standard"
-				defaultValue={martyr.name}
+				defaultValue={initMartyr.name}
 				disabled={!hasPermission('name')}
 				onChange={(e) => updateMartyr('name', e)}
 			/>
@@ -24,7 +24,7 @@ export default function MartyrSectionBIdInfo() {
 			<TextField
 				label="نام خانوادگی"
 				variant="standard"
-				defaultValue={martyr.lastName}
+				defaultValue={initMartyr.lastName}
 				disabled={!hasPermission('lastName')}
 				onChange={(e) => updateMartyr('lastName', e)}
 			/>
@@ -32,7 +32,7 @@ export default function MartyrSectionBIdInfo() {
 			<TextField
 				label="شهرت، لقب"
 				variant="standard"
-				defaultValue={martyr.title}
+				defaultValue={initMartyr.title}
 				disabled={!hasPermission('title')}
 				onChange={(e) => updateMartyr('title', e)}
 			/>
@@ -40,7 +40,7 @@ export default function MartyrSectionBIdInfo() {
 			<TextField
 				label="نام پدر"
 				variant="standard"
-				defaultValue={martyr.fatherName}
+				defaultValue={initMartyr.fatherName}
 				disabled={!hasPermission('fatherName')}
 				onChange={(e) => updateMartyr('fatherName', e)}
 			/>
@@ -48,13 +48,13 @@ export default function MartyrSectionBIdInfo() {
 			<TextField
 				label="نام مادر"
 				variant="standard"
-				defaultValue={martyr.motherName}
+				defaultValue={initMartyr.motherName}
 				disabled={!hasPermission('motherName')}
 				onChange={(e) => updateMartyr('motherName', e)}
 			/>
 
 			<AppDatePicker
-				defaultValue={martyr.BD_Date}
+				defaultValue={initMartyr.BD_Date}
 				label="تاریخ تولد"
 				disabled={!hasPermission('BD_Date')}
 				onChange={(e) => updateMartyr('BD_Date', e)}
@@ -63,7 +63,7 @@ export default function MartyrSectionBIdInfo() {
 			<AppSwitchButton
 				label="جنسیت"
 				options={genderSwitchOptions}
-				defaultValue={martyr.gender}
+				defaultValue={initMartyr.gender}
 				disabled={!hasPermission('gender')}
 				onChange={(e) => updateMartyr('gender', e)}
 			/>

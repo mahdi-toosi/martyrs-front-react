@@ -15,7 +15,7 @@ import type { TaxonomyRelation } from '@/repositories/taxonomies/types'
 export default function MartyrSectionGMartyrdom() {
 	const { hasPermission } = userStore()
 	const { taxonomies } = useRepositories()
-	const { updateMartyr, martyr } = martyrsStore()
+	const { updateMartyr, initMartyr } = martyrsStore()
 
 	const [categories, setCategories] = useState([] as TaxonomyRelation[])
 	const [loading, setLoading] = useState(false)
@@ -38,7 +38,7 @@ export default function MartyrSectionGMartyrdom() {
 		<MartyrSectionWrapper title="شهادت">
 			<AppDatePicker
 				label="تاریخ شهادت"
-				defaultValue={martyr.dateTo}
+				defaultValue={initMartyr.dateTo}
 				disabled={!hasPermission('dateTo')}
 				onChange={(e) => updateMartyr('dateTo', e)}
 			/>
@@ -46,7 +46,7 @@ export default function MartyrSectionGMartyrdom() {
 			<TextField
 				label="محل شهادت"
 				variant="standard"
-				defaultValue={martyr.locTo}
+				defaultValue={initMartyr.locTo}
 				disabled={!hasPermission('locTo')}
 				onChange={(e) => updateMartyr('locTo', e)}
 			/>
@@ -54,7 +54,7 @@ export default function MartyrSectionGMartyrdom() {
 			<TextField
 				label="عملیات شهادت"
 				variant="standard"
-				defaultValue={martyr.operationTO}
+				defaultValue={initMartyr.operationTO}
 				disabled={!hasPermission('operationTO')}
 				onChange={(e) => updateMartyr('operationTO', e)}
 			/>
@@ -62,7 +62,7 @@ export default function MartyrSectionGMartyrdom() {
 			<TextField
 				label="نحوه شهادت"
 				variant="standard"
-				defaultValue={martyr.howTo}
+				defaultValue={initMartyr.howTo}
 				disabled={!hasPermission('howTo')}
 				onChange={(e) => updateMartyr('howTo', e)}
 			/>
@@ -74,7 +74,7 @@ export default function MartyrSectionGMartyrdom() {
 				options={categories}
 				fetchLoading={loading}
 				onSendRequest={searchInCategories}
-				defaultValue={martyr.defaultCategories}
+				defaultValue={initMartyr.defaultCategories}
 				optionLabel={(op) => op.taxonomy?.name}
 				disabled={!hasPermission('defaultCategories')}
 				onChange={(e) => updateMartyr('categories', e)}

@@ -18,6 +18,7 @@ interface MartyrsState {
 	martyr: Martyr
 	martyrs: Martyrs
 	selected: string[]
+	initMartyr: Martyr
 	fetchLoading: boolean
 	detachUserLoading: number
 
@@ -43,6 +44,7 @@ export default create<MartyrsState>((set, get) => ({
 	martyr: {} as Martyr,
 	detachUserLoading: 0,
 	martyrs: {} as Martyrs,
+	initMartyr: {} as Martyr,
 
 	// ? mutations
 	setPage: (page) => set(() => ({ page })),
@@ -72,7 +74,7 @@ export default create<MartyrsState>((set, get) => ({
 		})),
 
 	// ? martyr mutations
-	setMartyr: (martyr) => set(() => ({ martyr })),
+	setMartyr: (martyr) => set(() => ({ initMartyr: martyr, martyr })),
 	updateMartyr: (key, val) => set(() => ({ martyr: { ...get().martyr, [key]: val } })),
 
 	// ? actions
@@ -170,10 +172,9 @@ export const marriedOptions = [
 
 export const educationDegrees = [
 	{ label: 'دیپلم', value: 'دیپلم' },
-	{ label: 'دکترا', value: 'دکترا' },
-	{ label: 'کارشناسی ارشد', value: 'کارشناسی ارشد' },
-	{ label: 'کارشناسی', value: 'کارشناسی' },
-	{ label: 'فوق دیپلم', value: 'فوق دیپلم' },
-	{ label: 'دیپلم', value: 'دیپلم' },
 	{ label: 'بی سواد', value: 'بی سواد' },
+	{ label: 'فوق دیپلم', value: 'فوق دیپلم' },
+	{ label: 'کارشناسی', value: 'کارشناسی' },
+	{ label: 'کارشناسی ارشد', value: 'کارشناسی ارشد' },
+	{ label: 'دکترا', value: 'دکترا' },
 ]

@@ -10,14 +10,14 @@ import MartyrSectionWrapper from '@/components/MartyrSectionWrapper'
 
 export default function MartyrSectionEFamilyStatus() {
 	const { hasPermission } = userStore()
-	const { updateMartyr, martyr } = martyrsStore()
+	const { updateMartyr, initMartyr } = martyrsStore()
 
 	return (
 		<MartyrSectionWrapper title="وضعیت خانوادگی">
 			<AppDropdown
 				label="تحصیلات"
 				options={educationDegrees}
-				defaultValue={martyr.education}
+				defaultValue={initMartyr.education}
 				disabled={!hasPermission('education')}
 				onChange={(e) => updateMartyr('education', e)}
 			/>
@@ -25,7 +25,7 @@ export default function MartyrSectionEFamilyStatus() {
 			<TextField
 				label="شغل"
 				variant="standard"
-				defaultValue={martyr.job}
+				defaultValue={initMartyr.job}
 				disabled={!hasPermission('job')}
 				onChange={(e) => updateMartyr('job', e)}
 			/>
@@ -33,7 +33,7 @@ export default function MartyrSectionEFamilyStatus() {
 			<TextField
 				label="دین"
 				variant="standard"
-				defaultValue={martyr.religion}
+				defaultValue={initMartyr.religion}
 				disabled={!hasPermission('religion')}
 				onChange={(e) => updateMartyr('religion', e)}
 			/>
@@ -41,7 +41,7 @@ export default function MartyrSectionEFamilyStatus() {
 			<TextField
 				label="مذهب"
 				variant="standard"
-				defaultValue={martyr.sect}
+				defaultValue={initMartyr.sect}
 				disabled={!hasPermission('sect')}
 				onChange={(e) => updateMartyr('religion', e)}
 			/>
@@ -49,14 +49,14 @@ export default function MartyrSectionEFamilyStatus() {
 			<AppSwitchButton
 				label="وضعیت تأهل"
 				options={marriedOptions}
-				defaultValue={martyr.married}
+				defaultValue={initMartyr.married}
 				disabled={!hasPermission('married')}
 				onChange={(e) => updateMartyr('married', e)}
 			/>
 
 			<AppDatePicker
 				label="تاریخ ازدواج"
-				defaultValue={martyr.M_Date}
+				defaultValue={initMartyr.M_Date}
 				disabled={!hasPermission('M_Date')}
 				onChange={(e) => updateMartyr('M_Date', e)}
 			/>
@@ -64,7 +64,7 @@ export default function MartyrSectionEFamilyStatus() {
 			<TextField
 				label="تعداد فرزند"
 				variant="standard"
-				defaultValue={martyr.children_num}
+				defaultValue={initMartyr.children_num}
 				disabled={!hasPermission('children_num')}
 				onChange={(e) => updateMartyr('children_num', e)}
 			/>

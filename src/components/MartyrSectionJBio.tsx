@@ -17,7 +17,7 @@ const textEditors: { label: string; key: keyof Martyr }[] = [
 ]
 export default function MartyrSectionJBio() {
 	const { hasPermission } = userStore()
-	const { updateMartyr, martyr } = martyrsStore()
+	const { updateMartyr, initMartyr } = martyrsStore()
 
 	return (
 		<ElementsWrapper>
@@ -26,8 +26,8 @@ export default function MartyrSectionJBio() {
 					<AppTitleTypeA title={textEditor.label} />
 					<AppTextEditor
 						disabled={!hasPermission(textEditor.key)}
-						defaultValue={martyr[textEditor.key as keyof Martyr] as string}
-						onChange={(e) => updateMartyr(textEditor.key as keyof Martyr, e)}
+						defaultValue={initMartyr[textEditor.key as keyof Martyr] as string}
+						onChange={(e) => updateMartyr(textEditor.key as keyof Martyr, e.target.value)}
 					/>
 				</div>
 			))}

@@ -22,7 +22,7 @@ const dispatchers = [
 export default function MartyrSectionFSacrificeInfo() {
 	const { hasPermission } = userStore()
 	const { taxonomies } = useRepositories()
-	const { updateMartyr, martyr } = martyrsStore()
+	const { updateMartyr, initMartyr } = martyrsStore()
 
 	const [operations, setOperations] = useState([] as TaxonomyRelation[])
 	const [loading, setLoading] = useState(false)
@@ -46,7 +46,7 @@ export default function MartyrSectionFSacrificeInfo() {
 			<AppDropdown
 				options={dispatchers}
 				label="سازمان اعزام کننده"
-				defaultValue={martyr.dispatcher}
+				defaultValue={initMartyr.dispatcher}
 				disabled={!hasPermission('dispatcher')}
 				onChange={(e) => updateMartyr('dispatcher', e)}
 			/>
@@ -54,7 +54,7 @@ export default function MartyrSectionFSacrificeInfo() {
 			<TextField
 				variant="standard"
 				label="یگان اعزام کننده"
-				defaultValue={martyr.sendingUnit}
+				defaultValue={initMartyr.sendingUnit}
 				disabled={!hasPermission('sendingUnit')}
 				onChange={(e) => updateMartyr('sendingUnit', e)}
 			/>
@@ -62,7 +62,7 @@ export default function MartyrSectionFSacrificeInfo() {
 			<TextField
 				label="گردان"
 				variant="standard"
-				defaultValue={martyr.unit}
+				defaultValue={initMartyr.unit}
 				disabled={!hasPermission('unit')}
 				onChange={(e) => updateMartyr('unit', e)}
 			/>
@@ -70,7 +70,7 @@ export default function MartyrSectionFSacrificeInfo() {
 			<TextField
 				label="درجه"
 				variant="standard"
-				defaultValue={martyr.degree}
+				defaultValue={initMartyr.degree}
 				disabled={!hasPermission('degree')}
 				onChange={(e) => updateMartyr('degree', e)}
 			/>
@@ -78,14 +78,14 @@ export default function MartyrSectionFSacrificeInfo() {
 			<TextField
 				label="وضعیت در سازمان"
 				variant="standard"
-				defaultValue={martyr.situationInUnit}
+				defaultValue={initMartyr.situationInUnit}
 				disabled={!hasPermission('situationInUnit')}
 				onChange={(e) => updateMartyr('children_num', e)}
 			/>
 
 			<AppDatePicker
 				label="تاریخ اولین اعزام"
-				defaultValue={martyr.DateOfFirstDispatch}
+				defaultValue={initMartyr.DateOfFirstDispatch}
 				disabled={!hasPermission('DateOfFirstDispatch')}
 				onChange={(e) => updateMartyr('DateOfFirstDispatch', e)}
 			/>
@@ -93,7 +93,7 @@ export default function MartyrSectionFSacrificeInfo() {
 			<TextField
 				label="سن در اولین اعزام"
 				variant="standard"
-				defaultValue={martyr.ageInFirstDispatch}
+				defaultValue={initMartyr.ageInFirstDispatch}
 				disabled={!hasPermission('ageInFirstDispatch')}
 				onChange={(e) => updateMartyr('ageInFirstDispatch', e)}
 			/>
@@ -101,7 +101,7 @@ export default function MartyrSectionFSacrificeInfo() {
 			<TextField
 				label="تعداد اعزام ها"
 				variant="standard"
-				defaultValue={martyr.NumberOfDispatches}
+				defaultValue={initMartyr.NumberOfDispatches}
 				disabled={!hasPermission('NumberOfDispatches')}
 				onChange={(e) => updateMartyr('NumberOfDispatches', e)}
 			/>
@@ -109,7 +109,7 @@ export default function MartyrSectionFSacrificeInfo() {
 			<TextField
 				label="جمع حضور در جبهه به ماه"
 				variant="standard"
-				defaultValue={martyr.totalOfStayingInFront}
+				defaultValue={initMartyr.totalOfStayingInFront}
 				disabled={!hasPermission('totalOfStayingInFront')}
 				onChange={(e) => updateMartyr('totalOfStayingInFront', e)}
 			/>
@@ -117,7 +117,7 @@ export default function MartyrSectionFSacrificeInfo() {
 			<TextField
 				label="آخرین مسئولیت"
 				variant="standard"
-				defaultValue={martyr.last_Resp}
+				defaultValue={initMartyr.last_Resp}
 				disabled={!hasPermission('last_Resp')}
 				onChange={(e) => updateMartyr('last_Resp', e)}
 			/>
@@ -129,7 +129,7 @@ export default function MartyrSectionFSacrificeInfo() {
 				fetchLoading={loading}
 				label="عملیات های حضور داشته"
 				onSendRequest={searchInOperations}
-				defaultValue={martyr.defaultOperations}
+				defaultValue={initMartyr.defaultOperations}
 				optionLabel={(op) => op.taxonomy?.name}
 				disabled={!hasPermission('defaultOperations')}
 				onChange={(e) => updateMartyr('operations', e)}

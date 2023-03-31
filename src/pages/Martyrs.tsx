@@ -158,25 +158,25 @@ export default function Martyrs() {
 					<AppAutoComplete
 						multiple
 						disableClearable
+						className="w-full"
 						label="بازبین کننده ها"
 						options={viewersOptions}
-						className="w-full"
-						onChange={(e) => setViewersValues(e)}
-						fetchLoading={fetchUsersLoading}
-						onSendRequest={(e) => fetchUsersOptions('viewers', e)}
 						optionLabel={(op) => op.name}
+						fetchLoading={fetchUsersLoading}
+						onChange={(e) => setViewersValues(e)}
+						onSendRequest={(e) => fetchUsersOptions('viewers', e)}
 					/>
 
 					<AppAutoComplete
 						multiple
 						disableClearable
 						label="نمایه گر ها"
-						options={indexersOptions}
 						className="w-full"
-						onChange={(e) => setIndexersValues(e)}
-						fetchLoading={fetchUsersLoading}
-						onSendRequest={(e) => fetchUsersOptions('indexers', e)}
+						options={indexersOptions}
 						optionLabel={(op) => op.name}
+						fetchLoading={fetchUsersLoading}
+						onChange={(e) => setIndexersValues(e)}
+						onSendRequest={(e) => fetchUsersOptions('indexers', e)}
 					/>
 
 					<LoadingButton

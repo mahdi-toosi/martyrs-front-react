@@ -13,7 +13,7 @@ import type { TaxonomyRelation } from '@/repositories/taxonomies/types'
 export default function MartyrSectionITags() {
 	const { hasPermission } = userStore()
 	const { taxonomies } = useRepositories()
-	const { updateMartyr, martyr } = martyrsStore()
+	const { updateMartyr, initMartyr } = martyrsStore()
 
 	const [tags, setTags] = useState([] as TaxonomyRelation[])
 	const [loading, setLoading] = useState(false)
@@ -37,14 +37,14 @@ export default function MartyrSectionITags() {
 			<AppAutoComplete
 				multiple
 				options={tags}
+				label="کلید واژه ها"
 				className="w-full"
 				fetchLoading={loading}
-				label="کلید واژه ها"
 				onSendRequest={searchInTags}
 				disabled={!hasPermission('tags')}
-				defaultValue={martyr.defaultTags}
-				optionLabel={(op) => op.taxonomy?.name}
+				defaultValue={initMartyr.defaultTags}
 				onChange={(e) => updateMartyr('tags', e)}
+				optionLabel={(op) => op.taxonomy?.name}
 			/>
 		</MartyrSectionWrapper>
 	)

@@ -12,7 +12,7 @@ import MartyrSectionWrapper from '@/components/MartyrSectionWrapper'
 
 export default function MartyrSectionDOriginality() {
 	const { hasPermission } = userStore()
-	const { updateMartyr, martyr } = martyrsStore()
+	const { updateMartyr, initMartyr } = martyrsStore()
 	const [cities, setCities] = useState([] as typeof citiesJson)
 	const [citiesKey, setCitiesKey] = useState(new Date().getTime())
 
@@ -35,7 +35,7 @@ export default function MartyrSectionDOriginality() {
 				label="اصالت استان"
 				onChange={setOriginalityState}
 				optionLabel={(op) => op.name}
-				defaultValue={martyr.defaultOriginalityState}
+				defaultValue={initMartyr.defaultOriginalityState}
 				disabled={!hasPermission('defaultOriginalityState')}
 			/>
 
@@ -44,7 +44,7 @@ export default function MartyrSectionDOriginality() {
 				options={cities}
 				label="اصالت شهر"
 				optionLabel={(op) => op.name}
-				defaultValue={martyr.defaultOriginalityCity}
+				defaultValue={initMartyr.defaultOriginalityCity}
 				noOptionsText="ابتدا اصالت استان را انتخاب کنید."
 				disabled={!hasPermission('defaultOriginalityCity')}
 				onChange={(e) => updateMartyr('originality_city', e)}
@@ -53,7 +53,7 @@ export default function MartyrSectionDOriginality() {
 			<TextField
 				label="اصالت شهرستان"
 				variant="standard"
-				defaultValue={martyr.originality_county}
+				defaultValue={initMartyr.originality_county}
 				disabled={!hasPermission('originality_county')}
 				onChange={(e) => updateMartyr('originality_county', e)}
 			/>
@@ -61,7 +61,7 @@ export default function MartyrSectionDOriginality() {
 			<TextField
 				label="اصالت روستا"
 				variant="standard"
-				defaultValue={martyr.originality_village}
+				defaultValue={initMartyr.originality_village}
 				disabled={!hasPermission('originality_village')}
 				onChange={(e) => updateMartyr('originality_village', e)}
 			/>
