@@ -22,12 +22,12 @@ const SectionWrapper = tw.section`flex flex-col md:flex-row items-center justify
 	md:justify-start gap-5 p-4 pb-5 border border-gray-300 rounded-xl my-4`
 
 const ElementsWrapper = styled.div(() => [
-	tw`flex flex-wrap justify-center md:justify-start gap-x-6 gap-y-8  flex-basis[90%]`,
+	tw`flex flex-wrap justify-center md:justify-start gap-x-6 gap-y-8  [flex-basis:90%]`,
 	{ '& > div': tw`w-72` },
 ])
 
 const TitleWrapper = styled.header(() => [
-	tw`relative flex-basis[10%]`,
+	tw`relative [flex-basis:10%]`,
 	`&::before {
 		content: '';
 		position: absolute;
