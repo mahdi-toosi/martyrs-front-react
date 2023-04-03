@@ -1,6 +1,6 @@
 // ? react
 import { FormEvent, useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import { getRouteQueries, router, generateRouteQueries } from '@/router'
 // ? utils
 import tw from 'twin.macro'
@@ -56,6 +56,7 @@ function sum(val: string) {
 
 export default function Documents() {
 	const { user } = userStore()
+	const { martyrId } = useParams()
 	const queries = getRouteQueries()
 	const { documents: documentsRepo } = useRepositories()
 
@@ -70,7 +71,7 @@ export default function Documents() {
 			...queries,
 			status: value === 'all' ? undefined : value,
 		})
-		router.replace(`/documents?${updatedQueries}`)
+		router.replace(`/martyrs/${martyrId}/documents?${updatedQueries}`)
 	}
 
 	const onSearchKeyword = (event: FormEvent<HTMLFormElement>) => {
@@ -81,7 +82,7 @@ export default function Documents() {
 			...queries,
 			keyword: keyword.length ? keyword : undefined,
 		})
-		router.replace(`/documents?${updatedQueries}`)
+		router.replace(`/martyrs/${martyrId}/documents?${updatedQueries}`)
 		fetchDocuments(0, rowsPerPage)
 	}
 
@@ -99,7 +100,7 @@ export default function Documents() {
 	const fetchDocuments = async (newPage?: number, newRowsPerPage?: number) => {
 		const currQueries = getRouteQueries()
 
-		const currPage = newPage === 0 ? 0 : Number(currQueries.page) || 0
+		const currPage = typeof newPage === 'number' ? newPage : Number(currQueries.page) || 0
 		const currRowsPerPage = newRowsPerPage || Number(currQueries.rowsPerPage) || 10
 
 		const payload = {
@@ -129,7 +130,7 @@ export default function Documents() {
 			keyword: currQueries.keyword,
 		}
 		const updatedQueries = generateRouteQueries(q)
-		router.replace(`/documents?${updatedQueries}`)
+		router.replace(`/martyrs/${martyrId}/documents?${updatedQueries}`)
 	}
 
 	useEffect(() => {
@@ -252,7 +253,7 @@ export default function Documents() {
 														<TableCell key={column.key} align="center">
 															<div className="flex justify-center gap-2">
 																<Link
-																	to={`/documents/${row.id}?name=${queries.name}&code=${queries.code}`}
+																	to={`/martyrs/${martyrId}/documents/${row.id}?name=${queries.name}&code=${queries.code}`}
 																>
 																	<Button variant="contained" size="small" className="text-white">
 																		جزئیات سند

@@ -1,6 +1,5 @@
 // ? react
 import { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
 // ? utils
 import { useRepositories } from '@/repositories'
 // ? components
@@ -30,8 +29,7 @@ const columns = [
 	{ key: 'operations', label: 'عملیات' },
 ]
 
-export default function MartyrSectionKRelatives() {
-	const { id } = useParams()
+export default function MartyrSectionKRelatives({ martyrId }: { martyrId: number }) {
 	const { relatives: relativesRepo } = useRepositories()
 
 	const [page, setPage] = useState(0)
@@ -44,7 +42,7 @@ export default function MartyrSectionKRelatives() {
 
 	const fetchRelatives = async (_page: number) => {
 		const payload = {
-			martyr_id: id,
+			martyr_id: martyrId,
 			$limit: rowsPerPage,
 			$skip: _page * rowsPerPage,
 		}

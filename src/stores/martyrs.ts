@@ -1,7 +1,7 @@
 // ? react
 import { getRouteQueries, generateRouteQueries, router } from '@/router'
 // ? utils
-import create from 'zustand'
+import { create } from 'zustand'
 // ? types
 import type { User, UserRoles } from '@/repositories/users/types'
 import type { UsersMartyr, RUsersMartyrs } from '@/repositories/usersMartyrs/types'
@@ -81,7 +81,7 @@ export default create<MartyrsState>((set, get) => ({
 	fetchMartyrs: async (martyrsRepo, newPage, newRowsPerPage) => {
 		const queries = getRouteQueries()
 
-		const page = newPage === 0 ? 0 : Number(queries.page) || 0
+		const page = typeof newPage === 'number' ? newPage : Number(queries.page) || 0
 		const rowsPerPage = newRowsPerPage || Number(queries.rowsPerPage) || 10
 
 		const payload = { $select, $limit: rowsPerPage, $skip: page * rowsPerPage } as GetPayload

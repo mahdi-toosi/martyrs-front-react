@@ -193,9 +193,9 @@ export default function MartyrsTable() {
 												<TableCell key={column.key} align="center">
 													<div className="flex justify-center gap-2">
 														<Link
-															to={`/documents?id=${
+															to={`/martyrs/${
 																row.id
-															}&name=${`${row.name} ${row.lastName}`}&code=${row.code}`}
+															}/documents?name=${`${row.name} ${row.lastName}`}&code=${row.code}`}
 														>
 															<Button variant="contained" size="small" className="text-white">
 																اسناد

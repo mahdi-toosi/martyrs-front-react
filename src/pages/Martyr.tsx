@@ -25,8 +25,8 @@ import MartyrSectionEFamilyStatus from '@/components/MartyrSectionEFamilyStatus'
 import type { Martyr as MartyrType } from '@/repositories/martyrs/types'
 
 export default function Martyr() {
-	const { id } = useParams()
 	const { user } = userStore()
+	const { martyrId } = useParams()
 	const { martyrs: martyrsRepo } = useRepositories()
 	const { martyr, setMartyr, updateMartyr } = martyrsStore()
 
@@ -57,7 +57,7 @@ export default function Martyr() {
 
 	const fetchMartyr = async () => {
 		setFetchLoading(true)
-		let result = await martyrsRepo.getById(id as string)
+		let result = await martyrsRepo.getById(martyrId as string)
 		setFetchLoading(false)
 		if (!result) return
 
@@ -95,7 +95,7 @@ export default function Martyr() {
 
 			<MartyrSectionJBio />
 
-			<MartyrSectionKRelatives />
+			<MartyrSectionKRelatives martyrId={Number(martyrId)} />
 
 			<FormActions dir="ltr">
 				{user?.role === 3 && ['notStart', 'doing'].includes(martyr.status) && (

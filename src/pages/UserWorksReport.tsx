@@ -33,7 +33,7 @@ const columns = [
 ]
 
 export default function UserWorksReport() {
-	const { id } = useParams()
+	const { userId } = useParams()
 	const queries = getRouteQueries()
 	const { users: usersRepo } = useRepositories()
 
@@ -102,7 +102,7 @@ export default function UserWorksReport() {
 		const payload = {
 			end_time,
 			start_time,
-			id: Number(id),
+			id: Number(userId),
 			'$sort[start_time]': -1,
 		} as GetUsersWorksReportPayload
 
@@ -116,7 +116,7 @@ export default function UserWorksReport() {
 		const q = { end_time, start_time }
 
 		const updatedQueries = generateRouteQueries(q)
-		router.replace(`/users/${id}/works-report?${updatedQueries}`)
+		router.replace(`/users/${userId}/works-report?${updatedQueries}`)
 	}
 
 	useEffect(() => {

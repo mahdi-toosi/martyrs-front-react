@@ -21,10 +21,8 @@ import { Visibility, VisibilityOff } from '@mui/icons-material'
 import InputAdornment from '@mui/material/InputAdornment'
 // ? types
 import type { User } from '@/repositories/users/types'
-import { useParams } from 'react-router-dom'
 
-export default function UserInfoForm() {
-	const { id } = useParams()
+export default function UserInfoForm({ userId }: { userId: number }) {
 	const { users } = useRepositories()
 	const { user: storedUser, userInfo, setUserInfo } = userStore()
 
@@ -141,7 +139,7 @@ export default function UserInfoForm() {
 			</section>
 
 			<section className="__buttons">
-				{storedUser?.id !== Number(id) && (
+				{storedUser?.id !== userId && (
 					<LoadingButton
 						loading={removeLoading}
 						color="error"

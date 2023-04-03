@@ -14,7 +14,7 @@ import DefaultLayout from '@/components/DefaultLayout'
 import UserMartyrsStatistics from '@/components/UserMartyrsStatistics'
 
 export default function User() {
-	const { id } = useParams()
+	const { userId } = useParams()
 	const queries = getRouteQueries()
 	const { users: usersRepo } = useRepositories()
 
@@ -23,7 +23,7 @@ export default function User() {
 
 	const fetchUser = async () => {
 		setFetchLoading(true)
-		const result = await usersRepo.getById(id as string)
+		const result = await usersRepo.getById(userId as string)
 		setFetchLoading(false)
 		if (!result) return
 
@@ -45,7 +45,7 @@ export default function User() {
 
 			<UserMartyrsStatistics />
 
-			<UserInfoForm />
+			<UserInfoForm userId={Number(userId)} />
 		</DefaultLayout>
 	)
 }

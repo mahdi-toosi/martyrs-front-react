@@ -1,4 +1,4 @@
-import create from 'zustand'
+import { create } from 'zustand'
 // ? types
 import type { LoginResponse } from '@/repositories/auth/types'
 import type { User } from '@/repositories/users/types'

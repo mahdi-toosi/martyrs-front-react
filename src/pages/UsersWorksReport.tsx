@@ -99,7 +99,7 @@ export default function UsersWorksReport() {
 	const fetchUsersWorksReport = async (newPage?: number, newRowsPerPage?: number) => {
 		const currQueries = getRouteQueries()
 
-		const currPage = newPage === 0 ? 0 : Number(currQueries.page) || 0
+		const currPage = typeof newPage === 'number' ? newPage : Number(currQueries.page) || 0
 		const currRowsPerPage = newRowsPerPage || Number(currQueries.rowsPerPage) || 10
 		// eslint-disable-next-line @typescript-eslint/naming-convention
 		const [start_time, end_time] = calcRangDate()

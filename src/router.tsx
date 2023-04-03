@@ -47,13 +47,13 @@ export default function Router() {
 						<Route path="/users" element={<Users />} />
 						<Route path="/import" element={<Import />} />
 						<Route path="/profile" element={<Profile />} />
-						<Route path="/users/:id" element={<User />} />
 						<Route path="/martyrs" element={<Martyrs />} />
-						<Route path="/martyrs/:id" element={<Martyr />} />
-						<Route path="/documents" element={<Documents />} />
-						<Route path="/documents/:id" element={<Document />} />
+						<Route path="/users/:userId" element={<User />} />
+						<Route path="/martyrs/:martyrId" element={<Martyr />} />
 						<Route path="/users/works-report" element={<UsersWorksReport />} />
-						<Route path="/users/:id/works-report" element={<UserWorksReport />} />
+						<Route path="/martyrs/:martyrId/documents" element={<Documents />} />
+						<Route path="/users/:userId/works-report" element={<UserWorksReport />} />
+						<Route path="/martyrs/:martyrId/documents/:documentId" element={<Document />} />
 					</Route>
 
 					<Route path="/login" element={<Login />} />

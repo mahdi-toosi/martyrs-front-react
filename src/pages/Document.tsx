@@ -21,9 +21,9 @@ import type { SingleDocument } from '@/repositories/documents/types'
 import type { Taxonomy, TaxonomyRelation } from '@/repositories/taxonomies/types'
 
 export default function Document() {
-	const { id } = useParams()
-	const { user, hasPermission } = userStore()
 	const queries = getRouteQueries()
+	const { documentId } = useParams()
+	const { user, hasPermission } = userStore()
 	const { documents: documentsRepo, taxonomies } = useRepositories()
 
 	const [document, setDocument] = useState({} as SingleDocument)
@@ -123,7 +123,7 @@ export default function Document() {
 
 	const fetchDocument = async () => {
 		setFetchLoading(true)
-		const result = await documentsRepo.getById(id as string)
+		const result = await documentsRepo.getById(documentId as string)
 		setFetchLoading(false)
 		if (!result) return
 		result.taxonomies_relations = (result.taxonomies_relations as TaxonomyRelation[]).map(
